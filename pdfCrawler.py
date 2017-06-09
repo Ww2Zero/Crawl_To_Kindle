@@ -1,19 +1,19 @@
 #-*-coding=utf-8-*-
-import logging
+# import logging
 import os
-import re
+# import re
 import time
-
-try:
-    from urllib.parse import urlparse  # py3
-except:
-    from urlparse import urlparse  # py2
+from urllib.parse import urlparse
 
 import pdfkit
 import requests
-from bs4 import BeautifulSoup
 
-import config
+# from config import HTML_TEMPLATE
+from config import OPTIONS
+
+
+# from bs4 import BeautifulSoup
+
 
 class Crawler(object):
     """
@@ -57,8 +57,11 @@ class Crawler(object):
         raise NotImplementedError
 
     def run(self):
+        '''
+        1.抓取页面保存为html
+        2.把html合并为pdf
+        '''
         start = time.time()
-        
         htmls = []
         for index, url in enumerate(self.parse_menu(self.crawl(self.start_url))):
             html = self.parse_body(self.crawl(url))
@@ -67,9 +70,8 @@ class Crawler(object):
                 f.write(html)
             htmls.append(f_name)
 
-        pdfkit.from_file(htmls, self.name + ".pdf", options=config.OPTIONS)
+        pdfkit.from_file(htmls, self.name + ".pdf", options=OPTIONS)
         for html in htmls:
             os.remove(html)
         total_time = time.time() - start
         print(u"总共耗时：%f 秒" % total_time)
-
