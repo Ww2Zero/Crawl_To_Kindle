@@ -13,36 +13,7 @@ import pdfkit
 import requests
 from bs4 import BeautifulSoup
 
-# html 模板
-HTML_TEMPLATE = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-{content}
-</body>
-</html>
-"""
-# pdf默认option
-OPTIONS = {
-    'page-size': 'Letter',
-    'margin-top': '0.75in',
-    'margin-right': '0.75in',
-    'margin-bottom': '0.75in',
-    'margin-left': '0.75in',
-    'encoding': "UTF-8",
-    'custom-header': [
-        ('Accept-Encoding', 'gzip')
-    ],
-    'cookie': [
-        ('cookie-name1', 'cookie-value1'),
-        ('cookie-name2', 'cookie-value2'),
-    ],
-    'outline-depth': 10,
-}
-
+import config
 
 class Crawler(object):
     """
@@ -96,7 +67,7 @@ class Crawler(object):
                 f.write(html)
             htmls.append(f_name)
 
-        pdfkit.from_file(htmls, self.name + ".pdf", options=OPTIONS)
+        pdfkit.from_file(htmls, self.name + ".pdf", options=config.OPTIONS)
         for html in htmls:
             os.remove(html)
         total_time = time.time() - start
@@ -153,7 +124,7 @@ class LiaoxuefengPythonCrawler(Crawler):
                     return "".join([m.group(1), m.group(2), m.group(3)])
 
             html = re.compile(pattern).sub(func, html)
-            html = HTML_TEMPLATE.format(content=html)
+            html = config.HTML_TEMPLATE.format(content=html)
             html = html.encode("utf-8")
             return html
         except Exception as e:
@@ -202,7 +173,7 @@ class laomasaycodesCrawler(Crawler):
             startdelflag = body.find("-------")
             html = body[0:startdelflag]
             html = html +"</p></div>"
-            html = html_template.format(content=html)
+            html = config.HTML_TEMPLATE.format(content=html)
             html = html.encode("utf-8")
             return html
 
@@ -242,7 +213,7 @@ class tushareCrawler(Crawler):
             html = str(body)
             # body中的img标签的src相对路径的改成绝对路径
             html = html.replace('src="', 'src="http://tushare.org/')
-            html = html_template.format(content=html)
+            html = config.HTML_TEMPLATE.format(content=html)
             html = html.encode("utf-8")
             return html
         except Exception as e:
