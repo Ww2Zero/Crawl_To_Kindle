@@ -25,3 +25,7 @@ class laomacodes(BasicNewsRecipe):
         ans = [('laomacodes', articles)]
  
         return ans
+
+    def process_html(self, soup, first_fetch):
+        soup = soup.find('div',{ 'id': 'cnblogs_post_body' })
+        return soup
