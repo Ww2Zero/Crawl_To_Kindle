@@ -1,5 +1,5 @@
 #-*-coding=utf-8-*-
-from laomasaycodesCrawler import laomasaycodesCrawler
+from laomasaycodesCrawler import laomacodesCrawler
 
 if __name__ == '__main__':
     # start_url = "http://tushare.org/index.html"
@@ -7,5 +7,5 @@ if __name__ == '__main__':
     # crawler.run()
 
     start_url = "http://www.cnblogs.com/swiftma/p/5631311.html"
-    crawler = laomasaycodesCrawler("laomacodes",start_url)
+    crawler = laomacodesCrawler("laomacodes",start_url)
     crawler.run()

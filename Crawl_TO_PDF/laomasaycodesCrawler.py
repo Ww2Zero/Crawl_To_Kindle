@@ -5,7 +5,7 @@ from config import HTML_TEMPLATE
 from pdfCrawler import Crawler
 
 
-class laomasaycodesCrawler(Crawler):
+class laomacodesCrawler(Crawler):
     """
     老马说编程 博客园文章
     http://www.cnblogs.com/swiftma/p/5631311.html
