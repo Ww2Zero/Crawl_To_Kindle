@@ -2,8 +2,8 @@
 import logging
 import re
 from bs4 import BeautifulSoup
-from config import HTML_TEMPLATE
-from pdfCrawler import Crawler
+from Crawl_TO_PDF.config import HTML_TEMPLATE
+from Crawl_TO_PDF.pdfbaseCrawler import Crawler
 
 
 class LiaoxuefengPythonCrawler(Crawler):

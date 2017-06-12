@@ -2,7 +2,7 @@
 import logging
 from bs4 import BeautifulSoup
 from config import HTML_TEMPLATE
-from pdfCrawler import Crawler
+from pdfbaseCrawler import Crawler
 
 
 class laomacodesCrawler(Crawler):

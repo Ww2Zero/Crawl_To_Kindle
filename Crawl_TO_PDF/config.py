@@ -10,6 +10,7 @@ HTML_TEMPLATE = """
 </body>
 </html>
 """
+
 # pdf默认option
 OPTIONS = {
     'page-size': 'Letter',
