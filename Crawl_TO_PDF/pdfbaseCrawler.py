@@ -93,10 +93,9 @@ class Crawler(object):
         """
         htmls = os.listdir(self.path)
         shtmls = sorted(htmls, key=lambda x: int(x.split('.')[0]))
-        print(shtmls)
-        print(os.getcwd)
+        print(os.getcwd())
         os.chdir(self.path)
-        print(os.getcwd)
+        print(os.getcwd())
         pdfkit.from_file(shtmls, self.pdfname, options=OPTIONS)
 
     def run(self):
@@ -109,13 +108,11 @@ class Crawler(object):
             shutil.rmtree(self.path)
         # 创建下载目录文件夹
         os.mkdir(self.path)
-
         start = time.time()
         for index, url in enumerate(self.parse_menu(self.crawl(self.start_url))):
             html = self.parse_body(self.crawl(url))
             f_name = str(index)
             self.download(f_name, html)
-    
         self.htmls2pdf2()
         total_time = time.time() - start
         print(u"总共耗时：%f 秒" % total_time)
