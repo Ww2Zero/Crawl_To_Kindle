@@ -1,0 +1,31 @@
+from calibre.web.feeds.recipes import BasicNewsRecipe
+ 
+class laomacodes(BasicNewsRecipe):
+ 
+    title = '老马说编程'
+    description = '老马说编程博客下载'
+    cover_url = 'http://images2015.cnblogs.com/blog/924211/201605/924211-20160507122741935-343359744.jpg'
+ 
+    url_prefix = 'http://www.cnblogs.com/swiftma/p/5631311.html'
+    no_stylesheets = True
+    keep_only_tags = [{ 'class': 'post' }]
+ 
+    def parse_index(self):
+        soup = self.index_to_soup(self.url_prefix)
+ 
+        div = soup.find('div', { 'id': 'cnblogs_post_body' })
+        
+        articles = []
+        for link in div.findAll('a'):
+
+            til = link.contents[0].strip()
+            url = link['href']
+            a = { 'title': til, 'url': url }
+            articles.append(a)
+        ans = [('laomacodes', articles)]
+ 
+        return ans
+
+    def process_html(self, soup, first_fetch):
+        soup = soup.find('div',{ 'id': 'cnblogs_post_body' })
+        return soup
