@@ -9,7 +9,7 @@ Email_Host = "smtp.yeah.net"
 Sender = 'wwzero@yeah.net'
 Receivers = ['Wwstudio@foxmail.com', 'Ww-haha@foxmail.com']
 Email_User = "wwzero@yeah.net"
-Email_Pass = "wwyeahsq2011"
+Email_Pass = ""
 
 
 class EmailUtils(object):
@@ -71,7 +71,7 @@ class EmailUtils(object):
             picture['Content-Type'] = 'application/octet-stream'
             picture['Content-Disposition'] = 'attachment;filename="{}"'%{imagename}
         self.message.attach(picture)
-        
+
     def _FmtMailAddr(self, mailAddr):
         '''
         格式化 frommail及tomail
