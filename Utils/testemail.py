@@ -7,7 +7,7 @@ from email.mime.image import MIMEImage
 #设置登录及服务器信息
 mail_host = "smtp.yeah.net"
 mail_user = "wwzero@yeah.net"
-mail_pass = "wwyeahsq2011"
+mail_pass = ""
 sender = 'wwzero@yeah.net'
 receivers = ['Wwstudio@foxmail.com', 'Ww-haha@foxmail.com']
 
