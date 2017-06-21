@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（011）_JavaApplet是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1javaapplet是什么">1、JavaApplet是什么</h3>
+<p>Applet是采用<font color="#ff0000">Java编程语言</font>编写的小应用程序，该程序可以包含在<font color="#ff0000">HTML</font>（标准通用标记语言的一个应用）页中，与在页中包含图像的方式大致相同。Applet<font color="#ff0000">不需要main()方法</font>，由Web浏览器中内嵌的Java虚拟机调用执行。</p>
+<p>在Java Applet中，可以<font color="#ff0000">实现图形绘制</font>、<font color="#ff0000">字体和颜色控制</font>、<font color="#ff0000">动画和声音的插入</font>、<font color="#ff0000">人机交互及网络交流</font>等功能。Applet还可以使用<font color="#ff0000">抽象窗口工具箱（Abstract Window Toolkit， AWT）</font>的窗口环境开发工具。 AWT利用用户计算机的GUI元素，可以建立标准的图形用户界面，如窗口、按钮、滚动条等等。</p>
+<h3 id="2applet如何运行">2、applet如何运行</h3>
+<p>使用Applet编写的一些小应用程序，都是直接嵌入到<font color="#ff0000">网络页面</font>中，由支持Java的<font color="#ff0000">浏览器</font>解释执行，并能够产生特殊效果。</p>
+<p>在含有Applet网页的HTML文件代码中，会带有<font color="#ff0000">applet</font>（HTML5中使用object标签））标签。当支持Java的网络浏览器遇到这个标签时，就将<font color="#ff0000">下载</font>相应的小应用程序代码并在<font color="#ff0000">本地计算机上执行</font>该Applet。HTML文件中关于Applet的信息至少应包含以下三点：<font color="#ff0000">字节码文件名(编译后的Java文件，以.class为后缀) <br>
+</br></font>、<font color="#ff0000">字节码文件的地址</font>、<font color="#ff0000">在网页上显示Applet的方式</font>。</p>
+<p>它可以大大提高Web页面的<font color="#ff0000">交互能力</font>和<font color="#ff0000">动态执行能力</font>。包含Applet的网页被称为<font color="#ff0000">Java-powered页</font>，可以称其为Java支持的网页。由于Applet是在用户的计算机上执行的，所以它的执行速度不受网络带宽的限制，用户可以更好地欣赏网页上Applet产生的多媒体效果。</p>
+<h3 id="3applet的安全限制是什么">3、Applet的安全限制是什么</h3>
+<p>因为applet是从远端服务器上下载并且在本地执行，所以安全性就显得<font color="#ff0000">格外重要</font>。我们通过限制applet在<font color="#ff0000">沙箱</font>（applet的运行环境）中运行，保证了对本地系统而言applet是安全的。applet在沙箱中运行时，要注意以下几点：</p>
+<ol>
+<li>不能运行任何本地可执行程序。</li>
+<li>除了存放下载的applet的服务器外，applet不能和其它主机进行通信。</li>
+<li>不能对本地文件系统进行读写。</li>
+</ol>
+<h3 id="4applet的生命周期是什么">4、Applet的生命周期是什么</h3>
+<ol>
+<li><p>applet初始化<font color="#ff0000">init()</font> <br>
+当浏览器加载applet，进行初始化的时候调用该方法。</br></p></li>
+<li><p>开始执行<font color="#ff0000">start()</font> <br>
+在init()方法之后调用。当用户从其它页面转到包含applet的页面时，该方法也被调用。</br></p></li>
+<li><p>停止<font color="#ff0000">stop()</font> <br>
+在用户离开包含applet的页面时被调用。</br></p></li>
+<li><p>销毁<font color="#ff0000">destroy()</font> <br>
+当applet<font color="#ff0000">不再被使用</font>，或<font color="#ff0000">浏览器退出</font>的时候，该方法被调用。</br></p></li>
+</ol>
+<p>了解如何编写applet看这里：[如何编写applet程序][2]</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

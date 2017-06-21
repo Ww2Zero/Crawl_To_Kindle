@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（009）_CLASSPATH是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1classpath是什么">1、CLASSPATH是什么</h3>
+<p>CLASSPATH是Java解释器中用来指定<font color="#ff0000">搜索包路径的集合</font>，Java解释器是这样工作的：</p>
+<ol>
+<li><p>Java解释器找到<font color="#ff0000">环境变量CLASSPATH</font>（将Java或者具有Java解释能力的工具，如浏览器，安装到机器中时，通过操作系统环境变量进行设定）。</p></li>
+<li><p>CLASSPATH包含了一个或多个目录，它们作为一种特殊的<font color="#ff0000">“根路径”</font>使用，从这里展开对<font color="#ff0000">.class文件的搜索</font>。从那个根开始，解释器会寻找包名，并将每个点号（句点）替换成一个<font color="#ff0000">斜杠</font>，从而生成从CLASSPATH根开始的<font color="#ff0000">每一个路径名</font>（所以package foo.bar.baz 会变成foo\bar\baz 或者foo/bar/baz；具体是正斜杠还是反斜杠由操作系统决定）。</p></li>
+<li><p>将这些路径名连接到一起，成为CLASSPATH内的<font color="#ff0000">各个条目</font>（入口）。以后搜索.class文件时，就可从这些地方开始查找与准备创建的类名对应的名字。</p></li>
+<li><p>当然Java解释器也会搜索一些<font color="#ff0000">标准目录</font>（Java解释器所在的目录）。</p></li>
+</ol>
+<p>通过上面的解释，我们可以了解到CLASSPATH的作用。简单来说，就是<font color="#ff0000">告诉java我们所使用的class在什么地方</font>：</p>
+<p>当你写下improt java.util.<em>时，解释器面对import关键字时，就知道你要引入java.util这个package中的类。但是解释器如何知道你把这个package放在哪里？所以你首先得告诉编译器这个package的所在位置，就是通过设置CLASSPATH，如果java.util这个package在c:\jdk\目录下，你得把c:\jdk\这个路径设置到CLASSPATH中去。当编译器面对import java.util.</em>这个语句时，它先会查找CLASSPATH所指定的目录，并检视子目录java\util是否存在，然后找出名称吻合的已编译文件（.class文件）。</p>
+<h3 id="2如何设置classpath">2、如何设置CLASSPATH</h3>
+<p>不同的环境设置CLASSPATH也<font color="#ff0000">不尽相同</font>：</p>
+<ol>
+<li><p>通过windows系统中<font color="#ff0000">系统环境变量</font>设置CLASSPATH，这种设置是针对运行在这个系统上的java应用程序。通过<font color="#ff0000">“系统属性-&gt;高级-&gt;环境变量-&gt;系统变量”</font>，新建<font color="#ff0000">“classpath=;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\lib\dt.jar;”</font>，其中<font color="#ff0000">%JAVA_HOME%</font>是指引用JAVA_HOME环境变量，一般指定为jdk的目录：<font color="#ff0000">“JAVA_HOME=D:\Program Files\Java\jdk1.6.0_10”</font></p></li>
+<li><p>通过<font color="#ff0000">eclipse设置</font>项目的CLASSPATH，<font color="#ff0000">项目右键-&gt;Properties-&gt;Java Build Path</font>，这种设置只针对<font color="#ff0000">指定的项目</font>生效（会在项目中生成.classpath文件）。</p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

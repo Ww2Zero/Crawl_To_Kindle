@@ -116,3 +116,21 @@ class Crawler(object):
         self.htmls2pdf2()
         total_time = time.time() - start
         print(u"总共耗时：%f 秒" % total_time)
+
+    def run2(self):
+        '''
+        1.抓取页面保存为html
+        2.把html合并为pdf
+        '''
+        # 文件夹是否存在 文件夹存在就删除
+        if os.path.exists(self.path):
+            shutil.rmtree(self.path)
+        # 创建下载目录文件夹
+        os.mkdir(self.path)
+        start = time.time()
+        for index,url in enumerate(self.parse_menu(self.crawl(self.start_url))):
+            f_name,html = self.parse_body(self.crawl(url))
+            self.download(f_name, html)
+        self.htmls2pdf2()
+        total_time = time.time() - start
+        print(u"总共耗时：%f 秒" % total_time)

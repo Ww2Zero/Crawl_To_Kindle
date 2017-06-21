@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（007）_线程的状态有哪些            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1线程的状态有哪些">1、线程的状态有哪些</h3>
+<p>在java中<font color="#ff0000">java.lang.Thread</font>类有一个变量<font color="#ff0000">threadStatus</font>，标示了该线程的<font color="#ff0000">当前状态</font>，它是一个int类型，但是对应的get方法返回值是一个<font color="#ff0000">枚举</font>（Thread的内部类），源码如下：</p>
+<pre class="prettyprint"><code class=" hljs applescript">public enum State {
+        /**
+         * Thread state <span class="hljs-keyword">for</span> a thread which has <span class="hljs-keyword">not</span> yet started.
+         */
+        NEW,
+
+        /**
+         * Thread state <span class="hljs-keyword">for</span> a runnable thread.  A thread <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> runnable
+         * state <span class="hljs-keyword">is</span> executing <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> Java virtual machine <span class="hljs-keyword">but</span> <span class="hljs-keyword">it</span> may
+         * be waiting <span class="hljs-keyword">for</span> other resources <span class="hljs-keyword">from</span> <span class="hljs-keyword">the</span> operating system
+         * such <span class="hljs-keyword">as</span> processor.
+         */
+        RUNNABLE,
+
+        /**
+         * Thread state <span class="hljs-keyword">for</span> a thread blocked waiting <span class="hljs-keyword">for</span> a monitor lock.
+         * A thread <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> blocked state <span class="hljs-keyword">is</span> waiting <span class="hljs-keyword">for</span> a monitor lock
+         * <span class="hljs-keyword">to</span> enter a synchronized block/method <span class="hljs-keyword">or</span>
+         * reenter a synchronized block/method <span class="hljs-keyword">after</span> calling
+         * {@link Object<span class="hljs-comment">#wait() Object.wait}.</span>
+         */
+        BLOCKED,
+
+        /**
+         * Thread state <span class="hljs-keyword">for</span> a waiting thread.
+         * A thread <span class="hljs-keyword">is</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> waiting state due <span class="hljs-keyword">to</span> calling one <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span>
+         * following methods:
+         * &lt;ul&gt;
+         *   &lt;li&gt;{@link Object<span class="hljs-comment">#wait() Object.wait} with no timeout&lt;/li&gt;</span>
+         *   &lt;li&gt;{@link <span class="hljs-comment">#join() Thread.join} with no timeout&lt;/li&gt;</span>
+         *   &lt;li&gt;{@link LockSupport<span class="hljs-comment">#park() LockSupport.park}&lt;/li&gt;</span>
+         * &lt;/ul&gt;
+         *
+         * &lt;p&gt;A thread <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> waiting state <span class="hljs-keyword">is</span> waiting <span class="hljs-keyword">for</span> another thread <span class="hljs-keyword">to</span>
+         * perform a particular action.
+         *
+         * For example, a thread <span class="hljs-keyword">that</span> has called &lt;tt&gt;Object.wait()&lt;/tt&gt;
+         * <span class="hljs-function_start"><span class="hljs-keyword">on</span></span> an object <span class="hljs-keyword">is</span> waiting <span class="hljs-keyword">for</span> another thread <span class="hljs-keyword">to</span> call
+         * &lt;tt&gt;Object.notify()&lt;/tt&gt; <span class="hljs-keyword">or</span> &lt;tt&gt;Object.notifyAll()&lt;/tt&gt; <span class="hljs-function_start"><span class="hljs-keyword">on</span></span>
+         * <span class="hljs-keyword">that</span> object. A thread <span class="hljs-keyword">that</span> has called &lt;tt&gt;Thread.join()&lt;/tt&gt;
+         * <span class="hljs-keyword">is</span> waiting <span class="hljs-keyword">for</span> a specified thread <span class="hljs-keyword">to</span> terminate.
+         */
+        WAITING,
+
+        /**
+         * Thread state <span class="hljs-keyword">for</span> a waiting thread <span class="hljs-keyword">with</span> a specified waiting <span class="hljs-property">time</span>.
+         * A thread <span class="hljs-keyword">is</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> timed waiting state due <span class="hljs-keyword">to</span> calling one <span class="hljs-keyword">of</span>
+         * <span class="hljs-keyword">the</span> following methods <span class="hljs-keyword">with</span> a specified positive waiting <span class="hljs-property">time</span>:
+         * &lt;ul&gt;
+         *   &lt;li&gt;{@link <span class="hljs-comment">#sleep Thread.sleep}&lt;/li&gt;</span>
+         *   &lt;li&gt;{@link Object<span class="hljs-comment">#wait(long) Object.wait} with timeout&lt;/li&gt;</span>
+         *   &lt;li&gt;{@link <span class="hljs-comment">#join(long) Thread.join} with timeout&lt;/li&gt;</span>
+         *   &lt;li&gt;{@link LockSupport<span class="hljs-comment">#parkNanos LockSupport.parkNanos}&lt;/li&gt;</span>
+         *   &lt;li&gt;{@link LockSupport<span class="hljs-comment">#parkUntil LockSupport.parkUntil}&lt;/li&gt;</span>
+         * &lt;/ul&gt;
+         */
+        TIMED_WAITING,
+
+        /**
+         * Thread state <span class="hljs-keyword">for</span> a terminated thread.
+         * The thread has completed execution.
+         */
+        TERMINATED;
+    }</code></pre>
+<p>可以看到，线程包含6个可见状态：<font color="#ff0000">NEW</font>、 <font color="#ff0000">RUNNABLE</font>、<font color="#ff0000">BLOCKED</font>、<font color="#ff0000">WAITING</font>、<font color="#ff0000">TIMED_WAITING</font>、<font color="#ff0000">TERMINATED</font>。 <br>
+我们还可以通过<font color="#ff0000">JavaVisualVM</font>的线程监控可以看到，它会监控线程的<font color="#ff0000">运行</font>（对应RUNNABLE）、<font color="#ff0000">休眠</font>（对应NEW）、<font color="#ff0000">等待</font>（WAITING+TIMED_WAITING）、<font color="#ff0000">驻留</font>（BLOCKED）、<font color="#ff0000">监视状态</font>、<font color="#ff0000">已完成</font>（TERMINATED）六种状态。</br></p>
+<p>了解监控JVM看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51587851">如何监控jvm的运行情况</a></p>
+<p>对于State枚举，源码注释写的很清楚，这里我们具体看一下：</p>
+<p><strong><font color="#33ccff">NEW</font></strong> <br>
+A thread that has not yet started is in this state. <br>
+一个<font color="#ff0000">还没有开始</font>的线程就处于这种状态。</br></br></p>
+<p>表明线程<font color="#ff0000">尚未开始</font>。</p>
+<p><strong><font color="#33ccff">RUNNABLE</font></strong> <br>
+A thread executing in the Java virtual machine is in this state. <br>
+一个<font color="#ff0000">在JVM中执行</font>的线程处于这种状态。</br></br></p>
+<p><font color="#ff0000">可运行线程</font>。一个线程在Java虚拟机处于可运行状态，即它在<font color="#ff0000">等待</font>其他资源或操作系统的处理，一旦获取到CPU资源进行了执行，则进入人们所说的<font color="#ff0000">子状态RUNNING状态</font>（这个状态JVM并不关心，我们也不是特别关注，一般的JVM监控工具都不会统计这种状态）。</p>
+<p><strong><font color="#33ccff">BLOCKED</font></strong> <br>
+A thread that is blocked waiting for a monitor lock is in this state. <br>
+一个<font color="#ff0000">被阻塞</font>的线程就处于这种状态，它正在等待<font color="#ff0000">监视器锁</font>。 <br>
+出于某种原因，比如等待用户输入等而让出当前的CPU给其他的线程执行时，会进入BLOCKED状态。 <br>
+BLOCKED状态的线程会一直等待监视器锁，而后执行<font color="#ff0000">synchronized代码块/方法</font>。或者在调用<font color="#ff0000">Object.wait()</font>后，执行synchronized代码块/方法。</br></br></br></br></p>
+<p><strong><font color="#33ccff">WAITING</font></strong> <br>
+A thread that is waiting indefinitely for another thread to perform a particular action is in this state. <br>
+一个线程正在<font color="#ff0000">无限期地</font>等待另一个线程来唤醒是在这种状态下。</br></br></p>
+<p>通过以下方法进入<font color="#ff0000">WAITING状态</font>:</p>
+<ol>
+<li>调用Object.wait()且没有超时</li>
+<li>调用Thread.join()且没有超时</li>
+<li>调用LockSupport.park(Object)</li>
+</ol>
+<p>一个线程处于WAITING状态需要由于<font color="#ff0000">另一个线程</font>激活。例如，一个线程执行Object.wait()后会等待另一个线程调用对象<font color="#ff0000">Object.notify()或Object.notifyAll()</font>。</p>
+<p>一个线程调用了另一个线程的<font color="#ff0000">Thread.join()</font>方法，则在另一个线程执行后才会继续执行（join方法可以指定延迟执行时间）。</p>
+<p><strong><font color="#33ccff">TIMED_WAITING</font></strong> <br>
+A thread that is waiting for another thread to perform an action for up to a specified waiting time is in this state. <br>
+一个线程在一个<font color="#ff0000">时间阈值</font>内等待另一个线程来唤醒就处于这种状态，达到阈值则回到<font color="#ff0000">RUNNABLE状态</font>。</br></br></p>
+<p>通过以下方法进入TIMED_WAITING状态:</p>
+<ol>
+<li>调用Thread.sleep()</li>
+<li>调用Object.wait()超过时间阈值</li>
+<li>调用Thread.join()超过时间阈值</li>
+<li>调用LockSupport.parkNanos(Object，long)</li>
+<li>调用LockSupport.parkUntil(Object，long)</li>
+</ol>
+<p><strong><font color="#33ccff">TERMINATED</font></strong> <br>
+A thread that has exited is in this state. <br>
+一个线程<font color="#ff0000">退出</font>就处于这种状态。</br></br></p>
+<p>线程<font color="#ff0000">执行完成</font>就会变为这个状态。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

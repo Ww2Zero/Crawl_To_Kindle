@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（014）_同步、异步有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1同步异步有什么区别">1、同步、异步有什么区别</h3>
+<p>在进行网络编程时，我们通常会看到<font color="#ff0000">同步、异步、阻塞、非阻塞</font>四种调用方式以及他们的组合。 <br>
+了解阻塞、非阻塞看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761325">阻塞、非阻塞有什么区别</a> <br>
+其中<font color="#ff0000">同步方式、异步方式</font>主要是由<font color="#ff0000">客户端</font>（client）控制的，具体如下：</br></br></p>
+<p><strong><font color="#33ccff">同步（Sync）</font></strong></p>
+<p>所谓同步，就是发出一个<font color="#ff0000">功能调用</font>时，在没有得到结果之前，该调用就<font color="#ff0000">不返回</font>或<font color="#ff0000">继续执行后续操作</font>。 <br>
+根据这个定义，Java中<font color="#ff0000">所有方法</font>都是同步调用，应为必须要等到结果后才会继续执行。我们在说同步、异步的时候，一般而言是特指那些需要<font color="#ff0000">其他端协作</font>或者<font color="#ff0000">需要一定时间</font>完成的任务。 <br>
+简单来说，同步就是必须<font color="#ff0000">一件一件事做</font>，等前一件做完了才能做下一件事。</br></br></p>
+<p>例如：B/S模式中的表单提交，具体过程是：<font color="#ff0000">客户端提交请求-&gt;等待服务器处理-&gt;处理完毕返回</font>，在这个过程中客户端（浏览器）不能做其他事。</p>
+<p><strong><font color="#33ccff">异步（Async）</font></strong></p>
+<p>异步与同步相对，当一个异步过程调用发出后，调用者在没有得到结果之前，就<font color="#ff0000">可以继续执行后续操作</font>。当这个调用完成后，一般通过<font color="#ff0000">状态、通知和回调</font>来通知调用者。对于异步调用，调用的返回并<font color="#ff0000">不受调用者控制</font>。 <br>
+对于通知调用者的三种方式，具体如下：</br></p>
+<ol>
+<li><p><font color="#33ccff">状态</font> <br>
+即监听被调用者的状态（轮询），调用者需要每隔一定时间检查一次，效率会很低。</br></p></li>
+<li><p><font color="#33ccff">通知</font> <br>
+当被调用者执行完成后，发出通知告知调用者，无需消耗太多性能。</br></p></li>
+<li><p><font color="#33ccff">回调</font> <br>
+与通知类似，当被调用者执行完成后，会调用调用者提供的回调函数。</br></p></li>
+</ol>
+<p>例如：B/S模式中的ajax请求，具体过程是：<font color="#ff0000">客户端发出ajax请求-&gt;服务端处理-&gt;处理完毕执行客户端回调</font>，在客户端（浏览器）发出请求后，仍然可以做其他的事。</p>
+<p>总结来说，同步和异步的区别：<font color="#ff0000">请求发出后，是否需要等待结果，才能继续执行其他操作。</font></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（013）_Socket、SocketChannel有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1socketsocketchannel有什么区别">1、Socket、SocketChannel有什么区别</h3>
+<p>了解Socket看这里：<a href="http://write.blog.csdn.net/mdeditor#!postId=51704681">Socket是什么</a> <br>
+<font color="#ff0000">Socket、SocketChannel</font>二者的实质都是一样的，都是为了实现客户端与服务器端的连接而存在的，但是在使用上，却有很大的区别。具体如下：</br></p>
+<p><strong><font color="#33ccff">所属包不同</font></strong> <br>
+Socket在<font color="#ff0000">java.net包</font>中，而SocketChannel在<font color="#ff0000">java.nio包</font>中。</br></p>
+<p><strong><font color="#33ccff">异步方式不同</font></strong> <br>
+从包的不同，我们大体可以推断出他们主要的区别：Socket是<font color="#ff0000">阻塞连接</font>（当然我们可以自己实现非阻塞），SocketChannel可以设置<font color="#ff0000">非阻塞连接</font>。 <br>
+使用ServerSocket、Socket类时，服务端Socket往往要为每一个客户端Socket分配一个线程，而每一个线程都有可能处于<font color="#ff0000">长时间的阻塞状态</font>中。过多的线程也会<font color="#ff0000">影响服务器的性能</font>（可以使用线程池优化，具体看这里：如何编写多线程Socket程序）。而使用SocketChannel、ServerSocketChannel类可以<font color="#ff0000">非阻塞通信</font>，这样使得服务器端只需要一个线程就能处理所有客户端socket的请求。</br></br></p>
+<p>了解阻塞、非阻塞看这里：[阻塞、非阻塞有什么区别][3]</p>
+<p><strong><font color="#33ccff">性能不同</font></strong> <br>
+一般来说使用SocketChannel会有<font color="#ff0000">更好的性能</font>。其实，Socket实际应该比SocketChannel更高效，不过由于使用者设计等原因，效率反而比直接使用SocketChannel低。</br></p>
+<p><strong><font color="#33ccff">使用方式不同</font></strong> <br>
+Socket、ServerSocket类可以传入不同参数<font color="#ff0000">直接实例化对象</font>并绑定ip和端口，如：</br></p>
+<pre class="prettyprint"><code class=" hljs cs">Socket socket = <span class="hljs-keyword">new</span> Socket(<span class="hljs-string">"127.0.0.1"</span>, <span class="hljs-string">"8000"</span>);
+ServerSocket serverSocket = <span class="hljs-keyword">new</span> ServerSocket(<span class="hljs-string">"8000"</span>);</code></pre>
+<p>而SocketChannel、ServerSocketChannel类需要<font color="#ff0000">借助Selector类</font>控制，如：</p>
+<pre class="prettyprint"><code class=" hljs oxygene"><span class="hljs-keyword">Selector</span> <span class="hljs-keyword">selector</span> = <span class="hljs-keyword">Selector</span>.open();
+ServerSocketChannel serverChannel = ServerSocketChannel.open();
+serverChannel.configureBlocking(<span class="hljs-keyword">false</span>); <span class="hljs-comment">// 设置为非阻塞方式,如果为true 那么就为传统的阻塞方式</span>
+serverChannel.socket().bind(<span class="hljs-keyword">new</span> InetSocketAddress(port)); <span class="hljs-comment">// 绑定IP 及 端口</span>
+serverChannel.<span class="hljs-keyword">register</span>(<span class="hljs-keyword">selector</span>, SelectionKey.OP_ACCEPT); <span class="hljs-comment">// 注册 OP_ACCEPT事件</span>
+<span class="hljs-keyword">new</span> ServerThread().start(); <span class="hljs-comment">// 开启一个线程 处理所有请求</span></code></pre>
+<h3 id="2socketchannel方式有什么核心类">2、SocketChannel方式有什么核心类</h3>
+<p>下面是<font color="#ff0000">SocketChannel方式</font>需要用到的几个核心类：</p>
+<ul>
+<li><p>ServerSocketChannel <br>
+ServerSocket的替代类, 支持<font color="#ff0000">阻塞通信与非阻塞通信</font>。</br></p></li>
+<li><p>SocketChannel <br>
+Socket的替代类, 支持<font color="#ff0000">阻塞通信与非阻塞通信</font>。</br></p></li>
+<li><p>Selector <br>
+为ServerSocketChannel监控接收客户端<font color="#ff0000">连接就绪事件</font>, 为SocketChannel监控连接服务器<font color="#ff0000">读就绪和写就绪事件</font>。</br></p></li>
+<li><p>SelectionKey <br>
+代表ServerSocketChannel及SocketChannel向Selector注册事件的句柄。当一个  <br>
+SelectionKey对象位于Selector对象的<font color="#ff0000">selected-keys集合</font>中时，就表示与这个SelectionKey对象相关的事件发生了。 <br>
+在SelectionKey类中有几个静态常量： <br>
+<font color="#ff0000">SelectionKey.OP_ACCEPT</font>，客户端<font color="#ff0000">连接就绪事件</font>，等于监听<font color="#ff0000">serversocket.accept()</font>，返回一个socket。 <br>
+<font color="#ff0000">SelectionKey.OP_CONNECT</font>，<font color="#ff0000">准备连接服务器就绪</font>，跟上面类似，只不过是对于socket的 相当于监听了<font color="#ff0000">socket.connect()</font>。 <br>
+<font color="#ff0000">SelectionKey.OP_READ</font>，<font color="#ff0000">读就绪事件</font>,  表示输入流中已经有了可读数据, 可以执行读操作。 <br>
+<font color="#ff0000">SelectionKey.OP_WRITE</font>，<font color="#ff0000">写就绪事件</font>,  表示可以执行写操作。 <br>
+了解如何开发ServerSocketChannel看这里：[如何编写非阻塞SocketChannel程序][4]</br></br></br></br></br></br></br></br></p></li>
+</ul></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

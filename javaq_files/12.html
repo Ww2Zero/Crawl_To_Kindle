@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（012）_Socket是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是socket">1、什么是Socket</h3>
+<p>Socket也称作<font color="#ff0000">“套接字”</font>。网络上的两个应用程序通过一个<font color="#ff0000">双向的通讯连接</font>实现<font color="#ff0000">数据的交换</font>，这个双向链路的一端称为<font color="#ff0000">一个Socket</font>，所以Socket都是<font color="#ff0000">成对</font>出现的。Socket通常用来实现<font color="#ff0000">客户方</font>和<font color="#ff0000">服务方</font>的连接，一个Socket由<font color="#ff0000">一个IP地址和一个端口号</font>唯一确定。</p>
+<p>Socket是<font color="#ff0000">TCP/IP协议</font>的一个十分流行的解决方案，是支持TCP/IP协议的网络通信的<font color="#ff0000">基本操作单元</font>。Socket所支持的协议种类<font color="#ff0000">不只TCP/IP一种</font>，只不过在Java环境下，Socket编程主要是指<font color="#ff0000">基于TCP/IP协议的网络编程</font>。</p>
+<p>了解TCP/IP协议看这里：[TCP/IP协议是什么][2]</p>
+<p>Socket正如其英文原意那样，像一个<font color="#ff0000">插座</font>，网络上某一个主机运行了多个应用，同时提供<font color="#ff0000">多种服务</font>。每种服务都打开一个Socket，并绑定到一个端口上，不同的端口对应于不同的服务。这台主机就犹如<font color="#ff0000">布满各种插座的房间</font>，每个插座有一个编号，不同的插座提供<font color="#ff0000">不同的服务</font>：有的提供220伏交流电、有的提供宽带网络、有的提供有线电视节目。<font color="#ff0000">客户软件</font>将插头插到不同编号的插座，就可以得到不同的服务。</p>
+<h3 id="2socket如何通讯">2、Socket如何通讯</h3>
+<p>Socket步骤如下：Server端<font color="#ff0000">监听</font>某个端口是否有连接请求，Client端向Server端<font color="#ff0000">发出连接请求</font>，如果Server端监听到了Client端的请求，则向Client端<font color="#ff0000">发回接受消息</font>。这样一个连接就建立起来了。Server端和Client端都可以通过Send，Write等方法<font color="#ff0000">与对方通信</font>。</p>
+<p>从上面的描述可以看出，Socket之间的连接过程可以分为<font color="#ff0000">三个步骤</font>：</p>
+<ol>
+<li><p><font color="#33ccff">服务器监听</font> <br>
+服务器端的Socket，它并不定位具体客户端的Socket，而是处于<font color="#ff0000">等待连接</font>的状态，实时<font color="#ff0000">监控网络状态</font>。</br></p></li>
+<li><p><font color="#33ccff">客户端请求</font> <br>
+由客户端的Socket<font color="#ff0000">提出连接请求</font>，要连接的目标是服务器端的Socket。为此，客户端的Socket必须首先描述它要连接的Socket，指出<font color="#ff0000">服务器端Socket的地址和端口号</font>，然后就向服务器端Socket提出连接请求。</br></p></li>
+<li><p><font color="#33ccff">连接确认</font> <br>
+当服务器端Socket监听到客户端Socket的连接请求时，它会响应客户端Socket的请求，建立一个新的线程，把<font color="#ff0000">服务器端Socket的描述</font>发给客户端。一旦客户端确认了此描述，连接就建立好了。而服务器端套接字<font color="#ff0000">继续处于监听状态</font>，继续接收其他客户端套接字的连接请求。</br></p></li>
+</ol>
+<p>对于一个功能齐全的Socket，其工作过程需要包含以下四个步骤：</p>
+<ol>
+<li>创建Socket</li>
+<li>打开连接到Socket的输入/出流</li>
+<li>对Socket进行读/写操作</li>
+<li>关闭Socket</li>
+</ol>
+<p>Socket服务端分为<font color="#ff0000">单线程Socket</font>、<font color="#ff0000">多线程Socket</font>两种。顾名思义，单线程Socket是指同时只能与一个客户端连接；多线程Socket是指能够同时与多个客户端连接。</p>
+<p>了解如何编写单线程Socket程序看这里：[如何编写单线程Socket程序][3] <br>
+了解如何编写多线程Socket程序看这里：[如何编写多线程Socket程序][4]</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

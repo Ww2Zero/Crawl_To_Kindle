@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（016）_32位和64位计算机有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="132位和64位计算机有什么区别">1、32位和64位计算机有什么区别</h3>
+<p>我们通常说的32位、64位计算机是指计算机的<font color="#ff0000">CPU位数</font>。当然很早还有8位、16位的CPU，以<font color="#ff0000">Intel的80x86系列</font>来说，8位的8080，16位的8086、8088、80186、80286，而32位的CPU最早始于80386，64位就是大家熟悉的<font color="#ff0000">EM64T技术</font>以及<font color="#ff0000">AMD的x86-64</font>。当然不同的厂商间同位数的CPU内部有很大的区别，但是它们的核心都是一样：<font color="#ff0000">CPU处理能力为64位</font>。</p>
+<p>这个位数指的是CPU的<font color="#ff0000">通用寄存器</font>（GPRs，General-Purpose Registers，寄存器可以简单理解为一个可以暂存指令、数据和地址的空间，CPU运算时的结果都会暂时放在这里）的<font color="#ff0000">指令集、寻址能力</font>。</p>
+<p>一般来说，相比较32位的CPU来说，64位CPU最为明显的变化就是<font color="#ff0000">寄存器</font>和<font color="#ff0000">指令指针</font>升级到64位、<font color="#ff0000">内存寻址能力</font>提高到64位，还有其他变化例如<font color="#ff0000">增加了8个</font>64位的通用寄存器。更高位数的CPU，可以进行<font color="#ff0000">更大范围的整数运算</font>，同时可以<font color="#ff0000">支持更大的内存</font>。具体如下：</p>
+<ul>
+<li><p>从运算来说，32位处理器一次只能处理32位，也就是4个字节的数据，而64位处理器一次就能处理<font color="#ff0000">64位</font>，即<font color="#ff0000">8个字节的数据</font>。</p></li>
+<li><p>从内存来说，传统32位处理器的寻址空间最大<font color="#ff0000">不足4G</font>（理论上有2^32个物理地址），形成了运行效率的瓶颈。而64位的处理器在理论上则可以将近达到<font color="#ff0000">1700万个TB</font>（2^64个，大到惊人）。</p></li>
+</ul>
+<h3 id="2cpu位数大小有什么影响">2、CPU位数大小有什么影响</h3>
+<p>一个简单的例子可以说明CPU位数的影响，对于16位CPU，指令集只能操作<font color="#ff0000">16bit数据和16bit地址</font>。不同CPU的寄存器、指令集不同，要区别对待，这里以<font color="#ff0000">8086</font>来说明。</p>
+<p><font color="#33ccff">将16bit数据放入寄存器中</font></p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-keyword">MOV</span> AX,<span class="hljs-number">1234</span>H         <span class="hljs-comment">;向寄存器 AX 传入数据 1234H</span>
+<span class="hljs-keyword">MOV</span> AH,<span class="hljs-number">56</span>H             <span class="hljs-comment">;向寄存器 AX 的高 8 位寄存器 AH 中传入数据 56H</span>
+<span class="hljs-keyword">MOV</span> AL,<span class="hljs-number">78</span>H     <span class="hljs-comment">;向寄存器 AX 的低 8 位寄存器 AL 中传入数据 78H</span></code></pre>
+<p>这里要说明的一点，第一句我们向<font color="#ff0000">AX寄存器</font>（累加寄存器）中存放了一个16bit的数1234H，但实际是AX由<font color="#ff0000">AH、AL两个寄存器</font>组成，所以可以直接操作AH、AL这两个8位寄存器。 <br>
+如果我们想在一个寄存器中存入一个超过16bit的数，在16位CPU下是不可能的。如果想处理16bit的数，只能<font color="#ff0000">借助其他寄存器</font>，分段处理。</br></p>
+<p><font color="#33ccff">获取16bit内存地址中的数据</font></p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-keyword">MOV</span>  BX,<span class="hljs-number">1000</span>H
+<span class="hljs-keyword">MOV</span> DS, BX    <span class="hljs-comment">;向DS段寄存器传入1000H，由于8086不支持直接将数据传入段寄存器，所以只能借助其他寄存器传值。</span>
+<span class="hljs-keyword">MOV</span> AX,[<span class="hljs-number">1234</span>H]     <span class="hljs-comment">;将内存地址1000H:1234H中的值读到AX寄存器中</span></code></pre>
+<p>这里要说明的一点，8086的物理地址支持<font color="#ff0000">每次传20位</font>的地址，但是由于16位CPU的指令集<font color="#ff0000">只能支持16bit</font>，最大的寻址空间理论值为2^16（64K），为了能够支持2^20个地址（1M），所以需要将分为<font color="#ff0000">段地址</font>和<font color="#ff0000">偏移地址</font>，表现形式如<font color="#ff0000">1000H:1234H</font>。</p>
+<p>了解CPU物理地址形成看这里：[CPU物理内存地址如何形成][2]</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

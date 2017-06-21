@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（015）_阻塞、非阻塞有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1阻塞非阻塞有什么区别">1、阻塞、非阻塞有什么区别</h3>
+<p>在进行网络编程时，我们通常会看到<font color="#ff0000">同步、异步、阻塞、非阻塞</font>四种调用方式以及他们的组合。 <br>
+了解同步、异步看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51757289">同步、异步有什么区别</a> <br>
+其中<font color="#ff0000">阻塞方式、 非阻塞方式</font>主要是针对服务端（server）的，具体如下：</br></br></p>
+<p><strong><font color="#33ccff">阻塞（Block）</font></strong></p>
+<p><font color="#ff0000">阻塞调用</font>是指调用结果返回之前，当前<font color="#ff0000">线程会被挂起</font>。挂起即线程进入<font color="#ff0000">非可执行状态</font>，在这个状态下，cpu不会给线程分配时间片，即线程<font color="#ff0000">暂停运行</font>。</p>
+<p>了解线程的状态看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51590200">线程的状态有哪些</a> <br>
+阻塞调用会让线程一直进行等待，当调用没有执行完就有另一次请求，这是会<font color="#ff0000">开启一个新的线程</font>来执行，会占用更多的线程资源。</br></p>
+<p>由于阻塞线程的大部分时间都<font color="#ff0000">浪费在等待请求上</font>了，所以并不能处理过多的请求。</p>
+<p><strong><font color="#33ccff">非阻塞（Unblock）</font></strong></p>
+<p>非阻塞是相对阻塞来说的，是指调用<font color="#ff0000">不会阻塞当前线程</font>，而会<font color="#ff0000">立刻返回</font>。</p>
+<p>非阻塞是通过<font color="#ff0000">轮询</font>不断去询问数据是否准备好了，如果准备好了<font color="#ff0000">主动获取数据</font>。在这期间线程<font color="#ff0000">没有挂起</font>。</p>
+<p>非阻塞<font color="#ff0000">处理连接的线程数</font>和<font color="#ff0000">请求数</font>没有联系，也就是说很多个请求可以通过相对较少的线程进行处理。</p>
+<p>总结来说， 阻塞和非阻塞的区别：<font color="#ff0000">请求发出后，没有数据到达时，是否立刻返回。</font></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

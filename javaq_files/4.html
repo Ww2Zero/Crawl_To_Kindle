@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（004）_Java都能做些什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-001.html">点击进入_更多_Java千百问-基本概念</a></p>
+<h3 id="1java都能做些什么">1、Java都能做些什么</h3>
+<p>在讨论Java能干什么之前，我们要说一下软件系统的体系结构。</p>
+<p>你不知道Java是什么？请看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51931003">什么是Java</a></p>
+<h3 id="2什么是纯c架构系统">2、什么是纯C架构系统</h3>
+<p>完全脱离网络就可独立使用的软件系统（即客户端C，<font color="#ff0000">client</font>），这类软件不受限于网络，只依赖于操作系统。 <br>
+如：PC上的<font color="#ff0000">word、视频播放器</font>等软件。</br></p>
+<h3 id="3什么是cs架构系统">3、什么是C/S架构系统</h3>
+<p>拥有自己独立的一个或多个服务端系统（即服务端S，<font color="#ff0000">server</font>），每个使用者拥有自己独立的客户端软件（即C，<font color="#ff0000">client</font>），客户端与服务端<font color="#ff0000">通过网络</font>进行数据的交互。</p>
+<p><em>P.S.</em> <br>
+所谓<font color="#ff0000">服务端</font>，是可以通过网络访问的，接受/处理客户端数据的，为客户端提供数据的服务器+Web服务。 <br>
+所谓<font color="#ff0000">客户端</font>，即可以与指定服务端通过网络交互数据的纯C架构软件。 <br>
+如：智能用电系统（C端：每户的智能电表；S端：电力数据管理系统）。</br></br></br></p>
+<h3 id="4什么是bs架构系统">4、什么是B/S架构系统</h3>
+<p>拥有自己独立的一个或多个服务端系统（即S，server），每个使用者通过<font color="#ff0000">浏览器</font>（即B，<font color="#ff0000">browser</font>）与服务端进行数据的交互。</p>
+<p><em>P.S.</em> <br>
+如果把浏览器作为客户端的话，B/S架构即是一种特殊的C/S架构系统。 <br>
+如：各大电商。</br></br></p>
+<h3 id="5java都能干什么">5、Java都能干什么</h3>
+<p>了解了以上概念，我们回到主题来看看Java都能干什么。 <br>
+目前，Java的应用十分广泛，除了计算机底层开发，理论上其他均可以<font color="#ff0000">使用Java开发</font>（当然排除那些垄断的企业，比如我们的大苹果）。</br></p>
+<p>主要包括如下几个方面：</p>
+<p><strong><font color="#ff0000">客户端软件</font></strong> <br>
+包括PC软件（包括windows、mac、linux等多操作系统上的软件）、软件插件、企业级应用的客户端 <br>
+例如：我们熟悉的<font color="#ff0000">eclipse</font>大部分都是使用java编写的，以及eclipse的各种插件 <br>
+这类应用主要使用Swing、AWT或者SWT（前两者均包含在JDK中，后者是IBM的第三方库）开发。 <br>
+下面是使用<font color="#ff0000">Swing+AWT</font>开发的记事本截图（运行在mac系统中）：</br></br></br></br></p>
+<p><img alt="" src="http://img.blog.csdn.net/20160717110132556" title="">.jpg)￼</img></p>
+<p><strong><font color="#ff0000">企业级应用</font></strong> <br>
+C/S架构系统的服务端、B/S架构系统均可以使用Java进行开发。 <br>
+例如：B/S架构：<font color="#ff0000">ERP系统</font>、C/S架构：<font color="#ff0000">医院管理系统</font>（每个医生的pc上都会安装对应客户端）。</br></br></p>
+<p><em>P.S.</em> <br>
+大部分医院采用<font color="#ff0000">C/S架构系统</font>，主要是因为医学的特殊性，例如需要展示x光片、B超视频以及其他浏览器无法很好支持的特殊功能。当然，这种趋势在不久的将来可能会改变。</br></p>
+<p>下面是SAP公司开发的<font color="#ff0000">ERP系统</font>截图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160717110158347" title=""/></p>
+<p><strong><font color="#ff0000">web应用</font></strong> <br>
+纯B/S架构系统，面对人群不是企业而是<font color="#ff0000">个人</font>，现在很大一部分互联网企业的平台均是使用Java开发。</br></p>
+<p>例如：<font color="#ff0000">个大电商、论坛、O2O服务平台</font>。</p>
+<p>这个就不举具体的例子了，避免做广告＝。＝。</p>
+<p><strong><font color="#ff0000">手机应用</font></strong> <br>
+我们熟悉的<font color="#ff0000">手机android系统</font>便是由Java开发的，android系统的应用软件，绝大部分都是由Java开发。</br></p>
+<p><em>P.S.</em> <br>
+当然也有例外，目前有一部部分android游戏便不是Java实现，而是通过框架使用C++或者其他语言开发的，常见的有cocos2dx。</br></p>
+<p>例如：<font color="#ff0000">android系统</font>的大部分软件应用。</p>
+<p>这里也不举例了。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

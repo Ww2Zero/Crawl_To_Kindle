@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（001）_什么是Java            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-001.html">点击进入_更多_Java千百问-基本概念</a></p>
+<h3 id="1什么是java">1、什么是Java</h3>
+<p>Java是一种开发语言（核心特点：<font color="#ff0000">跨平台，面向对象</font>，名称由来看这里：<a href="%5b3%5d:">J2EE里面的2是什么意思</a>），对于开发者来讲，Java基本<font color="#ff0000">等于Jdk</font>。</p>
+<p>Jdk的版本介绍看这里：[Java都有那些版本][3]</p>
+<p>开发人员一般通过<font color="#ff0000">IDE</font>（Eclipse、NetBeans、JBuilder等）编写、编译Java代码（在远古没有IDE的时代，都是用<font color="#ff0000">文本编辑器</font>编写，使用javac编译），在这个过程中，会使用到<font color="#ff0000">Jdk与第三方Jar包</font>（Jar包即一组编译后的类打成的压缩包，可以使用解压工具解压成文件结构）。 <br>
+想知道Java能用来干什么吗：[Java都能干什么][4]</br></p>
+<p>[4]:</p>
+<p>具体关系图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160717101439688" title=""/></p>
+<p>其中，Jdk中<font color="#ff0000">包含Jre</font>，在Jdk的安装目录下有一个名为jre的目录，里面有两个文件夹bin和lib，在这里可以认为bin里的就是<font color="#ff0000">Jvm</font>，lib中则是Jvm工作所需要的<font color="#ff0000">类库</font>，而Jvm和lib和起来就称为<font color="#ff0000">Jre</font>。</p>
+<h3 id="2什么是jdk">2.什么是Jdk</h3>
+<p>即<font color="#33ccff">Java Development Kit</font>，是针对Java开发人员的产品，是整个<font color="#ff0000">Java的核心</font>。</p>
+<p>想要安装Jdk看这里：[如何安装和配置Jdk][5]</p>
+<p>[5]:</p>
+<p>包括：<font color="#ff0000">Java运行环境Jre</font>、<font color="#ff0000">Java工具</font>( javac/java/jdb等 )和<font color="#ff0000">Java基础类库</font>( Java API，rt.jar等 )。</p>
+<h3 id="3什么是jre">3.什么是Jre</h3>
+<p>即<font color="#33ccff">Java Runtime Environment</font>，是运行Java程序所须<font color="#ff0000">环境的集合</font>，包含Jvm标准实现及Java核心类库。</p>
+<p>与大家熟知的Jdk不同，Jre是<font color="#ff0000">Java运行环境</font>，并不是一个开发环境，所以<font color="#ff0000">没有包含任何开发工具</font>（如编译器和调试器），只是针对于使用Java程序的用户，只有通过它，Java的开发者才得以将自己开发的程序发布到用户手中，让用户使用。 <br>
+运行Java程序一般都要求用户的电脑安装Jre；没有jre，java程序无法运行；而没有java程序，jre就没有用武之地。</br></p>
+<p>包括：<font color="#ff0000">虚拟机Jvm</font>，<font color="#ff0000">运行类库</font>(runtime class libraries)和<font color="#ff0000">启动器</font>(Java application launcher)。</p>
+<h3 id="4什么是jvm">4.什么是Jvm</h3>
+<p>即<font color="#33ccff">Java Virtual Machine</font>，我们常说的<font color="#ff0000">Java虚拟机</font>， 是整个<font color="#ff0000">Java实现跨平台</font>最核心的部分，能够运行通过Java语言编写的应用程序。</p>
+<p>所有的Java程序会首先被编译为<font color="#ff0000">.class的类文件</font>，Jvm虚拟机可以执行这种编译后的类文件，也就是说class并不直接与机器的操作系统相对应，而是经过<font color="#ff0000">虚拟机</font>间接与操作系统交互，由虚拟机将程序解释为<font color="#ff0000">目标代码</font>（不同操作系统不同），给本地系统执行。</p>
+<p>Jvm屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行的目标代码，就可以在多种平台上不加修改地运行。 <br>
+只有Jvm还不能成class的执行，因为在解释class的时候Jvm需要调用解释所需要的类库lib，即Jre中的lib类库，<font color="#ff0000">单独的Jvm没有任何作用</font>。</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

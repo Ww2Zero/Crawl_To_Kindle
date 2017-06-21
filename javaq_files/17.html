@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（017）_内存物理地址在CPU中如何形成            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是内存的物理地址">1、什么是内存的物理地址</h3>
+<p>我们通过<font color="#ff0000">8086CPU</font>来说明内存地址是如何形成的。</p>
+<p>首先我们要了解<font color="#ff0000">物理地址</font>，当CPU需要访问一个内存单元时，需要给出内存单元的地址，而每一个<font color="#ff0000">内存单元</font>在物理内存空间中都有一个唯一的地址，即可以通过这个地址定位到内存单元，而这个地址即为<font color="#ff0000">物理地址</font>。</p>
+<p>CPU通过<font color="#ff0000">地址总线</font>将一个内存单元的<font color="#ff0000">物理地址</font>送入存储器，而后CPU便可以通过这个物理地址来访问这个物理地址所指向的内存单元了。</p>
+<h3 id="2内存物理地址在cpu中如何形成">2、内存物理地址在CPU中如何形成</h3>
+<p>首先，我们知道8086CPU的地址总线是<font color="#ff0000">20根</font>，即每次都可以传输<font color="#ff0000">20位的地址</font>，从而寻址能力有<font color="#ff0000">2^20</font>，也就是<font color="#ff0000">1MB</font>的大小。但是，8086CPU的寄存器只有<font color="#ff0000">16位</font>，也就是在8086CPU的内部，处理、传输、暂存的地址都只能是<font color="#ff0000">16位</font>，即8086CPU不能完整的保存下一个物理地址（物理地址为20位）。</p>
+<p>如果以最简单的方式（即直接用16位寄存器来保存物理地址）的话，寻址能力只有2^16，也就是64KB大小，难道8086CPU只能支持64KB大小的内存吗？ <br>
+<font color="#ff0000">当然不是</font>，8086CPU在这里采取了一定的措施，使其寻址能力达到1MB。</br></p>
+<p>8086CPU在内部把<font color="#ff0000">两个16位的地址</font>进行合成，从而形成一个<font color="#ff0000">20位的物理地址</font>，8086CPU的寻址能力便可以达到1MB。具体是如何将两个16位的地址合成为一个20位的物理地址的呢？ <br>
+当CPU在访问内存时，其会使用一个<font color="#ff0000">16位的基地址</font>，然后再使用一个<font color="#ff0000">16位的偏移地址</font>，通过将两个地址传入8086CPU的<font color="#ff0000">地址加法器</font>中进行合成，即可以构造出20位的物理地址。</br></p>
+<p>至于合成的方式如下： <br>
+将段地址<font color="#ff0000">左移4位</font>，形成<font color="#ff0000">基地址</font>，然后将基地址和偏移地址<font color="#ff0000">相加</font>便形成了20位的物理地址。如下图：</br></p>
+<p><img alt="" src="media/14679593079808/14679864150076.jpg" title=""/></p>
+<h3 id="3内存段是什么">3、内存段是什么</h3>
+<p>其实在物理内存中是没有内存段这一概念的，内存段的概念来自于CPU中的<font color="#ff0000">段寄存器</font>。</p>
+<p>我们将若干个<font color="#ff0000">地址连续</font>的<font color="#ff0000">内存单元</font>看做是一个段，通过将一个段地址左移4位形成基地址，然后通过这个基地址来定位这个段的起始地址，最后再通过偏移地址便可以精确定位到段中的内存单元了。</p>
+<p>由于内存段的起始地址是一个段地址左移4位，所以内存段的起始地址肯定是<font color="#ff0000">16的倍数</font>。而且一个内存段内部的内存单元只能通过偏移地址来定位，而偏移地址为16位，所以一个<font color="#ff0000">段的长度</font>也就是2^16也就是<font color="#ff0000">64KB</font>的大小。</p>
+<p>在编程时，可以将一段内存定义成为一个段，分为<font color="#ff0000">数据段</font>，<font color="#ff0000">代码段</font>，<font color="#ff0000">栈段</font>这三种类型的段。具体如下：</p>
+<ol>
+<li><p>数据段 <br>
+存放我们所需要使用数据的内存段（当然段起始地址肯定是16的倍数，并且段长度&lt;=64KB）。</br></p></li>
+<li><p>代码段 <br>
+存放代码（也就是指令）的内存段。</br></p></li>
+<li><p>栈段 <br>
+我们将一段内存当做栈来使用就称为栈段。</br></p></li>
+</ol>
+<p>一个简单的例子：</p>
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-keyword">MOV</span> BX, <span class="hljs-number">1000</span>H   <span class="hljs-comment">;</span>
+<span class="hljs-keyword">MOV</span> DS, BX      <span class="hljs-comment">;向DS段寄存器传入1000H段地址。</span>
+<span class="hljs-keyword">MOV</span> AX, [<span class="hljs-number">1234</span>H] <span class="hljs-comment">;将内存地址1000H:1234H（即11234H）中的值读到AX寄存器中。</span></code></pre></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

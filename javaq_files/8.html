@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（008）_jar是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jar是什么">1、jar是什么</h3>
+<p>JAR（Java Archive）是一个<font color="#ff0000">独立于平台</font>的文件格式。可以包含多个文件，若干<font color="#ff0000">Java applet</font>及其<font color="#ff0000">必要的组件</font>（.class文件、图片和声音等）可以被打包在一个JAR文件中。</p>
+<p>了解JavaApplet看这里：JavaApplet是什么</p>
+<p>JAR文件格式以各种操作系统均能够<font color="#ff0000">压缩/解压</font>的<font color="#ff0000">zip文件格式</font>为基础。与zip不同的是，jar文件不仅仅用于压缩和发布，而且还用于<font color="#ff0000">封装库、组件和插件</font>以及<font color="#ff0000">部署程序</font>，并可被像<font color="#ff0000">编译器和JVM</font>这样的工具直接使用。</p>
+<p>在JAR中可以包含特殊的文件，例如：<font color="#ff0000">manifests</font>和<font color="#ff0000">部署描述符</font>，用来指示工具如何处理特定的jar。</p>
+<p>使用jar的好处在于能够<font color="#ff0000">提高网络传输的速度</font>，并且JAR还<font color="#ff0000">支持压缩</font>，降低了文件的大小，进一步提高了传输效率。</p>
+<p>此外，它是完全可扩展的，对应的API在<font color="#ff0000">java.util.jar包</font>中。了解java.util.jar包看这里：[java.lang.ref包有什么用][2]</p>
+<h3 id="2jar和zip有什么区别">2、jar和zip有什么区别</h3>
+<p>jar文件格式提供了许多优势和功能，其中很多是传统的压缩格式如zip或者rar所没有的。它们之间的<font color="#ff0000">区别和联系</font>主要包括：</p>
+<ol>
+<li><p><font color="#33ccff">安全性</font> <br>
+jar文件可以加上<font color="#ff0000">数字化签名</font>。这样一来，能够识别签名的工具就可以有选择地为用户授予<font color="#ff0000">软件安全特权</font>，这是zip做不到的，数字签名还可以检测<font color="#ff0000">代码是否被篡改过</font>。</br></p></li>
+<li><p><font color="#33ccff">减少下载时间</font> <br>
+如果一个applet捆绑到一个jar中，那么浏览器就可以在一个<font color="#ff0000">HTTP请求中下载</font>这个applet的类文件和相关的资源，而不是对每一个文件打开一个新连接。</br></p></li>
+<li><p><font color="#33ccff">压缩</font> <br>
+同zip一样，jar格式也允许您<font color="#ff0000">压缩文件</font>以提高存储效率。</br></p></li>
+<li><p><font color="#33ccff">平台扩展 <br>
+<font color="#ff0000">Java扩展框架</font>（Java Extensions Framework）提供了向Java核心平台添加功能的方法，这些扩展是用jar打包的。</br></font></p></li>
+<li><p><font color="#33ccff">包密封性</font> <br>
+存储在jar文件中的包可以进行<font color="#ff0000">密封</font>，以增强版本一致性和安全性。密封一个jar包意味着jar包中的所有类都必须在<font color="#ff0000">同一jar文件</font>中。</br></p></li>
+<li><p><font color="#33ccff">包版本控制</font> <br>
+一个jar可以包含有关它<font color="#ff0000">文件的数据</font>，如厂商和版本信息等。</br></p></li>
+<li><p><font color="#33ccff">可移植性</font> <br>
+处理jar的机制是<font color="#ff0000">Java平台核心AP</font>I的标准部分，跨平台可以毫无问题的使用。</br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

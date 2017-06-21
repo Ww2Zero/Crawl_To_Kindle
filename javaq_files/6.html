@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_01基本概念（006）_线程和进程有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1进程是什么">1、进程是什么</h3>
+<p><font color="#ff0000">进程（process）</font>是具有一定<font color="#ff0000">独立功能</font>的程序，操作系统利用进程把工作划分为一些<font color="#ff0000">功能单元</font>。</p>
+<p>进程是进行<font color="#ff0000">资源分配</font>和<font color="#ff0000">调度</font>的一个独立单位。它还拥有一个私有的<font color="#ff0000">虚拟地址空间</font>，该空间仅能被<font color="#ff0000">它所包含的线程</font>访问。</p>
+<p>一个应用程序（application）是由<font color="#ff0000">一个或多个</font>相互协作的进程组成的。例如，Visual Studio开发环境就是利用一个进程编辑源文件，并利用另一个进程完成编译工作的应用程序。 </p>
+<h3 id="2线程是什么">2、线程是什么</h3>
+<p><font color="#ff0000">线程（thread）</font>是进程中所包含的一个或多个执行单元。它只能归属于<font color="#ff0000">一个进程</font>并且只能访问<font color="#ff0000">该进程所拥有的</font>资源。 <br>
+它进程中执行运算的<font color="#ff0000">最小单位</font>，是进程中的一个实体，是被进程<font color="#ff0000">独立调度</font>和<font color="#ff0000">分派</font>的基本单位。</br></p>
+<p>线程自己不拥有系统资源，只拥有一点在运行中必不可少的资源（计数器、寄存器和栈），但它可与同属一个进程的其它线程<font color="#ff0000">共享</font>进程所拥有的全部资源。一个线程可以<font color="#ff0000">创建和撤消</font>另一个线程，同一进程中的多个线程之间可以<font color="#ff0000">并发执行</font>。</p>
+<p>当操作系统创建一个进程后，该进程会自动申请一个名为<font color="#ff0000">主线程</font>（首要线程）的线程。主线程将执行<font color="#ff0000">运行时宿主</font>，而<font color="#ff0000">运行时宿主</font>会负责载入CLR（公共语言运行库）。</p>
+<h2 id="3线程和进程有什么关系以及区别">3、线程和进程有什么关系以及区别？</h2>
+<p>首先，进程和进程如同列车和车厢，<font color="#ff0000">没有可比性</font>，但是他们有一定的相关性：</p>
+<ol>
+<li>一个线程只能属于一个进程，而一个进程可以有多个线程，但至少有一个线程。</li>
+<li><font color="#ff0000">资源分配给进程</font>，同一进程的所有线程共享该进程的所有资源。</li>
+<li>虚拟机分给线程，即真正在虚拟机上运行的是<font color="#ff0000">线程</font>。</li>
+<li>线程在执行过程中，需要<font color="#ff0000">协作同步</font>。不同进程的线程间要利用消息通信的办法实现同步。</li>
+</ol>
+<p>如果非要比较进程与线程的区别，可以从以下几个方面来看：</p>
+<ol>
+<li><p><font color="#33ccff">调度</font> <br>
+  线程作为调度和分配的基本单位，进程作为拥有资源的基本单位</br></p></li>
+<li><p><font color="#33ccff">并发性</font> <br>
+  不仅进程之间可以并发执行，同一个进程的多个线程之间也可并发执行</br></p></li>
+<li><p><font color="#33ccff">拥有资源</font> <br>
+  进程是拥有资源的一个独立单位，线程不拥有系统资源，但可以访问隶属于进程的资源.</br></p></li>
+<li><p><font color="#33ccff">系统开销</font> <br>
+  在创建或撤消进程时，由于系统都要为之分配和回收资源，导致系统的开销明显大于创建或撤消线程时的开销。</br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>
