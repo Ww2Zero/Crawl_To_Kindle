@@ -16,7 +16,9 @@ class EmailUtils(object):
 
     def __init__(self):
         '''
-        初始化 邮件发送地址 邮件接收地址
+        初始化邮件
+         - 邮件发送地址 
+         - 邮件接收地址
         '''
         self.senderAddr = Sender
         self.receiveAddrs = Receivers
@@ -24,6 +26,8 @@ class EmailUtils(object):
     def TextEmail(self, subject, content):
         '''
         文本邮件
+        :subject: 邮件主题
+        :content: 邮件文本内容
         '''
         self.message = MIMEText(self._FmtHtmlContent(content), 'html', 'utf-8')
         self.message['From'] = self._FmtMailAddr(self.senderAddr)
@@ -33,6 +37,7 @@ class EmailUtils(object):
     def MultipartEmail(self,subject):
         '''
         包含附件的邮件
+        :subject: 邮件主题
         '''
         self.message = MIMEMultipart()
         self.message['From'] = self._FmtMailAddr(self.senderAddr)
@@ -42,13 +47,15 @@ class EmailUtils(object):
     def addText(self,content):
         '''
         添加文本
+        :content: 邮件文本内容
         '''
-        TextPart = MIMEText(_FmtHtmlContent(content),'html','utf-8')
+        TextPart = MIMEText(self._FmtHtmlContent(content),'html','utf-8')
         self.message.attach(TextPart)
 
     def addFile(self,filepath):
         '''
         添加文件
+        :filepath: 文件路径 
         '''
         filename = os.path.split(filepath)[1]
         with open(filepath,'r')as h:
@@ -58,29 +65,32 @@ class EmailUtils(object):
         #附件设置内容类型，方便起见，设置为二进制流
         FilePart['Content-Type'] = 'application/octet-stream'
         #设置附件头，添加文件名
-        FilePart['Content-Disposition'] = 'attachment;filename="{}"'%{filename }
+        FilePart['Content-Disposition'] = 'attachment;filename="{}"'.format(filename )
         self.message.attach(FilePart)
 
     def addImage(self,imagepath):
         '''
         添加图片
+        :imagepath: 图片路径
         '''
         imagename = os.path.split(imagepath)[1]
         with open(imagepath,'rb')as fp:
             picture = MIMEImage(fp.read())
             picture['Content-Type'] = 'application/octet-stream'
-            picture['Content-Disposition'] = 'attachment;filename="{}"'%{imagename}
+            picture['Content-Disposition'] = 'attachment;filename="{}"'.format(imagename)
         self.message.attach(picture)
 
     def _FmtMailAddr(self, mailAddr):
         '''
-        格式化 frommail及tomail
+        格式化邮件地址 frommail及tomail
+        :mailAddr: 邮件地址
         '''
         return '<%s>' % mailAddr
 
     def _FmtHtmlContent(self, content):
         '''
-         格式化 内容
+         格式化 文本内容
+         :content: 要发送的文本内容
         '''
         return "<html><body><div>{}</div></body></html>".format(content)
 
@@ -118,7 +128,16 @@ class EmailUtils(object):
             print("Error:无法发送邮件")
 
 
-if __name__ == '__main__':
-    send = EmailUtils()
-    send.TextEmail("kindle 降价了", "明天又是下雨天，不想上班呀")
-    send.Send()
+# if __name__ == '__main__':
+    # 普通文本邮件
+    # send = EmailUtils()
+    # send.TextEmail("kindle 降价了", "明天又是下雨天，不想上班呀")
+    # send.Send()
+
+    # 附件邮件
+    # s = EmailUtils()
+    # s.MultipartEmail("公民天会多个")
+    # s.addText("明天你是否会想你,我给你写的日记")
+    # s.addFile("D:\\Users\\Ww\\Desktop\\Crawl_To_Kindle\\requirements.txt")
+    # s.addImage("1.png")
+    # s.Send()
