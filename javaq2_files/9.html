@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（009）_eclipse如何设置BuildPath            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1eclipse如何设置buildpath">1、eclipse如何设置BuildPath</h3>
+<p>我们知道运行java应用需要依赖<font color="#ff0000">jre以及程序中使用的第三方jar包</font>，我们使用java命令运行时，一般会手工指定<font color="#ff0000">-classpath</font>（默认为操作系统的CLASSPATH环境变量），eclipse提供了方便的引入功能，针对不同工程可以选择加载不同的classpath。</p>
+<p>了解java如何运行看这里：[java程序如何运行][2] <br>
+[2]:</br></p>
+<p><font color="#33ccff">具体配置方法如下：</font></p>
+<p>右击工程–&gt;Preferences–&gt;Java Build Path</p>
+<p>其中有4个tab选项卡，分别如下：</p>
+<p><font color="#33ccff">“Source”</font> <br>
+用来指定<font color="#ff0000">本工程下源文件的路径</font>，选择路径下的源文件都会被自动编译。下面的Default output folder指定<font color="#ff0000">编译后文件</font>的输出目录。</br></p>
+<p><font color="#33ccff">“Project”</font> <br>
+用来指定<font color="#ff0000">本工作空间内需要引入的工程</font>，引入后相当于把该工程打jar包引入。</br></p>
+<p><font color="#33ccff">“Libraries”</font> <br>
+用来引入<font color="#ff0000">jre或者第三方jar包</font>（也可以引入单独的.class文件）。这里相当于制定了该工程的classpath。</br></p>
+<p><font color="#33ccff">“Order and Export”</font> <br>
+指定各路径的<font color="#ff0000">编译顺序</font>。</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

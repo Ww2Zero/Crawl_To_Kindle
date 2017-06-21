@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（014）_volatile关键字有什么用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1volatile关键字有什么用">1、volatile关键字有什么用</h3>
+<p>volatile是java语言的关键字，是<font color="#ff0000">变量修饰符</font>。它是被设计用来修饰<font color="#ff0000">被不同线程</font>访问和修改的变量。</p>
+<p>volatile的作用是： 作为指令关键字，确保本条指令<font color="#ff0000">不会被编译器优化</font>，且应用的所有线程读取这个变量的值是<font color="#ff0000">一致的</font>。</p>
+<p>简单的说，就是禁止编译器对代码进行优化，且强迫所有线程从<font color="#ff0000">共享内存</font>读取该变量（而不是读取寄存器中的备份），变量发生改变时强行存入<font color="#ff0000">共享内存</font>。</p>
+<p>java内存模型需要具有以下规则：<font color="#ff0000">原子性</font>（Atomicity）、<font color="#ff0000">可见性</font>（Visibility）、<font color="#ff0000">可排序性</font>（Ordering）。 <br>
+用volatile修饰的变量，就会具有<font color="#ff0000">可见性</font>，且<font color="#ff0000">不允许</font>线程内部缓存和重排序，但是它<font color="#ff0000">不能</font>使变量具有<font color="#ff0000">原子性</font>。</br></p>
+<p>了解java内存模型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java内存模型是什么样的</a> <br>
+在目前多线程频繁使用的年代，并<font color="#ff0000">不建议</font>使用这种<font color="#ff0000">可靠性低</font>、且<font color="#ff0000">对开发者或者场景要求高</font>的方式来完成多线程的操作，由于volatile很容易被误用于进行原子性操作，如果使用不当则会<font color="#ff0000">错误频出</font>。</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

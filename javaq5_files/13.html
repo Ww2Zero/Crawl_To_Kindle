@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（013）_泛型如何使用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何使用泛型方法">1、如何使用泛型方法</h3>
+<p>了解什么是泛型看这：<a href="http://blog.csdn.net/ooppookid/article/details/51233605">泛型是什么</a> <br>
+以下是定义泛型方法的规则：</br></p>
+<ol>
+<li>声明泛型方法时，在返回类型之前，需要有一个由<font color="#ff0000">尖括号</font>（&lt;  &gt;）分隔的泛型类型部分。  <br>
+2 . 一个泛型类型，也称为<font color="#ff0000">类型参数</font>，是一个标识符，用于指定一个<font color="#ff0000">泛型类型的名称</font>。</br></li>
+<li>类型参数可以用来声明返回类型和充当占位符传递给泛型方法。</li>
+<li>泛型方法的身体与其他方法一样。</li>
+</ol>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs d"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> GenericMethodTest
+{
+   <span class="hljs-comment">// generic method printArray                        </span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt; E &gt; <span class="hljs-keyword">void</span> printArray( E[] inputArray )
+   {
+      <span class="hljs-comment">// Display array elements             </span>
+         <span class="hljs-keyword">for</span> ( E element : inputArray ){       
+            System.<span class="hljs-keyword">out</span>.printf( <span class="hljs-string">"%s "</span>, element );
+         }
+         System.<span class="hljs-keyword">out</span>.println();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main( String args[] )
+    {
+        <span class="hljs-comment">// Create arrays of Integer, Double and Character</span>
+        Integer[] intArray = { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> };
+        Double[] doubleArray = { <span class="hljs-number">1.1</span>, <span class="hljs-number">2.2</span>, <span class="hljs-number">3.3</span>, <span class="hljs-number">4.4</span> };
+        Character[] charArray = { <span class="hljs-string">'H'</span>, <span class="hljs-string">'E'</span>, <span class="hljs-string">'L'</span>, <span class="hljs-string">'L'</span>, <span class="hljs-string">'O'</span> };
+
+        System.<span class="hljs-keyword">out</span>.println( <span class="hljs-string">"Array integerArray contains:"</span> );
+        printArray( intArray  ); <span class="hljs-comment">// pass an Integer array</span>
+
+        System.<span class="hljs-keyword">out</span>.println( <span class="hljs-string">"
+Array doubleArray contains:"</span> );
+        printArray( doubleArray ); <span class="hljs-comment">// pass a Double array</span>
+
+        System.<span class="hljs-keyword">out</span>.println( <span class="hljs-string">"
+Array characterArray contains:"</span> );
+        printArray( charArray ); <span class="hljs-comment">// pass a Character array</span>
+    }
+}</code></pre>
+<p>这将产生以下结果： <br>
+Array integerArray contains: <br>
+1 2 3 4 5 6 <br>
+Array doubleArray contains: <br>
+1.1 2.2 3.3 4.4 <br>
+Array characterArray contains: <br>
+H E L L O</br></br></br></br></br></br></p>
+<p>泛型类型还可以被限制，使用<font color="#ff0000">extends关键字</font>限制泛型的父类。 <br>
+例子：</br></p>
+<pre class="prettyprint"><code class=" hljs d"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> MaximumTest
+{
+   <span class="hljs-comment">// determines the largest of three Comparable objects</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T extends Comparable&lt;T&gt;&gt; T maximum(T x, T y, T z)
+   {                     
+      T max = x; <span class="hljs-comment">// assume x is initially the largest      </span>
+      <span class="hljs-keyword">if</span> ( y.compareTo( max ) &gt; <span class="hljs-number">0</span> ){
+         max = y; <span class="hljs-comment">// y is the largest so far</span>
+      }
+      <span class="hljs-keyword">if</span> ( z.compareTo( max ) &gt; <span class="hljs-number">0</span> ){
+         max = z; <span class="hljs-comment">// z is the largest now                </span>
+      }
+      <span class="hljs-keyword">return</span> max; <span class="hljs-comment">// returns the largest object  </span>
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main( String args[] )
+   {
+      System.<span class="hljs-keyword">out</span>.printf( <span class="hljs-string">"Max of %d, %d and %d is %d
+
+"</span>,
+                   <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, maximum( <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ) );
+
+      System.<span class="hljs-keyword">out</span>.printf( <span class="hljs-string">"Maxm of %.1f,%.1f and %.1f is %.1f
+
+"</span>,
+                   <span class="hljs-number">6.6</span>, <span class="hljs-number">8.8</span>, <span class="hljs-number">7.7</span>, maximum( <span class="hljs-number">6.6</span>, <span class="hljs-number">8.8</span>, <span class="hljs-number">7.7</span> ) );
+
+      System.<span class="hljs-keyword">out</span>.printf( <span class="hljs-string">"Max of %s, %s and %s is %s
+"</span>,<span class="hljs-string">"pear"</span>,
+         <span class="hljs-string">"apple"</span>, <span class="hljs-string">"orange"</span>, maximum( <span class="hljs-string">"pear"</span>, <span class="hljs-string">"apple"</span>, <span class="hljs-string">"orange"</span> ) );
+   }
+}</code></pre>
+<p>这将产生以下结果： <br>
+Maximum of 3, 4 and 5 is 5 <br>
+Maximum of 6.6, 8.8 and 7.7 is 8.8 <br>
+Maximum of pear, apple and orange is pear</br></br></br></p>
+<h3 id="2如何使用泛型类接口">2、如何使用泛型类/接口</h3>
+<p><font color="#ff0000">泛型类/接口</font>的声明与非泛型类类似，除了类名后增加了一个泛型类型。 <br>
+与泛型方法相比，泛型类的类型参数部分可以用逗号分隔的<font color="#ff0000">一个或多个</font>泛型类型。</br></p>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs d"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Box&lt;T&gt; {
+
+  <span class="hljs-keyword">private</span> T t;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> add(T t) {
+    <span class="hljs-keyword">this</span>.t = t;
+  }
+
+  <span class="hljs-keyword">public</span> T get() {
+    <span class="hljs-keyword">return</span> t;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main(String[] args) {
+     Box&lt;Integer&gt; integerBox = <span class="hljs-keyword">new</span> Box&lt;Integer&gt;();
+     Box&lt;String&gt; stringBox = <span class="hljs-keyword">new</span> Box&lt;String&gt;();
+
+     integerBox.add(<span class="hljs-keyword">new</span> Integer(<span class="hljs-number">10</span>));
+     stringBox.add(<span class="hljs-keyword">new</span> String(<span class="hljs-string">"Hello World"</span>));
+
+     System.<span class="hljs-keyword">out</span>.printf(<span class="hljs-string">"Integer Value :%d
+
+"</span>, integerBox.get());
+     System.<span class="hljs-keyword">out</span>.printf(<span class="hljs-string">"String Value :%s
+"</span>, stringBox.get());
+  }
+}</code></pre>
+<p>这将产生以下结果： <br>
+Integer Value :10 <br>
+String Value :Hello World</br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

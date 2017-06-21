@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+[置顶]
+        Java千百问_07JVM架构（016）_java内存如何优化            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1java内存如何优化">1、java内存如何优化</h3>
+<p>了解jvm内存管理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+了解堆内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java堆内存是什么样的</a> <br>
+java内存的优化主要是通过合理的<font color="#ff0000">控制GC</font>来实现，主要原则： <br>
+1. <font color="#ff0000">不能只看</font>操作系统级别Java进程所占用的内存，这个数值不能准确的反应<font color="#ff0000">堆内存的真实占用情况</font>（因为GC过后这个值是不会变化的）。 <br>
+2. 使用JDK提供的内存查看工具，比如<font color="#ff0000">JConsole</font>和<font color="#ff0000">Java VisualVM</font>。 <br>
+3. 优化内存主要的目的是<font color="#ff0000">降低youngGC的频率</font>、<font color="#ff0000">减少fullGC的次数</font> ，过多的<font color="#ff0000">youngGC和fullGC</font>是会占用很多的系统资源（主要是CPU），影响<font color="#ff0000">系统的吞吐量</font>。</br></br></br></br></br></p>
+<p>这里，影响内存效率最关键的就是：<font color="#ff0000">fullGC</font>，因为它会对<font color="#ff0000">整个堆内存</font>进行整理，占用大量的资源。</p>
+<h3 id="2fullgc何时发生">2、FullGC何时发生</h3>
+<p><font color="#ff0000">fullGC</font>作为java内存管理的关键，它的触发时机我们一定要掌握，有4种情况会发生fullGC：</p>
+<ol>
+<li><p><font color="#33ccff">旧生代空间不足</font> <br>
+调优时尽量让对象在<font color="#ff0000">新生代GC时被回收</font>、让对象在<font color="#ff0000">新生代多存活一段时间</font>和<font color="#ff0000">不要创建过大的对象及数组</font>避免直接在旧生代创建对象。</br></p></li>
+<li><p><font color="#33ccff">Pemanet Generation空间不足</font> <br>
+增大Perm Gen空间，避免太多<font color="#ff0000">静态对象</font>。了解内存溢出看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51530578">java什么情况会内存溢出</a></br></p></li>
+<li><p><font color="#33ccff">GC后晋升到老生代的平均大小大于老生代剩余空间</font> <br>
+控制好<font color="#ff0000">新生代和旧生代的比例</font>。</br></p></li>
+<li><p><font color="#33ccff">System.gc()被显示调用</font> <br>
+垃圾回收<font color="#ff0000">不要手动触发</font>，尽量依靠JVM自身的机制。</br></p></li>
+</ol>
+<h3 id="3gc有哪些优化手段">3、GC有哪些优化手段</h3>
+<p>GC调优手段主要是通过<font color="#ff0000">控制堆内存的各个部分比例</font>，以及根据不同场景<font color="#ff0000">采用不同的GC策略</font>来实现。下面分别来看：</p>
+<p><strong><font color="#33ccff">通过控制堆内存比例优化GC</font></strong></p>
+<ol>
+<li><font color="#33ccff">新生代设置过小</font> <br>
+一是<font color="#ff0000">新生代容易占满</font>，导致新生代GC（youngGC）次数非常频繁，增大系统消耗； <br>
+二是<font color="#ff0000">大对象直接进入老生代</font>，占据了老生代剩余空间，诱发fullGC。 <br>
+了解youngGC和FullGC看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51530469">fullGC、minorGC、magorGC有什么区别</a></br></br></br></li>
+<li><p><font color="#33ccff">新生代设置过大</font> <br>
+一是新生代设置过大会导致<font color="#ff0000">旧生代过小</font>（堆总量一定），从而诱发fullGC。 <br>
+二是新生代GC<font color="#ff0000">耗时大幅度增加</font>。 <br>
+一般说来新生代占整个堆<font color="#ff0000">1/3</font>比较合适。</br></br></br></p></li>
+<li><p><font color="#33ccff">Survivor设置过小</font> <br>
+新生代中根据<font color="#ff0000">优化复制算法</font>，如果Survivor区（S0，S1）太小，会导致对象从eden区<font color="#ff0000">直接到达旧生代</font>，降低了在新生代的存活时间。一般来说Eden:S0:S1为<font color="#ff0000">8:1:1</font>是比较合理的。 <br>
+了解新生代复制算法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523701">什么是新生代的复制算法</a></br></br></p></li>
+<li><p><font color="#33ccff">Survivor设置过大</font> <br>
+若Survivor区过大，则eden区会过小，eden区容易达到阈值导致<font color="#ff0000">新生代GC频率增加</font>。</br></p></li>
+<li><p><font color="#33ccff">新生代对象存活时间过短</font> <br>
+通过<font color="#ff0000">-XX:MaxTenuringThreshold=n</font>来控制新生代存活时间，如果存活时间过短，则对象会很快<font color="#ff0000">进入老生代</font>，导致fullGC。所以要尽量让不常用对象在<font color="#ff0000">新生代被回收</font>。</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">通过GC策略优化GC</font></strong></p>
+<p>新生代和旧生代都有很多种<font color="#ff0000">GC策略</font>和组合搭配，选择这些策略对于我们这些开发人员是个难题，默认情况下JVM会<font color="#ff0000">自动调整</font>新生代与老生代的比例、Eden区与Suvivor区的比例来达到性能目标，JVM提供两种较为简单的GC策略的设置方式：</p>
+<ol>
+<li><p><font color="#33ccff">吞吐量优先</font> <br>
+JVM以<font color="#ff0000">吞吐量</font>为指标，自行选择相应的GC策略及 控制堆内存的大小比例，来达到吞吐量指标。一次fullGC时间<font color="#ff0000">占总可用时间的比例</font>，如果GC时间过长，会相应调整空间的大小（花费在GC上的时间比例不超过1 / (1 + n)）。 <br>
+通过<font color="#ff0000">-XX:GCTimeRatio=n</font>来设置。</br></br></p></li>
+<li><p><font color="#33ccff">暂停时间优先</font> <br>
+JVM以<font color="#ff0000">暂停时间</font>为指标，自行选择相应的GC策略及控制堆内存的大小比例，尽量保证每次GC造成的应用停止时间都在指定的数值范围内完成。如果时间过长，会相应调整空间的大小（单位是毫秒）。 <br>
+通过<font color="#ff0000">-XX:MaxGCPauseMillis=n</font>来设置。</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

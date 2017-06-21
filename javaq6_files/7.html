@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（007）_String属于基本数据类型吗            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1string属于基本数据类型吗">1、String属于基本数据类型吗</h3>
+<p>首先要明确的是，在Java中，String<font color="#ff0000">不是基本数据类型</font>，它继承于Object，是一个jdk提供的<font color="#ff0000">字符串类</font>。 <br>
+了解基本数据类型看这里：java有哪8种基本数据类型<a href="http://blog.csdn.net/ooppookid/article/details/51285502">2</a> <br>
+但是，String和其他对象相比，jdk做了很多特殊的处理。体现在如下几个方面：</br></br></p>
+<ul>
+<li>String可以通过new构造对象，也可以<font color="#ff0000">直接赋值</font>。例如：</li>
+</ul>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> str = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>( <span class="hljs-string">"abc"</span> );<span class="hljs-comment">//第一种</span>
+<span class="hljs-built_in">String</span> str = <span class="hljs-string">"abc"</span> ;<span class="hljs-comment">//第二种</span></code></pre>
+<ul>
+<li><p>第一种用new()来新建对象，它会在存放于<font color="#ff0000">堆</font>中，每调用一次就会创建一个新的对象。 <br>
+第二种是先在<font color="#ff0000">栈</font>中创建一个对String类的对象引用变量str，然后查找栈中有没有存放”abc”，如果没有，则将”abc”存放进栈，并令str指 向”abc”，如果已经有”abc” 则直接令str指向”abc”。 <br>
+了解java内存堆栈看这里：</br></br></p></li>
+<li><p>第二种方式（String str1 =”abc”）创建多个”abc”字符串，在内存中其实只存在<font color="#ff0000">一个对象</font>而已。这种方式节省内存空间，同时它可以在一定程度上提高程序的运行速度，因为JVM会自动根据栈中数据的实际情况来决定是<font color="#ff0000">否有必要</font>创建新对象。 <br>
+而对于String str = new String(“abc”)的代码，则一概在堆中创建新对象，而不管其字符串值是否相等，是否有必要创建新对象，从而<font color="#ff0000">加重了程序的负担</font>。</br></p></li>
+<li><p>比较类里面的数值是否相等时，用<font color="#ff0000">equals()</font>方法；当比较两个引用变量是否指向同一个对象时，用==（可以理解为比较逻辑地址，实际是比较<font color="#ff0000">对象号</font>）。 例如：</p></li>
+</ul>
+<pre class="prettyprint"><code class=" hljs vhdl"><span class="hljs-typename">String</span> str1 = <span class="hljs-string">"abc"</span> ;
+<span class="hljs-typename">String</span> str2 = <span class="hljs-string">"abc"</span> ;
+System.<span class="hljs-keyword">out</span>.println(str1==str2); </code></pre>
+<p>运行结果： <br>
+true</br></p>
+<p>可以看出str1和str2是栈中对象。</p>
+<pre class="prettyprint"><code class=" hljs vhdl"><span class="hljs-typename">String</span> str1 = <span class="hljs-keyword">new</span> <span class="hljs-typename">String</span> ( <span class="hljs-string">"abc"</span> );
+<span class="hljs-typename">String</span> str2 = <span class="hljs-keyword">new</span> <span class="hljs-typename">String</span> ( <span class="hljs-string">"abc"</span> );
+System.<span class="hljs-keyword">out</span>.println(str1==str2); </code></pre>
+<p>运行结果： <br>
+false</br></p>
+<p>了解String更多看这里：</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

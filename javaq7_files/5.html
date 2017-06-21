@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（005）_显示内存管理有什么弊端            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1显示内存管理有什么弊端">1、显示内存管理有什么弊端</h3>
+<p>手动内存管理一般被称为<font color="#ff0000">显示内存管理</font>，显示内存管理经常发生两种情况：</p>
+<ol>
+<li><p><font color="#33ccff">引用悬挂</font> <br>
+当一个被某个引用变量正在使用的内存空间，在重新分配过程中<font color="#ff0000">被释放掉了</font>，释放后，该引用变量就处于<font color="#ff0000">悬挂状态</font>（所引用的对象已经不存在了）。 <br>
+如果这个被悬挂引用变量，试图操作原来对象的时候，由于该对象本身的内存空间已经被手动释放掉了（已经不存在了），所以这个执行结果是<font color="#ff0000">不可预知的</font>。</br></br></p></li>
+<li><p><font color="#33ccff">内存泄漏</font> <br>
+当某些引用变量<font color="#ff0000">不再引用</font>该内存对象的时候，而该对象原本占用的内存并没有被释放，这种情况就是<font color="#ff0000">内存泄漏</font>。 <br>
+例如，对某个链表进行了内存分配，因为手动分配内存不当，仅仅让引用变量指向了某个元素所处的内存空间，就使得这些元素所处的内存空间对程序来说处于不可达状态，而且这些对象所占有的内存也不能够被再使用，这个时候就发生了内存泄漏。 <br>
+而这种情况一旦在程序中发生，就会一直消耗系统的可用内存直到可用的<font color="#ff0000">内存耗尽</font>。对计算机而言，内存泄漏是非常严重的，会使得本来正常运行的程序直接因为<font color="#ff0000">内存不足而中断</font>。与Java中的Exception并不是一个级别的错误。</br></br></br></p></li>
+</ol>
+<p>对于显示内存管理来说，手动管理内存<font color="#ff0000">成本太高，风险很大</font>。所以大多数纯面向对象语言而言，都提供了语言本身具有的内存特性：<font color="#ff0000">自动化内存管理</font>。比如Java，提供了一个<font color="#ff0000">垃圾回收器（Garbage Collector，GC）</font>，自动内存管理提供了更加可靠的代码使得内存能够在程序里面进行合理的分配。</p>
+<h3 id="2java的自动内存管理有什么好处">2、java的自动内存管理有什么好处</h3>
+<p>java的<font color="#ff0000">自动内存管理</font>（隐式内存管理）可以解决显示内存管理的问题：<font color="#ff0000">引用悬挂</font>和<font color="#ff0000">内存泄漏</font>。</p>
+<ol>
+<li><p><font color="#33ccff">对于引用悬挂</font> <br>
+JVM隐藏了对内存的管理，所以不会对正在使用的内存空间进行释放，也就不会出现引用悬挂。</br></p></li>
+<li><p><font color="#33ccff">对于内存泄漏</font> <br>
+一旦有对象没有被任何引用变量引用时，也就是说这些对象在JVM的内存池里面成为了不可引用对象，垃圾回收器会直接<font color="#ff0000">回收掉这些对象的内存</font>（当然需要满足一些规则，具体看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a>）。</br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

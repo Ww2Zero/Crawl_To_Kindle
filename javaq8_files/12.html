@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（012）_如何编写多线程Socket程序            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何编写多线程socket程序">1、如何编写多线程Socket程序</h3>
+<p>了解Socket看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51704681">Socket是什么</a> <br>
+多线程Socket与单线程类似，只是使用了<font color="#ff0000">多线程的方式</font>来管理连接，<font color="#ff0000">主线程负责接收连接</font>，在接到连接后变<font color="#ff0000">创建新的线程</font>，每个线程负责与自己的客户端进行通信。</br></p>
+<p>了解单线程Socket看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51711164">如何编写单多线程Socket程序</a></p>
+<p>与单线程Socket例子相比来说，服务端可以与<font color="#ff0000">多个客户端</font>进行通信了，不过多线程频繁的创建与销毁便会带来<font color="#ff0000">很大的资源开销</font>，而系统的网络资源等都是有限的。因此一般会<font color="#ff0000">引入线程池</font>，可以在某种程度上重用线程，减少线程的创建和销毁的次数以<font color="#ff0000">减少开销</font>。</p>
+<p>我们的代码也分为<font color="#ff0000">客户端和服务端</font>两部分。服务端的代码中包含了<font color="#ff0000">使用和不使用线程池</font>的两种方式。</p>
+<p><font color="#33ccff">服务端代码</font>：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.InputStreamReader;
+<span class="hljs-keyword">import</span> java.io.PrintWriter;
+<span class="hljs-keyword">import</span> java.net.ServerSocket;
+<span class="hljs-keyword">import</span> java.net.Socket;
+<span class="hljs-keyword">import</span> java.util.concurrent.ExecutorService;
+<span class="hljs-keyword">import</span> java.util.concurrent.Executors;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SocketThreadPoolDemoServer</span> {</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> port = <span class="hljs-number">8000</span>;
+
+    <span class="hljs-keyword">private</span> ServerSocket serverSocket;
+
+    <span class="hljs-keyword">private</span> ExecutorService executorService; <span class="hljs-comment">// 连接池</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> POOL_SIZE = <span class="hljs-number">1</span>; <span class="hljs-comment">// 连接池大小 , 若为 1 时最多支持 2 线程</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">SocketThreadPoolDemoServer</span>() <span class="hljs-keyword">throws</span> Exception {
+        serverSocket = <span class="hljs-keyword">new</span> ServerSocket(port);
+        executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * POOL_SIZE);<span class="hljs-comment">// 初始化线程池</span>
+        System.out.println(<span class="hljs-string">"waitting connet..."</span>);
+
+    }
+
+    <span class="hljs-javadoc">/**
+     *
+     * 接受连接
+     *
+     *<span class="hljs-javadoctag"> @author</span> sunjie at 2016年6月14日
+     *
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">service</span>() {
+        Socket socket = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) {
+            <span class="hljs-keyword">try</span> {
+                socket = serverSocket.accept();
+                executorService.execute(<span class="hljs-keyword">new</span> Handler(socket)); <span class="hljs-comment">// 使用连接池</span>
+                <span class="hljs-comment">// new Thread(new Handler(socket)).start();// 不使用连接池</span>
+            } <span class="hljs-keyword">catch</span> (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    <span class="hljs-javadoc">/**
+     *
+     * 线程类，负责维持与一个客户端的通信
+     *
+     *<span class="hljs-javadoctag"> @author</span> sunjie at 2016年6月14日
+     *
+     */</span>
+    class Handler implements Runnable {
+
+        <span class="hljs-keyword">private</span> Socket socket = <span class="hljs-keyword">null</span>;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-title">Handler</span>(Socket socket) {
+            <span class="hljs-keyword">this</span>.socket = socket;
+        }
+
+        <span class="hljs-annotation">@Override</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>() {
+            System.out.println(<span class="hljs-string">"new connection accepted:"</span> + socket.getInetAddress() + <span class="hljs-string">":"</span> + socket.getPort());
+            <span class="hljs-keyword">try</span> {
+                BufferedReader reader = <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> InputStreamReader(socket.getInputStream(), <span class="hljs-string">"UTF-8"</span>));
+                PrintWriter writer = <span class="hljs-keyword">new</span> PrintWriter(socket.getOutputStream());
+                String msg = <span class="hljs-keyword">null</span>;
+                <span class="hljs-keyword">while</span> ((msg = reader.readLine()) != <span class="hljs-keyword">null</span>) {
+                    System.out.println(<span class="hljs-string">"from "</span> + socket.getInetAddress() + <span class="hljs-string">":"</span> + socket.getPort() + <span class="hljs-string">", receive msg:"</span>
+                            + msg);
+                    writer.println(msg);
+                    writer.flush();
+                    <span class="hljs-keyword">if</span> (<span class="hljs-string">"close"</span>.equals(msg)) {
+                        <span class="hljs-keyword">break</span>;
+                    }
+                }
+            } <span class="hljs-keyword">catch</span> (IOException e) {
+                e.printStackTrace();
+            } <span class="hljs-keyword">finally</span> {
+                <span class="hljs-keyword">try</span> {
+                    <span class="hljs-keyword">if</span> (socket != <span class="hljs-keyword">null</span>) {
+                        socket.close();
+                    }
+                } <span class="hljs-keyword">catch</span> (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) <span class="hljs-keyword">throws</span> Exception {
+        <span class="hljs-keyword">new</span> SocketThreadPoolDemoServer().service();
+    }
+}</code></pre>
+<p>运行服务端代码后，程序会<font color="#ff0000">一直进行监听</font>，直到接收到客户端请求为止。结果如下：</p>
+<p>waitting connet…</p>
+<p><font color="#33ccff">客户端代码</font>（与单线程完全相同）：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> SocketDemoClient {
+
+    <span class="hljs-keyword">private</span> String host = <span class="hljs-string">"127.0.0.1"</span>;<span class="hljs-comment">// 要发送给服务端的ip</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> port = <span class="hljs-number">8000</span>;<span class="hljs-comment">// 要发送给服务端的端口</span>
+
+    <span class="hljs-keyword">private</span> Socket socket;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">SocketDemoClient</span>() throws Exception {
+        socket = <span class="hljs-keyword">new</span> Socket(host, port);<span class="hljs-comment">// 构造Socket客户端，并与连接服务端</span>
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">talk</span>() throws IOException {
+        <span class="hljs-keyword">try</span> {
+            BufferedReader reader = <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> InputStreamReader(socket.getInputStream(), <span class="hljs-string">"UTF-8"</span>));
+            PrintWriter writer = <span class="hljs-keyword">new</span> PrintWriter(socket.getOutputStream());
+            <span class="hljs-comment">// 读取本地控制台的消息</span>
+            BufferedReader localReader = <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> InputStreamReader(System.<span class="hljs-keyword">in</span>));
+            String msg = <span class="hljs-keyword">null</span>;
+            <span class="hljs-keyword">while</span> ((msg = localReader.readLine()) != <span class="hljs-keyword">null</span>) {
+                writer.println(msg);
+                writer.flush();
+                System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"send msg:"</span> + reader.readLine());
+                <span class="hljs-keyword">if</span> (<span class="hljs-string">"close"</span>.equals(msg)) {
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            e.printStackTrace();
+        } <span class="hljs-keyword">finally</span> {
+            <span class="hljs-keyword">if</span> (socket != <span class="hljs-keyword">null</span>) {
+                socket.close();
+            }
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws Exception {
+        <span class="hljs-keyword">new</span> SocketDemoClient().talk();
+    }
+}</code></pre>
+<p>由于我们要测试多个客户端连接同一个服务端，所以我们需要<font color="#ff0000">多次运行客户端代码</font>。这里我们运行两次之后（称为客户端1、客户端2），查看<font color="#ff0000">服务端的Console</font>，会出现以下结果，说明已经连接成功：</p>
+<p>waitting connet… <br>
+new connection accepted:/127.0.0.1:59593 <br>
+new connection accepted:/127.0.0.1:59596</br></br></p>
+<p>我们在去<font color="#ff0000">客户端1的Console</font>中输入我们要发送的消息”维护世界和平”，回车确定后，<font color="#ff0000">客户端1的Console</font>出现以下结果，消息已经发出：</p>
+<p>send msg:维护世界和平</p>
+<p>再去<font color="#ff0000">客户端2的Console</font>中输入”好好学习天天向上”，回车确定后，<font color="#ff0000">客户端2的Console</font>出现以下结果，消息已经发出：</p>
+<p>send msg:好好学习天天向上</p>
+<p>在服务端的Console中，我们会看到如下结果，说明两个客户端的<font color="#ff0000">消息已经被接受</font>：</p>
+<p>waitting connet… <br>
+new connection accepted:/127.0.0.1:59593 <br>
+new connection accepted:/127.0.0.1:59596 <br>
+from /127.0.0.1:59593, receive msg:维护世界和平 <br>
+from /127.0.0.1:59596, receive msg:好好学习天天向上</br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

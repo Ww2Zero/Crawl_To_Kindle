@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（017）_static有什么用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1static有什么用">1、static有什么用</h3>
+<p><font color="#ff0000">static</font>是java的关键字，用static声明达到<font color="#ff0000">静态</font>的目的。所谓静态，就是在程序<font color="#ff0000">编译后就能被使用，不需要创建任何实例</font>。static能够修饰<font color="#ff0000">类、方法、变量以及类代码块</font>，具体如下：</p>
+<p><strong><font color="#33ccff">static方法</font></strong> <br>
+被static声明的方法叫做<font color="#ff0000">静态方法</font>，不需要实例化对象通过<font color="#ff0000">类名</font>直接调用的方法，最常见的是main()。</br></p>
+<p>了解main方法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51626137">main方法是什么</a> <br>
+例如：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestStatic {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        TestStatic.testStatic();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testStatic</span>() {
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"my testStatic"</span>);
+    }
+}</code></pre>
+<p>运行结果如下：</p>
+<p>my testStatic</p>
+<p><strong><font color="#33ccff">static属性</font></strong> <br>
+被static声明的属性叫做<font color="#ff0000">静态属性（类变量）</font>，不需要实例化对象通过类名直接使用。</br></p>
+<p>了解实例变量、类变量看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50969733">局部变量、类变量、实例变量有什么区别</a> <br>
+例如：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestStatic {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        TestStatic.staticString = <span class="hljs-string">"staticString"</span>;
+        System.<span class="hljs-keyword">out</span>.println(TestStatic.staticString);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String staticString;
+}</code></pre>
+<p>运行结果如下：</p>
+<p>staticString</p>
+<p><strong><font color="#33ccff">static代码块</font></strong></p>
+<p>被static修饰的代码块在类加载时就会执行，例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestStatic {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+    }
+
+    <span class="hljs-keyword">static</span> {
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"my static code"</span>);
+    }
+}</code></pre>
+<p>运行结果如下：</p>
+<p>my static code</p>
+<p><strong><font color="#33ccff">staitc类</font></strong></p>
+<p>通常情况下，是不可以用static修饰类的。如果一定要用static修饰类的话，只能修饰<font color="#ff0000">内部类</font>。如果想在内部类中使用statitc属性或方法，需要使用<font color="#ff0000">static内部类</font>（普通内部类只能使用static final），例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestStatic {
+
+    <span class="hljs-keyword">static</span> class StaticA {
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String str = <span class="hljs-string">"my str"</span>;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getStr</span>() {
+            <span class="hljs-keyword">return</span> str;
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        System.<span class="hljs-keyword">out</span>.println(TestStatic.StaticA.getStr());
+    }
+}</code></pre>
+<p>运行结果如下：</p>
+<p>my str</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

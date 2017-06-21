@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（011）_jnlp文件是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jnlp文件是什么">1、jnlp文件是什么</h3>
+<p><font color="#ff0000">JNLP</font>（Java Network Launching Protocol ，java网络执行协议文件）是java提供的一种可以<font color="#ff0000">通过浏览器</font>直接执行java应用程序的途径，它使你可以直接通过一个网页上的<font color="#ff0000">url链接</font>打开一个java应用程序。</p>
+<p><font color="#ff0000">Java桌面应用程序</font>可以通过<font color="#ff0000">JNLP</font>的方式发布。如果版本升级后，不需要再向所有用户发布版本，只需要更新服务器的版本，这就相当于让java应用程序有了web应用的优点。如果你<font color="#ff0000">使用JNLP打包</font>一个应用程序，那么它能够：</p>
+<ul>
+<li>安装并且使用正确版本的<font color="#ff0000">JRE</font>（java运行时环境）。</li>
+<li>从<font color="#ff0000">浏览器或者桌面</font>加载应用程序。</li>
+<li>检测新版本，<font color="#ff0000">自动下载最新的版本</font>。</li>
+<li>为了加速启动速度，会在本机<font color="#ff0000">缓存应用程序需要的类</font>。</li>
+<li>在必要的情况下<font color="#ff0000">下载原始的库</font>。</li>
+<li>以安全的方式使用诸如文件系统这样的<font color="#ff0000">本机资源</font>。</li>
+<li>自动定位和加载<font color="#ff0000">外部依赖资源</font>。</li>
+</ul>
+<p>我们可以使用<font color="#ff0000">javaws命令</font>下载并运行jnlp文件中维护的java应用程序。了解javaws看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51757038">java、javaw、javaws有什么区别</a></p>
+<h3 id="2使用jnlp有什么好处">2、使用jnlp有什么好处</h3>
+<p>使用JNLP文件发布应用，具有以下优点:</p>
+<ul>
+<li>其他人<font color="#ff0000">不能改变你JNLP文件的内容</font>，例如：添加一个随机的库，或者改变应用程序的信息。</li>
+<li>允许在应用程序中使用任意的<font color="#ff0000">Java虚拟机（JVM）选项</font>和<font color="#ff0000">Java系统属性</font>。</li>
+<li>防止他人在HTML浏览器中直接引用你的<font color="#ff0000">applet JAR文件</font>。</li>
+</ul>
+<h3 id="3jnlp文件是什么样的">3、jnlp文件是什么样的</h3>
+<p>jnlp是一个<font color="#ff0000">标准的文件</font>， jnlp文件中描述了<font color="#ff0000">应用的url</font>、<font color="#ff0000">应用程序的基本信息</font>（应用名称、版本、供应商、应用icon等）、<font color="#ff0000">必要的系统环境</font>等。</p>
+<p>模版名称：<font color="#ff0000">JNLP-INF/APPLICATION_TEMPLATE.JNLP</font>。名称<font color="#ff0000">必须是大写</font>。模版内容如下：</p>
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">jnlp</span> <span class="hljs-attribute">codebase</span>=<span class="hljs-value">"*"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">information</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>SampleApp<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">vendor</span>&gt;</span>Sample Company<span class="hljs-tag">&lt;/<span class="hljs-title">vendor</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">icon</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"*"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">offline-allowed</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">information</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">resources</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">java</span> <span class="hljs-attribute">version</span>=<span class="hljs-value">"1.3+"</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">jar</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"SampleApp.jar"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">resources</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">application-desc</span> <span class="hljs-attribute">main-class</span>=<span class="hljs-value">"com.sample.SampleApp"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">jnlp</span>&gt;</span></code></pre></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

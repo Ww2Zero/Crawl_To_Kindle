@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（001）_如何用记事本编写Java程序            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px">
+<p><span style="font-family:SimSun"><br>
+</br></span></p>
+</h1>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">如何用记事本编写Java程序</span></h1>
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">在安装完Jdk之后，我们就想编写java程序，但是，有了Jdk之后就够了吗？就能够写我们的程序实现我们想要的功能吗？</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">答案是：<span style="color:#FF0000">当然！</span><br>
+<br>
+在<span style="color:#FF0000">远古时代</span>，那时候我们还没有集成好的开发软件，没有各种个样的IDE，我们只能靠着<span style="color:#FF0000">记事本</span>来一点一点码我们的代码，经历过那段时光的同学，但凡你敢说你能写代码，就会有各种牛逼企业请你去，风光无限啊。<br>
+回到正题，通过记事本写Java，首先你要有一个<span style="color:#FF0000">记事本</span>，这当然不是废话，windows自带的可以，linux的vim可以，mac的文本编辑可以，只要能打开文本文件、支持另存为的软件都可以。<br>
+<span style="color:#3366FF">1.</span>首先新建记事本，输入我们的<span style="color:#FF0000">代码</span>：<br>
+</br></br></br></br></br></span><pre class="java" code_snippet_id="1614355" name="code" snippet_file_name="blog_20160317_1_3641377">public class HelloWord {
+
+public static void main(String[] args) {
+System.out.println("Hello word");
+}
+}</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">将文本另存为<span style="color:#FF0000">.java</span>文件，<span style="color:#FF0000">HelloWord.java</span>。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF">2.</span>然后我们对它进行<span style="color:#FF0000">编译</span>和<span style="color:#FF0000">运行</span>：<br>
+首先，使用<span style="color:#FF0000">cmd/终端</span>进入该文本存放的目录。<br>
+然后，使用jdk提供的工具<span style="color:#FF0000">javac</span>编译代码，这个工具就是为了<span style="color:#FF0000">编译代码</span>存在的。<br>
+<span style="color:#FF0000">cmd/终端</span>中输入：<br>
+</br></br></br></br></span><pre class="plain" code_snippet_id="1614355" name="code" snippet_file_name="blog_20160317_2_5560987">javac HelloWord.java</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><img alt="" src="http://img.blog.csdn.net/20160317222602784?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+</br></img></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">等待完成后，会在同级目录生成同名的<span style="color:#FF0000">HelloWord.class</span>。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF">3.</span>最后，使用jdk提供的工具<span style="color:#FF0000">java</span>运行代码，被运行的类需要有<span style="color:#FF0000">main</span>方法才能通过java工具<span style="color:#FF0000">运行</span>。<br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#FF0000">cmd/终端</span>中输入（如果报错，请看：<a href="http://blog.csdn.net/ooppookid/article/details/50917811" target="_blank">为什么会报"错误: 找不到或无法加载主类 HelloWord.class"</a>）：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<pre class="plain" code_snippet_id="1614355" name="code" snippet_file_name="blog_20160317_3_370537">java HelloWord</pre>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"><img alt="" src="http://img.blog.csdn.net/20160317222609238?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+<br>
+查看运行结果，成功打印“<span style="color:#FF0000">Hello word</span>”，本文完结。<br>
+什么！！你告诉我这就完了？<span style="color:#FF0000">当然不是</span>，下面我们看一下<span style="color:#FF0000">jar包</span>的编译和运行。<a href="http://blog.csdn.net/ooppookid/article/details/50921672" target="_blank">不使用IDE如何打jar包</a><br>
+<br>
+</br></br></br></br></br></img></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span></span></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank"><br>
+</br></a></span></span></span></p>
+</div>]
+</body>
+</html>

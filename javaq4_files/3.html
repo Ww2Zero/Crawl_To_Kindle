@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（003）_如何抛出异常            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></span></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、如何抛出异常</span></h2>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">抛出异常使用<span style="color:#FF0000">throws/throw</span>关键字。了解异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948" target="_blank">什么是java中的异常</a><span class="gray"></span></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">想知道如何捕获异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51088832" target="_blank">如何捕获异常</a><br>
+</br></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、throws关键字是什么</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px; color:#FF0000">throws</span><span style="font-family:Microsoft YaHei; font-size:12px">用来<span style="color:#FF0000">声明</span>某一个<span style="color:#FF0000">方法</span>可能抛出的异常，这个异常可以是系统定义的，也可以是自己定义的。<br>
+调用throws修饰的方法，必须要对其做<span style="color:#FF0000">异常处理</span>，或者将异常<span style="color:#FF0000">声明抛出</span>（使用throws）。<br>
+语法：</br></br></span><br>
+<pre class="java" code_snippet_id="1639704" name="code" snippet_file_name="blog_20160408_1_4342592">import java.io.*;
+public class className
+{
+public void deposit(double amount) throws RemoteException
+{
+// Method implementation
+}
+//Remainder of class definition
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">一个方法可以声明它抛出<span style="color:#FF0000">多个异常</span>，在这种情况下，异常都是在以<span style="color:#FF0000">逗号</span>分割的形式声明的。<br>
+语法：</br></span><br>
+<pre class="java" code_snippet_id="1639704" name="code" snippet_file_name="blog_20160408_2_7821175">import java.io.*;
+public class className
+{
+public void withdraw(double amount) throws RemoteException,
+InsufficientFundsException
+{
+// Method implementation
+}
+//Remainder of class definition
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">例子：</span><br>
+<pre class="java" code_snippet_id="1639704" name="code" snippet_file_name="blog_20160408_3_4996493">import java.io.*;
+public class ExceptionTest{
+  public static void main(String args[]) throws IOException, NullPointerException{
+file = new FileInputStream(fileName);
+x = (byte) file.read();
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">Exception in thread "main" java.io.FileNotFoundException: /usr/test (No such file or directory)</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">at java.io.FileInputStream.open(Native Method)<br>
+异常被抛出，中断执行，并打印了<span style="color:#FF0000">堆栈信息</span>。<br>
+</br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">3、throw关键字是什么</span></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">使用throw关键字可以<span style="color:#FF0000">抛出</span>一个<span style="color:#FF0000">异常对象</span>。<br>
+另外，如果一个方法不处理异常，则该方法必须使用<span style="color:#FF0000">throws关键字</span>声明它。<br>
+</br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">语法：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<pre class="java" code_snippet_id="1639704" name="code" snippet_file_name="blog_20160408_4_5759861">import java.io.*;
+public class className
+{
+public void deposit(double amount) throws RemoteException
+{
+// Method implementation
+throw new RemoteException();
+}
+//Remainder of class definition
+}</pre>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">例子：</span><br>
+<pre class="java" code_snippet_id="1639704" name="code" snippet_file_name="blog_20160408_5_8442056">public class className
+{
+public void main(String[] args) throws Exception
+{
+throw new Exception("异常");
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+Exception in thread "main" java.lang.Exception: 异常<br>
+at com.test.Test.main(Test.java:37)<br>
+异常被抛出，并打印了堆栈信息。<br>
+</br></br></br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">4、throws/throw关键字有什么区别</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">throws是用来<span style="color:#FF0000">声明</span>一个方法可能抛出的所有异常信息。<br>
+</br></span>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">throw则是指<span style="color:#FF0000">抛出</span>的一个具体的<span style="color:#FF0000">异常对象</span>。<br>
+<br>
+</br></br></span>
+</br></br></br></br></div>]
+</body>
+</html>

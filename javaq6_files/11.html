@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（011）_java中的数组是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是数组">1、什么是数组</h3>
+<p>Java提供了一个用于存储<font color="#ff0000">相同类型的元素的</font>，<font color="#ff0000">固定大小的</font>连续集合数据结构：<font color="#ff0000">数组</font>。</p>
+<p>数组是用于存储数据的集合，储存<font color="#ff0000">相同类型</font>数据的集合。</p>
+<p>与单个变量相比（如number0, number1 … number99），数组变量需要使用<font color="#ff0000">下标索引</font>来确定数组中某个数据的顺序（如numbers[0], numbers<a href="http://blog.csdn.net/ooppookid/article/category/6134850">1</a> … numbers[99] ）。 <br>
+了解变量看这里：局部变量、类变量、实例变量有什么区别<a href="http://blog.csdn.net/ooppookid/article/details/50969733">2</a></br></p>
+<h3 id="2如何声明数组">2、如何声明数组</h3>
+<p>一个程序要使用数组，必须<font color="#ff0000">声明</font>一个变量来引用数组，而且需要指定数组变量的<font color="#ff0000">引用类型</font>。语法如下：</p>
+<pre class="prettyprint"><code class=" hljs scss">dataType<span class="hljs-attr_selector">[]</span> arrayRefVar;   <span class="hljs-comment">// preferred way.</span>
+
+dataType arrayRefVar<span class="hljs-attr_selector">[]</span>;  <span class="hljs-comment">//  works but not preferred way.</span></code></pre>
+<p>注：dataType[] arrayRefVar这种写法是首选的。dataType arrayRefVar[]这种写法来自于C/C++语言。</p>
+<p>数据中的数据类型可以是<font color="#ff0000">基本数据类型</font>、<font color="#ff0000">类类型</font>、<font color="#ff0000">自定义类类型</font>等。 <br>
+了解数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285471">java中数据类型是什么</a> <br>
+java基本数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a> <br>
+具体例子:</br></br></br></p>
+<pre class="prettyprint"><code class=" hljs scss"><span class="hljs-value">double</span><span class="hljs-attr_selector">[]</span> myList;
+<span class="hljs-value">double</span> myList<span class="hljs-attr_selector">[]</span>;
+
+MyClass<span class="hljs-attr_selector">[]</span> myList;
+MyClass myList<span class="hljs-attr_selector">[]</span>;</code></pre>
+<h3 id="3如何创建数组">3、如何创建数组</h3>
+<p>可以通过<font color="#ff0000">new关键字</font>创建一个数组，语法如下：</p>
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">arrayRefVar </span>=<span class="hljs-string"> new dataType[arraySize];</span></code></pre>
+<p>上面的语句做了两件事： <br>
+1. 创建了一个数组: <font color="#ff0000">new dataType[arraySize]</font>; <br>
+2. 将新创建的数组变量分配至<font color="#ff0000">arrayRefVar变量</font>。</br></br></p>
+<p>声明数组变量，建立数组，并分配变量可以在一个语句中被组合，如下所示：</p>
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">dataType[] arrayRefVar </span>=<span class="hljs-string"> new dataType[arraySize];</span></code></pre>
+<p>另外，可以直接通过<font color="#ff0000">数组的值</font>来创建数组，如下所示：</p>
+<pre class="prettyprint"><code class=" hljs r">dataType[] arrayRefVar = {value0, value1, <span class="hljs-keyword">...</span>, valuek};</code></pre>
+<p>这里的value0、value1对应的下标索引<font color="#ff0000">从0开始</font>顺序排列，第一个值对应0下标，第二个值对应1下标。</p>
+<h3 id="4如何访问数组">4、如何访问数组</h3>
+<p>数组元素通过<font color="#ff0000">下标索引(int类型)</font>访问。数组的下标索引是从0开始的。也就是说，它们从<font color="#ff0000">0</font>开始到<font color="#ff0000">arrayRefVar.length-1</font>。 <br>
+例子： <br>
+下面的语句声明一个数组变量myList，创建double类型10个元素的数组，并把它的引用到 myList ：</br></br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">double</span>[] myList = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[<span class="hljs-number">10</span>];</code></pre>
+<p>在这里，myList有10个double值，索引是从0到9。</p>
+<p>访问数组中某一个值，可以通过<font color="#ff0000">变量加下标索引</font>的方式，如下：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">double</span> a0 = myList[<span class="hljs-number">0</span>];
+
+<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">double</span> a2 = myList[i];</code></pre></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

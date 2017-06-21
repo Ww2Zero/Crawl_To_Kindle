@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（006）_java堆和栈有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1java堆和栈有什么区别">1、java堆和栈有什么区别</h3>
+<p>了解jvm内存管理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+在<font color="#ff0000">《jvm是如何管理内存的》</font>这篇文章中，已经对<font color="#ff0000">PC寄存器</font>（计数器 pc registers）、<font color="#ff0000">方法区</font>（method area）、<font color="#ff0000">本地方法栈</font>（native method stacks）、<font color="#ff0000">栈</font>（stacks）、<font color="#ff0000">堆</font>（heap）内存区域做了介绍，其中栈（stacks）、堆（heap）是java内存管理中非常重要的两个部分，具体区别如下：</br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160522114243924" title=""/></p>
+<h3 id="2基本数据类型储存在栈中吗">2、基本数据类型储存在栈中吗</h3>
+<p>基本数据类型由于<font color="#ff0000">长度固定</font>，且<font color="#ff0000">需要空间比较少</font>，所以直接存储在<font color="#ff0000">栈</font>中（<font color="#ff0000">String</font>是一个特殊的类型，它的值存储在堆中，但是通过池达到和栈类似的存取速度，具体看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474086">String在内存中如何存放</a>）。而对象比较大，所以栈中只存储一个<font color="#ff0000">4btye的引用地址</font>（逻辑地址）。</p>
+<p>实例:</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">int</span> a = <span class="hljs-number">3</span> ；
+<span class="hljs-keyword">int</span> b = <span class="hljs-number">3</span> ；</code></pre>
+<p>分析如下：</p>
+<ol>
+<li><p>编译器先处理int a = 3；首先它会在<font color="#ff0000">栈</font>中创建一个变量为a的<font color="#ff0000">引用</font>，然后查找栈中是否有3这个值，如果没找到，就将3存放进来，然后将a指向3。</p></li>
+<li><p>接着处理int b = 3；在创建完b的引用变量后，因为在栈中已经有3这个值，便将b直接指向3。这样，就出现了a与b<font color="#ff0000">同时均指向</font>3的情况。</p></li>
+<li><p>这时，如果再令a=4；那么编译器会重新搜索栈中是否有4值，如果没有，则将4存放进来，并令a指向4；如果已经有了，则直接将a指向它。因此a值的改变<font color="#ff0000">不会影响</font>到b的值。</p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

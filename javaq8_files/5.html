@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（005）_jdk服务集成类库都有什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jdk服务集成类库都有什么">1、jdk服务集成类库都有什么</h3>
+<p>了解java核心框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51589070">java核心框架是什么样的</a> <br>
+1. <strong><font color="#33ccff">数据库链接工具（Java Database Connectivity，JDBC）</font></strong> <br>
+JDBC API提供了使用java<font color="#ff0000">访问数据库</font>的通用接口，使用JDBC 3.0或以上，开发人员编写的应用程序可以访问<font color="#ff0000">几乎任何</font>数据源，从<font color="#ff0000">关系数据库</font>到<font color="#ff0000">电子表格</font>甚至<font color="#ff0000">文本文件</font>，JDBC技术还提供了很多通用的基础工具和备用接口。 <br>
+了解JDBC看这里：[JDBC是什么][3]</br></br></br></p>
+<ol>
+<li><p><strong><font color="#33ccff">远程方法调用（Remote Method Invocation，RMI）</font></strong> <br>
+远程方法调用能够提供<font color="#ff0000">分布式应用程序的开发</font>，提供了<font color="#ff0000">Java编写程序</font>之间的远程调用与通信。RMI允许运行在一个JVM上的对象调用运行在另一个JVM上对象的方法（两个JVM有可能是不同的主机）。 <br>
+了解RMI看这里：[RMI是什么][4]</br></br></p></li>
+<li><p><strong><font color="#33ccff">接口描述语言（Interface description language，IDL，CORBA)</font></strong> <br>
+IDL是<font color="#ff0000">CORBA</font>（Common Object Request Broker Architecture，通用对象请求代理体系结构）中的描述语言，提供标准的<font color="#ff0000">相互操作和连通规范</font>。使得在不同平台上运行的对象和用不同语言编写的程序可以相互通信交流。 <br>
+它使分布式、支持Web的Java应用可以基于<font color="#ff0000">IIOP协议</font> （Internet Inter-ORB Protocol，互联网内部对象请求代理协议）透明地调用远程服务。 <br>
+JavaIDL运行期组件包括一个兼容<font color="#ff0000">全对象请求代理Java ORB</font>（Object Request Broker，对象请求代管者），用于基于IIOP协议实现分布式对象之间的通信。 <br>
+了解IDL看这里： [IDL是什么][5] <br>
+了解CORBA看这里：[CORBA是什么][6] <br>
+了解IIOP协议看这里：[IIOP协议是什么][7]</br></br></br></br></br></br></p></li>
+<li><p><strong><font color="#33ccff">RMI-IIOP协议（RMI-IIOP）</font></strong> <br>
+<font color="#ff0000">RMI</font>以Java为核心，可与采用<font color="#ff0000">本机方法</font>与<font color="#ff0000">现有系统</font>相连接。RMI可采用<font color="#ff0000">自然、直接和功能全面的方式</font>为您提供分布式计算技术，而这种技术可帮助您以不断递增和无缝的方式为整个系统添加Java功能。 <br>
+<font color="#ff0000">IIOP，Internet Inter-ORB Protocol</font>(互联网内部对象请求代理协议)，它是一个用于CORBA 2.0及兼容平台上的协议。用来在<font color="#ff0000">CORBA对象请求代理</font>之间交流的协议。Java中使得程序可以和其他语言的CORBA实现实现互操作性的协议。 <br>
+RMI-IIOP出现以前，只有RMI和CORBA两种选择来进行分布式程序设计，二者之间不能协作。RMI-IIOP综合了RMI和CORBA的优点，克服了他们的缺点，使得程序员能更方便的编写分布式程序设计，实现<font color="#ff0000">分布式计算</font>。 <br>
+了解更多RMI-IIOP看这里：[RMI-IIOP是什么][8]</br></br></br></br></p></li>
+<li><p><strong><font color="#33ccff">Java脚本引擎（Scripting for the Java Platform）</font></strong> <br>
+Java脚本API由<font color="#ff0000">Java脚本引擎</font>的接口和类组成，提供Java应用程序中使用<font color="#ff0000">脚本框架</font>。此API允许在Java应用程序中执行<font color="#ff0000">使用脚本语言编写的程序</font>。脚本语言程序通常由应用程序的终端用户提供。 <br>
+了解javax.script包看这里：[javax.script包有什么用][9]</br></br></p></li>
+<li><p><strong><font color="#33ccff">Java命名系统接口（Java Naming and Directory Interface™，JNDI）</font></strong> <br>
+JNDI提供统一的客户端API，在Java编写的应用程序中提供了<font color="#ff0000">命名和目录</font>功能。它被设计成<font color="#ff0000">独立于</font>任何特定的命名或目录服务来实现，因此各种各样的服务：新的、已部署的都可以通过一致的方式来访问。JNDI架构由一个<font color="#ff0000">API和SPI</font>（服务提供者接口）实现，Java应用程序使用这个<font color="#ff0000">API</font>来访问各种各样的命名和目录服务，<font color="#ff0000">SPI</font>使各种各样的命名和目录服务接入，允许Java应用程序使用JNDI API来访问他们的服务。主要功能在<font color="#ff0000">javax.naming包</font>中。 <br>
+了解javax.naming包看这里：[javax.naming包有什么用][10]</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

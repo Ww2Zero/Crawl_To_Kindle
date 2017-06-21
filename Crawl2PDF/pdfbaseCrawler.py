@@ -97,6 +97,7 @@ class Crawler(object):
         os.chdir(self.path)
         print(os.getcwd())
         pdfkit.from_file(shtmls, self.pdfname, options=OPTIONS)
+        os.chdir("..")
 
     def run(self):
         '''

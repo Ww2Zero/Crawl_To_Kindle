@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（019）_Arrays类有什么功能            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1arrays类有什么功能">1、Arrays类有什么功能</h3>
+<p><font color="#ff0000">java.util.Arrays</font>中的类包含了很多静态方法，用于<font color="#ff0000">排序数组</font>、<font color="#ff0000">搜索数组</font>、<font color="#ff0000">比较数组</font>和<font color="#ff0000">填充数组元素</font>等功能。</p>
+<p>了解一维数组看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51340241">java中的数组是什么</a></p>
+<p>常见方法如下：</p>
+<ol>
+<li><p>public static int binarySearch(Object[] a, Object key) <br>
+使用<font color="#ff0000">二分法</font>搜索数组中<font color="#ff0000">指定值的位置</font>（下标）。如果数组类型非基本数据类型，则需要类实现<font color="#ff0000">Comparable接口</font>中的<font color="#ff0000">compareTo方法</font>。</br></p></li>
+<li><p>public static boolean equals(long[] a, long[] a2) <br>
+<font color="#ff0000">比较两个数组是否相等</font>。如果两个指定数组相等返回true。默认两个数组相等的判定方法：</br></p>
+<ul><li>两个数组包含<font color="#ff0000">相同的元素数目</font>，并在两个数组所有元素对应<font color="#ff0000">相等</font>。</li>
+<li>同样的方法可以用于所有其它<font color="#ff0000">所有的数据类型</font>（byte, short, int等等）</li></ul></li>
+<li><p>public static void fill(int[] a, int val) <br>
+将数组种所有元素都<font color="#ff0000">填充为指定的int值</font>。同样的方法可以用于所有其它的原始数据类型（byte, short, int等等）。 <br>
+还有一个指定填充位置的方法：public static void fill(byte[] a, int fromIndex, int toIndex, byte val)，可以<font color="#ff0000">指定某些元素</font>进行填充。</br></br></p></li>
+</ol>
+<p>4.public static String toString(Object[] a) <br>
+将每个元素的值按顺序<font color="#ff0000">拼装为一个String类型的字符串</font>，同样的方法可以用于所有其它的数据类型（byte, short, int等等）</br></p>
+<ol>
+<li>public static void sort(Object[] a) <br>
+根据其元素的自然顺序，按<font color="#ff0000">升序排序</font>指定的数组，同样的方法可以用于所有其它的数据类型（byte, short, int等等）</br></li>
+</ol>
+<h3 id="2arrays如何使用">2、Arrays如何使用</h3>
+<p>下面通过实例展示：binarySearch、copyOf、copyOfRange、equals、fill、sort、toString等方法。如下：</p>
+<pre class="prettyprint"><code class=" hljs cs">import java.util.Arrays;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArrays {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        <span class="hljs-keyword">int</span>[] a = {<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>};
+        <span class="hljs-keyword">int</span>[] b = {<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>};
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"a和b是否相等："</span> + Arrays.equals(a, b));<span class="hljs-comment">//true</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"5在a中的位置："</span> + Arrays.binarySearch(a, <span class="hljs-number">5</span>));<span class="hljs-comment">//2</span>
+        <span class="hljs-keyword">int</span>[] c = Arrays.copyOf(a, <span class="hljs-number">6</span>);
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"a和c是否相等："</span> + Arrays.equals(a, c));<span class="hljs-comment">//false</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"c的元素："</span> + Arrays.toString(c));<span class="hljs-comment">//3,4,5,6,0,0</span>
+        Arrays.fill(c, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);<span class="hljs-comment">//将c中第3个到第5个元素(不包含)赋值为1</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"c的元素："</span> + Arrays.toString(c));<span class="hljs-comment">//3,4,1,1,0,0</span>
+        Arrays.sort(c);
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"c的元素："</span> + Arrays.toString(c));<span class="hljs-comment">//0,0,1,1,3,4</span>
+    }
+}</code></pre>
+<p>执行结果如下： <br>
+a和b是否相等：true <br>
+5在a中的位置：2 <br>
+a和c是否相等：false <br>
+c的元素：[3, 4, 5, 6, 0, 0] <br>
+c的元素：[3, 4, 1, 1, 0, 0] <br>
+c的元素：[0, 0, 1, 1, 3, 4]</br></br></br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

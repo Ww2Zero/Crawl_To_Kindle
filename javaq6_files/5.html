@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（005）_数值中为什么会出现下划线            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1数值中为什么会出现下划线">1、数值中为什么会出现下划线</h3>
+<p>这是Jdk 7之后的一个特性。 <br>
+从Jdk 7开始，可以在数值型字面值（包括整型字面值和浮点字面值）插入一个或者多个<font color="#ff0000">下划线</font>。例如：</br></p>
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">int x </span>=<span class="hljs-string"> 123_456_789;</span></code></pre>
+<p>在编译的时候，下划线会<font color="#ff0000">自动去掉</font>。但是下划线只能用于分隔数字，不能分隔字符与字符，也不能分隔字符与数字。</p>
+<p>可以连续使用下划线，例如：</p>
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">float f </span>=<span class="hljs-string"> 1.22___33__44;</span></code></pre>
+<p>二进制或者十六进制的字面值也可以使用下划线。 <br>
+记住一点，下划线只能用于<font color="#ff0000">数字与数字之间</font>，初次以外都是非法的。例如：1._23是非法的，_123、11000_L也都是非法的。</br></p>
+<p>了解java8种基本数据类型：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（002）_java如何捕获异常            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></span></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、如何捕获异常</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">了解什么是异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948" target="_blank">什么是java中的异常</a></span><br>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">捕获的方法是使用<span style="color:#FF0000">try/catch</span>关键字。将可能产生异常，并且需要捕获的代码块使用<span style="color:#FF0000">try/catch围绕</span>，如果产生了异常即可捕获到，将直接中断try代码块，同时执行catch代码块。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">try/catch中的代码被称为<span style="color:#FF0000">受保护的代码</span>（Protected code）。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">try/catch语法：<br>
+</br></span><pre class="java" code_snippet_id="1638232" name="code" snippet_file_name="blog_20160407_1_6095708">try
+{
+//Protected code
+}catch(ExceptionName e1)
+{
+//Catch block
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">如果受保护的代码发生了异常，该异常的数据类型与ExceptionName<span style="color:#FF0000">匹配</span>，则异常会被作为catch代码块的<span style="color:#FF0000">参数</span>传递到catch代码块中，并执行catch代码块。<br>
+例子：</br></span><br>
+<pre class="java" code_snippet_id="1638232" name="code" snippet_file_name="blog_20160407_2_8669219">import java.io.*;
+public class ExceptionTest{
+
+public static void main(String args[]){
+try{
+int a[] = new int[2];
+System.out.println("Access element three :" + a[3]);//数组只有2个元素，访问第三个时会发生ArrayIndexOutOfBoundsException异常
+}catch(ArrayIndexOutOfBoundsException e){
+System.out.println("Exception thrown :" + e);
+}
+System.out.println("Out of the block");
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+Exception thrown :java.lang.ArrayIndexOutOfBoundsException: 3<br>
+Out of the block</br></br></span><br>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、如何使用多个catch</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">一个try后面可以跟任意多个catch。<br>
+</br></span><span style="font-family:Microsoft YaHei; font-size:12px">语法：<br>
+</br></span><pre class="java" code_snippet_id="1638232" name="code" snippet_file_name="blog_20160407_3_6891313">try
+{
+//Protected code
+}catch(ExceptionType1 e1)
+{
+//Catch block
+}catch(ExceptionType2 e2)
+{
+//Catch block
+}catch(ExceptionType3 e3)
+{
+//Catch block
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">如果受保护的代码发生了异常，该异常被抛出到<span style="color:#FF0000">第一个catch块</span>。如果异常的数据类型与ExceptionType1<span style="color:#FF0000">匹配</span>，它就会被第一个catch捕获。如果不是，则该异常传递到<span style="color:#FF0000">第二个</span>catch语句。以此类推，直到异常被捕获或全未匹配。若全未捕获，则终止执行，并将异常抛至调用堆栈中。<br>
+例子：</br></span><br>
+<pre class="java" code_snippet_id="1638232" name="code" snippet_file_name="blog_20160407_4_5113406">import java.io.*;
+public class ExceptionTest{
+  public static void main(String args[]){
+        try {
+            FileInputStream file = new FileInputStream("/usr/test");
+            byte x = (byte) file.read();
+        } catch (IOException i) {
+            System.out.println("IOException thrown  :" + i);
+        } catch (NullPointerException f) {
+            System.out.println("NullPointerException thrown  :" + f);
+        }
+        System.out.println("catch");
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+IOException thrown :java.io.FileNotFoundException: /usr/test (No such file or directory)<br>
+catch<br>
+</br></br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">如何将异常抛出看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51100373" target="_blank">如何抛出异常</a></span></p>
+<br>
+</br></br></br></br></br></div>]
+</body>
+</html>

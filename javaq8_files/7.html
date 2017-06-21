@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（007）_javac是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1javac是什么">1、javac是什么</h3>
+<p>javac即<font color="#ff0000">Java编程语言编译器</font>，位于<font color="#ff0000">jdk/bin</font>目录下，读取使用Java编程语言编写的<font color="#ff0000">源文件</font>（.java），并编译成<font color="#ff0000">字节码类文件</font>（.class）。编译器会一并编译源代码中的<font color="#ff0000">注解</font>（annotations），但是会<font color="#ff0000">移除注释</font>。</p>
+<p>了解注解注释看这里：[注解、注释有什么区别][2]</p>
+<p>javac还可以<font color="#ff0000">隐式编译</font>一些<font color="#ff0000">没有在命令行中提及的</font>源文件。当编译源文件时，编译器常常需要它还<font color="#ff0000">没有识别出的类型</font>的有关信息。对于源文件中使用、扩展或实现的每个类或接口，编译器都需要其<font color="#ff0000">类型信息</font>。这包括在源文件中没有明确提及、但通过<font color="#ff0000">继承</font>提供信息的类和接口。</p>
+<p>了解继承看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51193477">java类的继承有什么意义</a></p>
+<h3 id="2javac如何使用">2、javac如何使用</h3>
+<p>javac工具可以再<font color="#ff0000">安装了jdk的操作系统</font>中执行。了解如何安装jdk看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50908233">如何安装和配置Jdk </a> <br>
+打开操作系统的命令终端，输入相应的命令行，就能够使用<font color="#ff0000">javac</font>，具体语法如下：</br></p>
+<p>javac [ options ] [ sourcefiles ] [ @files ]</p>
+<p>其中，参数可<font color="#ff0000">按任意次序</font>排列。参数说明如下：</p>
+<p><strong><font color="#33ccff">options</font></strong> <br>
+命令行选项，直接执行<font color="#ff0000">javac</font>或者<font color="#ff0000">javac -help</font>会显示所有options操作，主要有：</br></p>
+<ol>
+<li><p><font color="#33ccff">-classpath</font> <br>
+<font color="#ff0000">类路径</font>，设置用户类的路径，它会覆盖<font color="#ff0000">CLASSPATH环境变量</font>中的用户类路径。若既未指定CLASSPATH又未指定-classpath，则用户类路径由<font color="#ff0000">当前目录</font>构成。多个路径项用<font color="#ff0000">分号”;”</font>进行分隔。</br></p></li>
+<li><p><font color="#33ccff">-sourcepath</font> <br>
+<font color="#ff0000">源路径</font>，指定用来<font color="#ff0000">查找类、接口定义</font>的源代码路径。它们可以是<font color="#ff0000">目录、jar或zip</font>。要注意的是通过类路径查找，如果找到了其源文件，则会自动被重新编译。与用户类路径一样，多个源路径项用<font color="#ff0000">分号”;”</font>进行分隔。 <br>
+如果使用包，那么目录或归档文件中的本地路径名<font color="#ff0000">必须反映包名</font>。例如要引入package是com.test的源文件（com在src文件夹中），则需要指定com上一级目录： <br>
+javac -sourcepath src Test.java</br></br></br></p></li>
+<li><p><font color="#33ccff">-d</font> <br>
+指定<font color="#ff0000">存放生成的类文件的位置</font>，若不指定，则类文件会放在<font color="#ff0000">源文件目录</font>。需要指定已有的目录，<font color="#ff0000">不能自动创建文件夹</font>。</br></p></li>
+<li><p><font color="#33ccff">-encoding</font> <br>
+设置<font color="#ff0000">源文件编码</font>，例如utf-8。若未指定-encoding选项，则使用<font color="#ff0000">平台缺省的编码</font>。</br></p></li>
+<li><p><font color="#33ccff">-g</font> <br>
+<font color="#ff0000">生成所有</font>的调试信息，包括局部变量。缺省情况下，只生成行号和源文件信息。</br></p></li>
+<li><p><font color="#33ccff">-g:none</font> <br>
+<font color="#ff0000">不生成</font>任何调试信息。</br></p></li>
+<li><p><font color="#33ccff">-verbose</font> <br>
+输出有关编译器正在执行的<font color="#ff0000">操作的消息</font>。它包括了每个所加载的类和每个所编译的源文件的有关信息。</br></p></li>
+<li><p><font color="#33ccff">-version</font> <br>
+打印javac<font color="#ff0000">版本信息</font>，该版本即jdk的版本。</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">sourcefiles、@files</font></strong> <br>
+<font color="#ff0000">一个或多个</font>要编译的源文件。</br></p>
+<ul>
+<li><p>编译一个文件，直接写<font color="#ff0000">源文件名</font>，例如： <br>
+执行：<font color="#ff0000">javac Test.java</font>，生成编译文件Test.class。</br></p></li>
+<li><p>编译多个文件，需要创建一个<font color="#ff0000">新文件</font>（没有后缀名），写入需要编译的源文件，然后加上<font color="#ff0000">前缀@</font>。例如： <br>
+新文件：javaList，其内容： <br>
+Test1.java <br>
+Test2.java <br>
+Test3.java <br>
+执行：<font color="#ff0000">javac @javaList</font>，生成编译文件Test1.class、Test2.class、Test3.class。</br></br></br></br></br></p></li>
+</ul>
+<h3 id="3如何通过代码执行javac">3、如何通过代码执行javac</h3>
+<p>对于javac，我们不但可以在操作系统中直接执行，它也提供了若干<font color="#ff0000">API</font>，可以使用这些API通过编写代码来完成编译。</p>
+<p>具体看这里：[如何使用javacAPI通过代码编译源文件][5]</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

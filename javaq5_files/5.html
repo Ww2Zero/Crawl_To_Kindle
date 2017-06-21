@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（005）_接口和抽象类有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1接口和抽象类有什么区别">1、接口和抽象类有什么区别</h3>
+<p>在Java语言中，抽象类abstract class和接口interface是<font color="#ff0000">抽象定义</font>的两种机制。</p>
+<p>正是由于这两种机制的存在，才赋予了Java强大的面向对象能力。抽象类abstract class和接口interface在对于抽象定义方面具有很大的相似性，甚至可以<font color="#ff0000">相互替换</font>。因此很多开发者在进行抽象定义时对二者的选择显得比较随意。其实，两者之间还是有<font color="#ff0000">很大的区别</font>，对于它们的选择能反映出对问题本质的理解、对设计意图的理解。</p>
+<p>了解抽象类看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51170063">java中抽象概念如何体现的</a> <br>
+了解接口看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51172263">java中接口到底是什么</a> <br>
+了解更多继承看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51174122">java类的继承有什么意义 </a></br></br></p>
+<p>具体如下： <br>
+<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160417142203508" title=""> <br>
+了解is-a,has-a,like-a关系看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51174122">is-a，has-a，like-a是什么</a></br></img></br></p>
+<h3 id="2interface应用在什么场合">2、interface应用在什么场合</h3>
+<ol>
+<li>类与类之间需要特定的接口进行协调，而不在乎其如何实现。</li>
+<li>作为能够实现特定功能的<font color="#ff0000">标识</font>存在，也可以是什么接口方法都没有的纯粹标识。如序列化接口：Serializable</li>
+<li>需要将一组类视为单一的类，而调用者只通过接口来与这组类发生联系。</li>
+<li>需要实现特定的<font color="#ff0000">多项功能</font>，而这些功能之间可能完全没有任何联系。</li>
+</ol>
+<h3 id="3abstract-class应用在什么场合">3、abstract class应用在什么场合</h3>
+<ol>
+<li>定义了一组接口，但又<font color="#ff0000">不想强迫</font>每个实现类都必须实现所有的接口。可以用abstract class定义一组方法体，甚至可以是空方法体，然后由子类选择自己所感兴趣的方法来覆盖。</li>
+<li>某些场合下，只靠纯粹的接口不能满足类与类之间的协调，还必需类中表示状态的<font color="#ff0000">属性</font>来区别不同的关系。</li>
+<li>规范了一组相互协调的方法，其中一些方法是共同的，与状态无关的，可以共享的，无需子类分别实现；而另一些方法却需要各个子类根据自己<font color="#ff0000">特定的状态</font>来实现特定的功能。</li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

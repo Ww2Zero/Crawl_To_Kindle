@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（002）_package和import作用是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1java中package是什么">1、java中package是什么</h3>
+<p>即<font color="#ff0000">包</font>。简单地说，它是分类class(类)与interface(接口)的方式。 <br>
+在Java开发中，将会写数以百计的类和接口，因此，对它们分类是必须的。 <br>
+了解更多类看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51161448">类、对象到底有什么秘密</a> <br>
+了解更多接口看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51173179">接口和抽象类有什么区别</a></br></br></br></p>
+<h3 id="2java中import有什么用">2、java中import有什么用</h3>
+<p>在java中，编译器是根据<font color="#ff0000">包名+类名</font>找到类的，而import语句是告诉编译器找到指定的类。 <br>
+例如，要求编译器来加载所有目录中java安装/java/io可用的类：</br></p>
+<pre class="prettyprint"><code class=" hljs actionscript"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.*;</span></code></pre>
+<h3 id="3源文件中如何声明的规则">3、源文件中如何声明的规则</h3>
+<p>在源文件中，声明类、声明包和写import语句时，有些规则是必不可少的。</p>
+<ol>
+<li>在每一个源文件中只能有<font color="#ff0000">一个public类</font>。</li>
+<li>源文件可以有<font color="#ff0000">多个非public类</font>。</li>
+<li>public类名应该是源文件，以及应当以.java扩展名结尾。例如：类名是- public class Employee{}将源文件应为Employee.java。</li>
+<li>如果类在包中定义，那么package语句应该是源文件中的<font color="#ff0000">第一条语句</font>。</li>
+<li>如果import语句都存在，那么它们必须写package语句和类声明之间。如果没有包（package）语句，那么import语句应该是源文件中的第一行。</li>
+<li>import和package语句是针对源文件中的<font color="#ff0000">所有类</font>。不同的import或package语句不能在同一个源文件中。</li>
+<li>类有<font color="#ff0000">四个访问级别</font>，且有不同的类型，如抽象类，final类等（使用修饰符表示）。java修饰符看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50983158">public、privite、protected有什么区别</a></li>
+<li>除了上述类型的类，java中还有内部类、匿名类等。</li>
+</ol>
+<h3 id="4java源文件如何编写">4、java源文件如何编写</h3>
+<p>首先打开记事本，创建两个类：Employee和EmployeeTest，保存为名称为Employee.java、EmployeeTest.java，这就是<font color="#ff0000">java源文件</font>。 <br>
+这里Employee类和EmployeeTest类是<font color="#ff0000">公共类</font>。 <br>
+其中，Employee类有一个明确的构造函数，它接受一个参数。且有四个实例变量的名字，年龄，名称和工资。</br></br></p>
+<pre class="prettyprint"><code class=" hljs cs">import java.io.*;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Employee{
+   String name;
+   <span class="hljs-keyword">int</span> age;
+   String designation;
+   <span class="hljs-keyword">double</span> salary;
+
+   <span class="hljs-comment">// This is the constructor of the class Employee</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Employee</span>(String name){
+      <span class="hljs-keyword">this</span>.name = name;
+   }
+   <span class="hljs-comment">// Assign the age of the Employee  to the variable age.</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">empAge</span>(<span class="hljs-keyword">int</span> empAge){
+      age =  empAge;
+   }
+   <span class="hljs-comment">/* Assign the designation to the variable designation.*/</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">empDesignation</span>(String empDesig){
+      designation = empDesig;
+   }
+   <span class="hljs-comment">/* Assign the salary to the variable        salary.*/</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">empSalary</span>(<span class="hljs-keyword">double</span> empSalary){
+      salary = empSalary;
+   }
+   <span class="hljs-comment">/* Print the Employee details */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">printEmployee</span>(){
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Name:"</span>+ name );
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Age:"</span> + age );
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Designation:"</span> + designation );
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Salary:"</span> + salary);
+   }
+}</code></pre>
+<p>下面给出的是EmployeeTest类，它创建了Employee类的两个实例对象，并调用方法为每个对象中的属性赋值。 <br>
+其中有一个特殊方法：<font color="#ff0000">main方法</font>。运行类实际上是执行该类的main方法（没有main方法的类不能运行）。</br></p>
+<pre class="prettyprint"><code class=" hljs cs">import java.io.*;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> EmployeeTest{
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      <span class="hljs-comment">/* Create two objects using constructor */</span>
+      Employee empOne = <span class="hljs-keyword">new</span> Employee(<span class="hljs-string">"James Smith"</span>);
+      Employee empTwo = <span class="hljs-keyword">new</span> Employee(<span class="hljs-string">"Mary Anne"</span>);
+
+      <span class="hljs-comment">// Invoking methods for each object created</span>
+      empOne.empAge(<span class="hljs-number">26</span>);
+      empOne.empDesignation(<span class="hljs-string">"Senior Software Engineer"</span>);
+      empOne.empSalary(<span class="hljs-number">1000</span>);
+      empOne.printEmployee();
+
+      empTwo.empAge(<span class="hljs-number">21</span>);
+      empTwo.empDesignation(<span class="hljs-string">"Software Engineer"</span>);
+      empTwo.empSalary(<span class="hljs-number">500</span>);
+      empTwo.printEmployee();
+   }
+}</code></pre>
+<p>现在，编译这两个类，然后运行EmployeeTest（如何编译看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50917697">如何用记事本编写Java程序</a>）： <br>
+C :&gt; javac Employee.java <br>
+C :&gt; vi EmployeeTest.java <br>
+C :&gt; javac  EmployeeTest.java <br>
+C :&gt; java EmployeeTest</br></br></br></br></p>
+<p>执行结果如下： <br>
+Name:James Smith <br>
+Age:26 <br>
+Designation:Senior Software Engineer <br>
+Salary:1000.0 <br>
+Name:Mary Anne <br>
+Age:21 <br>
+Designation:Software Engineer <br>
+Salary:500.0</br></br></br></br></br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

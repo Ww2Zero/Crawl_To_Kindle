@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（005）_Mac环境下无法打开eclipse怎么办            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px">
+<p><span style="font-family:SimSun"><br>
+</br></span></p>
+</h1>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">Mac环境下无法打开eclipse怎么办</span></h1>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF"><span style="color:#000000">有很大的可能是eclipse（什么是Eclipse：<a href="http://blog.csdn.net/ooppookid/article/details/50944710" target="_blank">java开发应该使用什么工具</a>）没有指定jdk版本（如何安装Jdk：<a href="http://blog.csdn.net/ooppookid/article/details/50908233" target="_blank">如何安装和配置Jdk</a>）路径，启动时候加载不到jdk导致的闪退。废话不多说，直接说解决办法。</span><br>
+</br></span></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF">1、</span>打开<span style="color:#FF0000">$ECLIPSE_HOME/Eclipse.app/Contents/MacOS/eclipse.ini</span>文件：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">在Finder中右键或者Ctrl+点击Eclipse应用程序，然后点击"<span style="color:#FF0000">显示包内容</span>"，进入目录Contents/MacOS/即可找到。<br>
+<span style="color:#3366FF">2、</span>通过<span style="color:#FF0000">ls-ltr/Library/Java/JavaVirtualMachines/</span>列出已经安装好的各个JDK版本的路径，然后在<span style="color:#FF0000">eclipse.ini文件</span>中指定之，比如：<br>
+</br></br></span><pre class="plain" code_snippet_id="1620562" name="code" snippet_file_name="blog_20160323_1_3325853">-vm
+/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/bin/java</pre><span style="font-family:Microsoft YaHei; font-size:12px">系统默认则是：</span><br>
+<pre class="plain" code_snippet_id="1620562" name="code" snippet_file_name="blog_20160323_2_2563268">/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java</pre>
+<p><br>
+</br></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF">附带给出</span>查询JAVA_HOME指向的查询方法，如下：</span><br>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<pre class="plain" code_snippet_id="1620562" name="code" snippet_file_name="blog_20160323_3_4308154">/usr/libexec/java_home -V</pre>
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">可以查看所有的<span style="color:#FF0000">JAVA_HOME指向</span>哪：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"></span><pre class="plain" code_snippet_id="1620562" name="code" snippet_file_name="blog_20160323_4_5529653">Matching Java Virtual Machines (4):
+1.8.0_40, x86_64: "Java SE 8" /Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
+1.7.0_79, x86_64: "Java SE 7" /Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
+1.6.0_65-b14-468, x86_64: "Java SE 6" /Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+1.6.0_65-b14-468, i386: "Java SE 6" /Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home</pre><img alt="" src="http://img.blog.csdn.net/20160323113646447?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+<br>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#FF0000">显示文件信息</span>，如下:</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<pre class="plain" code_snippet_id="1620562" name="code" snippet_file_name="blog_20160323_5_829571">ls -ltr /usr/libexec/java_home</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">结果：</span><br>
+</br></p>
+<p></p>
+<pre class="plain" code_snippet_id="1620562" name="code" snippet_file_name="blog_20160323_6_9750558">lrwxr-xr-x 1 root wheel 79 12 30 10:36 /usr/libexec/java_home -&gt; /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java_home</pre><img alt="" src="http://img.blog.csdn.net/20160323113650064?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+<p><br>
+</br></p>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+<br>
+</br></br></span></div>
+<p></p>
+</br></img></br></br></img></br></br></div>]
+</body>
+</html>

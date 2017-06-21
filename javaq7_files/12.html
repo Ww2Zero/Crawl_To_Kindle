@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（012）_fullGC、minorGC、magorGC有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1fullgcminorgcmajorgc有什么区别">1、fullGC、minorGC、majorGC有什么区别</h3>
+<p>fullGC、minorGC、majorGC还有youngGC是<font color="#ff0000">Java垃圾处理机制（GC）</font>的名词，区分这几个概念非常简单：</p>
+<ol>
+<li><p><font color="#ff0000">老生代</font>进行一次垃圾清理，被称为fullGC或者majorGC。</p></li>
+<li><p><font color="#ff0000">新生代</font>进行一次垃圾清理，被称为youngGC或者minorGC。</p></li>
+</ol>
+<p>了解java垃圾回收机制看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a></p>
+<p>解释完毕，不过要提一下的是，我们在JVM优化过程中的一个原则就是：</p>
+<p><font color="#ff0000">降低youngGC的频率</font>、<font color="#ff0000">减少fullGC的次数</font>。</p>
+<p>了解JVM优化看这里：[java内存如何优化][3] <br>
+[3]:</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

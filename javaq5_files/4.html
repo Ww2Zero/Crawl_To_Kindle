@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（004）_java接口到底是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是接口">1、什么是接口</h3>
+<p>接口（interface）不是一个类，它是<font color="#ff0000">抽象方法</font>的集合。一个类实现一个接口，从而继承和实现接口的抽象方法。 <br>
+抽象方法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51170063">java中抽象概念如何体现的</a></br></p>
+<p>接口的特点如下，先看与类类似的特点：</p>
+<ol>
+<li>接口的写法和写一个类类似，但它们是两个不同的概念。类描述对象的属性和行为。接口仅仅<font color="#ff0000">定义</font>了事物的行为，且不会具体化这个行为。</li>
+<li>除非实现接口的是抽象类，不然接口中的所有方法必须在类（实现这个接口的类）中<font color="#ff0000">定义且实现</font>。</li>
+<li>接口同类一样，可以包含<font color="#ff0000">任何数量</font>的方法。</li>
+<li>接口同类一样，被写在同一个<font color="#ff0000">.java</font>扩展名的源文件中，文件名与接口名称一致。</li>
+<li>接口同类一样，会被编译为一个<font color="#ff0000">.class</font>文件。</li>
+<li>同类一样，需要指定<font color="#ff0000">包（package）</font>，来表明接口所在的目录结构。了解更多package看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51168134">package和import作用是什么</a></li>
+</ol>
+<hr>
+<p>与类不同的几个方面：</p>
+<ol>
+<li>接口<font color="#ff0000">不能被实例化</font>。</li>
+<li>接口<font color="#ff0000">不包含</font>任何构造函数。</li>
+<li>接口中的所有方法都是抽象的。</li>
+<li>接口<font color="#ff0000">不包含</font>实例字段。但可以定义常量，使用static和final关键字。 <br>
+了解常量看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50969733">局部变量、类变量、实例变量有什么区别</a></br></li>
+<li>类通过<font color="#ff0000">实现接口</font>重写接口的方法，而不是继承。</li>
+<li>接口可以继承另一个接口。</li>
+</ol>
+<h3 id="2如何编写一个接口">2、如何编写一个接口</h3>
+<p>使用<font color="#ff0000">interface关键字</font>声明一个接口。 <br>
+例子：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">/* File name : NameOfInterface.java */</span>
+import java.lang.*;
+<span class="hljs-comment">//Any number of import statements</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> NameOfInterface
+{
+   <span class="hljs-comment">//Any number of final, static fields</span>
+   <span class="hljs-comment">//Any number of abstract method declarations</span>
+}</code></pre>
+<p>编写接口需要注意：</p>
+<ol>
+<li>接口是隐式抽象的。声明一个接口，不需要使用<font color="#ff0000">abstract关键字</font>。</li>
+<li>接口中的每个方法也隐式抽象的。方法也不需要<font color="#ff0000">abstract关键字</font>。</li>
+<li>接口中的方法是隐式公开的，即<font color="#ff0000">public</font>。</li>
+</ol>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">/* File name : Animal.java */</span>
+<span class="hljs-keyword">interface</span> Animal {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eat</span>();
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">travel</span>();
+}</code></pre>
+<h3 id="3如何实现一个接口">3、如何实现一个接口</h3>
+<p>当一个类实现一个接口，可以认为该类同意接受接口定义的行为。如果一个类不实现该接口的所有行为，该类必须自己声明为abstract。 <br>
+类使用<font color="#ff0000">implements关键字</font>来实现一个接口。如下：</br></p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-comment">/* File name : MammalInt.java */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MammalInt</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Animal</span>{</span>
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eat</span>(){
+      System.out.println(<span class="hljs-string">"Mammal eats"</span>);
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">travel</span>(){
+      System.out.println(<span class="hljs-string">"Mammal travels"</span>);
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">noOfLegs</span>(){
+      <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      MammalInt m = <span class="hljs-keyword">new</span> MammalInt();
+      m.eat();
+      m.travel();
+   }
+}</code></pre>
+<p>这将产生以下结果: <br>
+Mammal eats <br>
+Mammal travels</br></br></p>
+<p>重写接口中的方法有几个规则：</p>
+<ol>
+<li>接口方法抛出的异常在被实现时也需要抛出。</li>
+<li>重写方法时，应保持接口方法的参数和返回类型<font color="#ff0000">一致</font>。</li>
+<li>一个实现类本身可以是抽象的，如果抽象类，接口方法可以不实现。</li>
+<li>一个类只能扩展<font color="#ff0000">一个类</font>，但能实现<font color="#ff0000">多个接口</font>。</li>
+<li>一个接口可以扩展另一个接口，类似于一个类可以扩展另一个类。</li>
+</ol></hr></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

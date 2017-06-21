@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（022）_元注解是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1元注解是什么">1、元注解是什么</h3>
+<p>了解注释看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761368">注释是什么</a> <br>
+了解自定义注解看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51865297">如何自定义注解</a> <br>
+元注解就是负责<font color="#ff0000">注解其他注解</font>。Java 5定义了4个标准的元注解（meta-annotation）：<font color="#ff0000">@Target</font>、<font color="#ff0000">@Retention</font>、<font color="#ff0000">@Documented</font>、<font color="#ff0000">@Inherited</font>，这些元注解的类在<font color="#ff0000">java.lang.annotation包</font>中，具体如下：</br></br></p>
+<p><strong><font color="#33ccff">@Target</font></strong> <br>
+@Target说明了注解所修饰的<font color="#ff0000">对象范围</font>，即所定义的注解可以用在什么地方。具体的取值有：</br></p>
+<ol>
+<li><p>CONSTRUCTOR <br>
+用于描述构造器</br></p></li>
+<li><p>FIELD <br>
+用于描述类中的属性（域）</br></p></li>
+<li><p>LOCAL_VARIABLE <br>
+用于描述局部变量</br></p></li>
+<li><p>METHOD <br>
+用于描述方法</br></p></li>
+<li><p>PACKAGE <br>
+用于描述包</br></p></li>
+<li><p>PARAMETER <br>
+用于描述方法参数</br></p></li>
+<li><p>TYPE <br>
+用于描述类、接口(包括注解类型) 或enum声明</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">@Retention</font></strong> <br>
+@Retention定义了注解如何被保留，即被描述的注解在什么范围内有效。具体的取值有：</br></p>
+<ol>
+<li>SOURCE <br>
+在源文件中有效（即源文件保留） <br>
+　　　　</br></br></li>
+<li><p>CLASS <br>
+在class文件中有效（即class保留）</br></p></li>
+<li><p>RUNTIME <br>
+在运行时有效（即运行时保留）</br></p></li>
+</ol>
+<p>我们在《如何自定义注解》文章中的实例中使用了@Retention(RetentionPolicy.RUNTIME)，也就是说该自定义注解在运行时能够被读取和使用。</p>
+<p><strong><font color="#33ccff">@Documented</font></strong> <br>
+@Documented定义了注解可以作为公共API，可以被例如javadoc此类的工具文档化。Documented是一个标记注解，并没有任何成员。</br></p>
+<p><strong><font color="#33ccff">@Inherited</font></strong> <br>
+@Inherited允许子类继承父类的注解。即一个使用了@Inherited修饰的注解被用于某个类，则该类的子类也等同于被该注解修饰。</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

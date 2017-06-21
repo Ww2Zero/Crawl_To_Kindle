@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（014）_什么是Dump文件            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是dump文件">1、什么是Dump文件</h3>
+<p><font color="#ff0000">Dump文件</font>是<font color="#ff0000">进程的内存镜像</font>。可以把<font color="#ff0000">程序的执行状态</font>通过调试器保存到dump文件中。</p>
+<p><font color="#ff0000">Dump文件</font>是用来给驱动程序编写人员调试驱动程序用的，这种文件必须用<font color="#ff0000">专用工具软件</font>打开。</p>
+<p>当我们的程序发布出去之后，在客户机上是<font color="#ff0000">无法跟踪代码的</font>，所以Dump（扩展名是 .dmp）文件对于我们来说特别重要。我们可以通过<font color="#ff0000">.dmp文件</font>把出现问题的情况再现，然后根据再现的状况（包括堆栈调用等情况），可以找到出现问题对应的行号。</p>
+<h3 id="2如何生成dump文件">2、如何生成Dump文件</h3>
+<p>生成Dump文件方法多样，最常用的即通过<font color="#ff0000">WinDBG软件</font>。步骤如下：</p>
+<ol>
+<li><p>下载安装WinDBG。</p></li>
+<li><p>打开WinDBG，打开File-&gt;Attach to a process，然后再列表中显示需要<font color="#ff0000">监视的进程（.exe）</font>。</p></li>
+<li><p>当程序崩溃之后执行DUMP命令产生<font color="#ff0000">.dmp文件</font>，常用命令有（可以查询WinDBG命令手册了解命令含义）：</p></li>
+</ol>
+<pre class="prettyprint"><code class=" hljs ruby">.dump /m <span class="hljs-constant">C</span><span class="hljs-symbol">:/dumps/myapp</span>.dmp
+.dump /ma <span class="hljs-constant">C</span><span class="hljs-symbol">:/dumps/myapp</span>.dmp
+.dump /mFhutwd <span class="hljs-constant">C</span><span class="hljs-symbol">:/dumps/myapp</span>.dmp</code></pre>
+<p>执行以上就产生了<font color="#ff0000">dmp文件</font>。</p>
+<h3 id="3如何分析dump文件">3、如何分析Dump文件</h3>
+<p>通过<font color="#ff0000">WinDBG</font>也可以分析Dump文件，步骤如下：</p>
+<ol>
+<li><p>打开WinDBG， 打开File-&gt;Sybolm File Path，指定发布exe的时候<font color="#ff0000">.pdb</font>生成的路径。</p></li>
+<li><p>打开File-&gt;Open Crash Dump，打开.dmp文件。</p></li>
+<li><p>使用WinDBG的命令来分析Bug， 如（可以查询WinDBG命令手册了解命令含义）：<font color="#ff0000">!analyze -v</font></p></li>
+<li><p>可以使用<font color="#ff0000">快捷栏的功能</font>，查看一些变量的基本信息</p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

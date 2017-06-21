@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（004）_finally关键字如何使用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></span></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、finally关键字如何使用</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">finally关键字用于<span style="color:#FF0000">try</span>后面，finally块中的代码<span style="color:#FF0000">总是执行</span>，不论是否发生异常。一般用于清理工作、关闭链接等类型的语句。了解java异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948" target="_blank">什么是java中的异常<span class="gray"></span></a><br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:Microsoft YaHei; font-size:12px">如何捕获java中异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51088832" target="_blank">如何捕获异常</a><br>
+</br></span></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">如何将异常抛出看这里：</span><span style="font-family:Microsoft YaHei; font-size:12px"><a href="http://blog.csdn.net/ooppookid/article/details/51100373" target="_blank">如何抛出异常</a></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">语法：</span></p>
+<pre class="java" code_snippet_id="1640133" name="code" snippet_file_name="blog_20160409_1_1078063">try
+{
+//Protected code
+}catch(ExceptionType1 e1)
+{
+//Catch block
+}catch(ExceptionType2 e2)
+{
+//Catch block
+}catch(ExceptionType3 e3)
+{
+//Catch block
+}finally
+{
+//The finally block always executes.
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">例子：</span><br>
+<pre class="java" code_snippet_id="1640133" name="code" snippet_file_name="blog_20160409_2_456399">public class ExcepTest{
+
+public static void main(String args[]){
+int a[] = new int[2];
+try{
+System.out.println("Access element three :" + a[3]);
+}catch(ArrayIndexOutOfBoundsException e){
+System.out.println("Exception thrown :" + e);
+}
+finally{
+a[0] = 6;
+System.out.println("First element value: " +a[0]);
+System.out.println("The finally statement is executed");
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+Exception thrown :java.lang.ArrayIndexOutOfBoundsException: 3<br>
+First element value: 6<br>
+</br></br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">The finally statement is executed</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:Microsoft YaHei; font-size:12px"></span></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、finally要注意几点</span></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">1、finally或catch语句一定会伴随<span style="color:#FF0000">try语句</span>出现。<br>
+2、try语句不能单独使用，必须配合<span style="color:#FF0000">catch</span>语句或<span style="color:#FF0000">finally</span>语句。<br>
+3、try语句可以单独与catch语句一起使用，也可以单独与finally语句一起使用，当然也可以三者一起使用。<br>
+4、任何代码不能出现在try, catch, finally块之间。<br>
+</br></br></br></br></span><br>
+</br></br></div>]
+</body>
+</html>

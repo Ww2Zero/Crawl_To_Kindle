@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（016）_main方法是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1main方法是什么">1、main方法是什么</h3>
+<p>某个类中有main()方法，说明这是一个<font color="#ff0000">java应用程序</font>，可以<font color="#ff0000">直接启动运行</font>的程序（操作系统中安装了jdk或者jre）。任何一个<font color="#ff0000">非抽象类/接口</font>都可以添加main()方法。</p>
+<p>了解抽象类、接口看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51173179">接口和抽象类有什么区别</a> <br>
+在java的规范中，main()方法的声明为：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+
+}</code></pre>
+<p>当通过java运行工具运行某个类时：<font color="#ff0000">java 类名</font>，jre会运行类中的main()方法。在运行这个Java应用程序的时候，首先会调用main方法，由于main方法是<font color="#ff0000">public static</font>，所以调用时不实例化这个类的对象，而是通过类名直接调用。</p>
+<p>了解public、private看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50983158">public、privite、protected有什么区别</a> <br>
+对于main有以下几点需要注意：</br></p>
+<ol>
+<li><p>对于java中的main方法，由于规范中main的返回值类型为void，所以main方法<font color="#ff0000">不能有返回值</font>。</p></li>
+<li><p>main方法的输入参数，类型为<font color="#ff0000">String[]</font>，规范中main()方法中必须有一个入参String[]，当然参数的名字是<font color="#ff0000">可以自己设定</font>的。根据习惯，这个字符串数组的名字一般和规范范例中mian参数名保持一致，取名为<font color="#ff0000">args</font>。</p></li>
+<li><p>main(String[] args)方法的参数args可以<font color="#ff0000">在运行时指定</font>，例如：<font color="#ff0000">java TestMain 1 2 3</font>，则args为[1,2,3]。</p></li>
+<li><p>main方法中可以通过<font color="#ff0000">throws Exception</font>声明抛出异常，如果发生异常，则会直接<font color="#ff0000">抛在运行工具中</font>（运行工具一般会将错误日志打印到console）。</p></li>
+<li><p>带有main方法的类同普通类一样，执行main之前也会先执行类的<font color="#ff0000">静态代码块static{}</font>。</p></li>
+</ol>
+<p>结合以上几点的一个例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestMain {
+
+    <span class="hljs-keyword">static</span> {
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Hello Wordld"</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws Exception {
+        <span class="hljs-keyword">if</span> (args.length &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">for</span> (String arg : args) {
+                System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"args:"</span> + arg);
+            }
+        }
+        <span class="hljs-keyword">if</span> (args.length &lt;= <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"Exception"</span>);
+        }
+    }
+}</code></pre>
+<p>执行<font color="#ff0000">“java TestMain”</font>结果如下：</p>
+<p>Hello Wordld <br>
+Exception in thread “main” java.lang.Exception: Exception <br>
+        at com.test.TestMain.main(TestMain.java:16)</br></br></p>
+<p>执行<font color="#ff0000">“java TestMain 1 2 3”</font>结果如下：</p>
+<p>Hello Wordld <br>
+args:1 <br>
+args:2 <br>
+args:3</br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

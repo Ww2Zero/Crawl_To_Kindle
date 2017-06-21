@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（017）_什么是二维数组            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1二维数组如何定义">1、二维数组如何定义</h3>
+<p>Java语言中，多维数组被看作<font color="#ff0000">数组的数组</font>。 <br>
+了解一维数组看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51340241">java中的数组是什么</a> <br>
+定义方式和<font color="#ff0000">一维数组</font>类似，如下：</br></br></p>
+<pre class="prettyprint"><code class=" hljs markdown">type arrayName[<span class="hljs-link_label"> </span>][<span class="hljs-link_reference"> </span>]；  
+type [<span class="hljs-link_label"> </span>][<span class="hljs-link_reference"> </span>]arrayName;</code></pre>
+<h3 id="2二维数组如何初始化">2、二维数组如何初始化</h3>
+<p>二维数组初始化和一维数组一样，分为<font color="#ff0000">静态初始化</font>和<font color="#ff0000">动态初始化</font></p>
+<p><font color="#33ccff">静态初始化</font> <br>
+Java语言中，由于把二维数组看作是<font color="#ff0000">数组的数组</font>，数组空间不是连续分配的，所以<font color="#ff0000">不要求</font>二维数组每一维的大小相同。初始化方式如下：</br></p>
+<pre class="prettyprint"><code class=" hljs markdown">int intArray[<span class="hljs-link_label"> </span>][<span class="hljs-link_reference"> </span>]={{1,2},{2,3},{3,4,5}};</code></pre>
+<p><font color="#33ccff">动态初始化</font> <br>
+二维数组可以直接为每一维分配空间，如下：</br></p>
+<pre class="prettyprint"><code class=" hljs markdown">arrayName = new type[<span class="hljs-link_label">arrayLength1</span>][<span class="hljs-link_reference">arrayLength2</span>];  
+int a[<span class="hljs-link_label"> </span>][<span class="hljs-link_reference"> </span>] = new int[<span class="hljs-link_label">2</span>][<span class="hljs-link_reference">3</span>]；</code></pre>
+<p>也可以从最高维开始，分别为每一维分配空间，如下：</p>
+<pre class="prettyprint"><code class=" hljs fsharp">arrayName = <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">type</span>[<span class="hljs-title">arrayLength1</span>][ ];  </span>
+arrayName[<span class="hljs-number">0</span>] = <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">type</span>[<span class="hljs-title">arrayLength20</span>];  </span>
+arrayName[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">type</span>[<span class="hljs-title">arrayLength21</span>];  </span>
+…  
+arrayName[arrayLength1-<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> <span class="hljs-class"><span class="hljs-keyword">type</span>[<span class="hljs-title">arrayLength2n</span>];</span></code></pre>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs markdown">int a[<span class="hljs-link_label"> </span>][<span class="hljs-link_reference"> </span>] = new int[<span class="hljs-link_label">2</span>][<span class="hljs-link_reference"> </span>]；  
+a[0] = new int[3];  
+a[1] = new int[5];</code></pre>
+<p>特别的，对<font color="#ff0000">二维引用类型</font>的数组，必须首先为<font color="#ff0000">最高维</font>分配引用空间，然后再<font color="#ff0000">顺次为低维</font>分配空间。而且，必须为<font color="#ff0000">每个数组元素</font>单独分配空间。</p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs markdown">String s[<span class="hljs-link_label"> </span>][<span class="hljs-link_reference"> </span>] = new String[<span class="hljs-link_label">2</span>][<span class="hljs-link_reference"> </span>];  
+s[0]= new String[2];//为最高维分配引用空间 
+s[1]= new String[2]; //为最高维分配引用空间 
+s[<span class="hljs-link_label">0</span>][<span class="hljs-link_reference">0</span>]= new String("Good");// 为每个数组元素单独分配空间 
+s[<span class="hljs-link_label">0</span>][<span class="hljs-link_reference">1</span>]= new String("Luck");// 为每个数组元素单独分配空间 
+s[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">0</span>]= new String("to");// 为每个数组元素单独分配空间 
+s[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">1</span>]= new String("You");// 为每个数组元素单独分配空间</code></pre>
+<h3 id="3如何获取二维数组的元素">3、如何获取二维数组的元素</h3>
+<p>对二维数组中的每个元素，引用方式为：</p>
+<pre class="prettyprint"><code class=" hljs markdown">arrayName[<span class="hljs-link_label">index1</span>][<span class="hljs-link_reference">index2</span>]</code></pre>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs markdown">num[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">0</span>];</code></pre>
+<h3 id="4二维数组如何使用">4、二维数组如何使用：</h3>
+<p>二维数组在数学中，可以认为是一个矩阵，我们来看一个两个矩阵相乘的例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span>
+<span class="hljs-keyword">class</span> MatrixMultiply{  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){  
+   <span class="hljs-keyword">int</span> i, j, k;
+
+        <span class="hljs-keyword">int</span> a[][] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]; <span class="hljs-comment">// 动态初始化一个二维数组</span>
+        <span class="hljs-keyword">int</span> b[][] = { { <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>, <span class="hljs-number">8</span> }, { <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, -<span class="hljs-number">3</span> }, { <span class="hljs-number">2</span>, <span class="hljs-number">7</span>, -<span class="hljs-number">5</span>, -<span class="hljs-number">18</span> } };<span class="hljs-comment">// 静态初始化一个二维数组</span>
+        <span class="hljs-keyword">int</span> c[][] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>][<span class="hljs-number">4</span>]; <span class="hljs-comment">// 动态初始化一个二维数组</span>
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++)
+            <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++)
+                a[i][j] = (i + <span class="hljs-number">1</span>) * (j + <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++) {
+            <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">4</span>; j++) {
+                c[i][j] = <span class="hljs-number">0</span>;
+                <span class="hljs-keyword">for</span> (k = <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">3</span>; k++)
+                    c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"******* A********"</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] aa : a) {
+            String rowStr = <span class="hljs-string">""</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> aaa : aa) {
+                rowStr += aaa + <span class="hljs-string">"  "</span>;
+            }
+            System.<span class="hljs-keyword">out</span>.println(rowStr);
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"******* B********"</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] bb : b) {
+            String rowStr = <span class="hljs-string">""</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> bbb : bb) {
+                rowStr += bbb + <span class="hljs-string">" "</span>;
+            }
+            System.<span class="hljs-keyword">out</span>.println(rowStr);
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"*******Matrix C********"</span>);
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++) {
+            String rowStr = <span class="hljs-string">""</span>;
+            <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">4</span>; j++) {
+                rowStr += c[i][j] + <span class="hljs-string">" "</span>;
+            }
+            System.<span class="hljs-keyword">out</span>.println(rowStr);
+        } 
+}
+} </code></pre>
+<p>执行结果如下：</p>
+<p><strong><em>*</em></strong> A******** <br>
+2  3  4  <br>
+4  6  8  <br>
+<strong><em>*</em></strong> B******** <br>
+1 5 2 8 <br>
+5 9 10 -3 <br>
+2 7 -5 -18 <br>
+<strong><em><strong>**Matrix C***</strong></em></strong> <br>
+25 65 14 -65 <br>
+50 130 28 -130</br></br></br></br></br></br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

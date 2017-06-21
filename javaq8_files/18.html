@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（018）_JConsole是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jconsole是什么">1、JConsole是什么</h3>
+<p>JConsole是一个<font color="#ff0000">Java程序性能分析器</font>，可以从命令行或在终端中运行。可以用来监控Java程序的性能以及跟踪代码。</p>
+<p>同时在<font color="#ff0000">com.sun.tools.jconsole包</font>中提供了一组接口，允许访问JConsole，对线程、内存、类、对象进行分析和统计。</p>
+<h3 id="2如何使用jconsole工具">2、如何使用JConsole工具</h3>
+<p>我们这里主要介绍jconsole工具的用法，在<font color="#ff0000">JAVA_HOME/bin</font>路径中，我们可以直接打开他。如下图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160710095805199" title=""> <br>
+我们可以对正在运行的<font color="#ff0000">本地进程或者远程进程</font>进行连接，连接成功后如下图：</br></img></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160710095822137" title="">￼</img></p>
+<p>首先，我们看到，Jconsole提供了若干图表来展示Java程序的几个<font color="#ff0000">关键指标</font>，例如堆内存、线程、类、CPU使用率，我们可以通过切换Tab来查看详情。</p>
+<p>通过Jconsole，我们能够清楚的了解Java程序的<font color="#ff0000">运行状态</font>，方便我们对他的<font color="#ff0000">优化和监控</font>。具体的使用由于使图形化界面，相对比较简单。</p>
+<p>了解监控jvm的运行情况看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51587851">如何监控jvm的运行情况</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

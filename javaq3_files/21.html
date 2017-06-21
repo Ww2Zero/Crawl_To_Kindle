@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（021）_如何自定义注解            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a>color=”#ff0000”</p>
+<h3 id="1如何自定义注解">1、如何自定义注解</h3>
+<p>要学习使用注解，我们需要了解注解，并且了解java提供的常见注解。更重要的是学会自定义注解。</p>
+<p>了解注释看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761368">注释是什么</a> <br>
+我们自定义注解需要使用<font color="#ff0000">@interface关键字</font>，具体语法如下：</br></p>
+<p><code>public @interface 注解名 {定义体} default {默认值}</code></p>
+<p>使用@interface自定义注解时，自动继承了<font color="#ff0000">java.lang.annotation.Annotation接口</font>，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。</p>
+<p>@interface用来声明一个注解，其中的每一个方法实际上是声明了一个<font color="#ff0000">配置参数</font>。方法的名称就是<font color="#ff0000">参数的名称</font>，返回值类型就是<font color="#ff0000">参数的类型</font>。通过default来声明参数的默认值，如果不指定default，则说明该参数为必填。</p>
+<p>注解参数（注解方法的返回值）的只能用<font color="#ff0000">public或默认（default）</font>这两个访问权修饰，并且只支持以下数据类型：</p>
+<ol>
+<li>所有基本数据类型（int,float,boolean,byte,double,char,long,short)</li>
+<li>String类型</li>
+<li>Class类型</li>
+<li>enum类型</li>
+<li>Annotation类型</li>
+<li>以上所有类型的数组</li>
+</ol>
+<p>我们一般是用<font color="#ff0000">反射</font>来获取注解，一个简单的自定义注解和使用注解实例：</p>
+<p>注解类：</p>
+<pre class="prettyprint"><code class=" hljs cs">@Retention(RetentionPolicy.RUNTIME)
+<span class="hljs-keyword">public</span> @<span class="hljs-keyword">interface</span> TestAnnotation {
+
+    String name() <span class="hljs-keyword">default</span> <span class="hljs-string">""</span>;
+}</code></pre>
+<p>被注解的类：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestInfo</span> {</span>
+
+    <span class="hljs-annotation">@TestAnnotation</span>(name = <span class="hljs-string">"公司名称"</span>)
+    <span class="hljs-keyword">private</span> String company;
+
+    <span class="hljs-annotation">@TestAnnotation</span>(name = <span class="hljs-string">"职位"</span>)
+    <span class="hljs-keyword">private</span> String position;
+}</code></pre>
+<p>使用注解：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestMain {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        Field[] fields = TestInfo.class.getDeclaredFields();
+        <span class="hljs-keyword">for</span> (Field field : fields) {
+            <span class="hljs-keyword">if</span> (field.isAnnotationPresent(TestAnnotation.class)) {
+                TestAnnotation testAnnotation = (TestAnnotation) field.getAnnotation(TestAnnotation.class);
+                System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"field:"</span> + field.getName() + <span class="hljs-string">", annotation:"</span> + testAnnotation.name());
+            }
+        }
+    }
+}</code></pre>
+<p>我们运行后结果如下：</p>
+<p><code>field:company, annotation:公司名称 <br>
+field:position, annotation:职位</br></code></p>
+<p>其中注解类中的注解<font color="#ff0000">@Retention(RetentionPolicy.RUNTIME)</font>，是用来修饰注解的注解，即<font color="#ff0000">元注解</font>，用来描述和限定自定义注解的<font color="#ff0000">使用场景和约束</font>。具体如下：</p>
+<p>了解元注解看这里：[元注解是什么][3] <br>
+[3]:</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

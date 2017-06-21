@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_09基础类库（001）_lang包有什么功能            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-009.html">点击进入_更多_Java千百问-基础类库</a></p>
+<h3 id="1lang包有什么功能">1、lang包有什么功能</h3>
+<p>java.lang包是java语言的<font color="#ff0000">核心</font>，它提供了java中的基础类。包括基本<font color="#ff0000">Object类、Class类、String类、基本类型的包装类、基本的数学类</font>等等最基本的类。我们介绍一下Java 8中的java.lang包。主要类如下图：</p>
+<p><img alt="" src="http://img.blog.csdn.net/20160723083027728" title="">￼</img></p>
+<p>大体将java.lang包分为三类：<font color="#ff0000">类型、工具、系统</font>，下面分别介绍其中比较常用的类：</p>
+<p><strong><font color="#33ccff">类型</font></strong></p>
+<ol>
+<li><p><strong>对象基类</strong> <br>
+<font color="#ff0000">Object</font>，是java.lang的根类，也是所有类的超类。</br></p></li>
+<li><p><strong>类</strong> <br>
+<font color="#ff0000">Class</font>，用来表示类和接口的类型。Class对象在类加载时由JVM调用类加载器中的defineClass方法自动构造。 <br>
+<font color="#ff0000">ClassLoader</font>，负责加载类。 <br>
+<font color="#ff0000">Compiler</font>，作为编译器的占位符，它不做任何事情，仅用来支持Java到本机代码的编译器及相关服务。</br></br></br></p></li>
+<li><p><strong>基本类型</strong> <br>
+基本类型的<font color="#ff0000">包装类</font>，包括Boolean、Character、Byte、Short、Integer、Long、Float、Double，其中数值类型均即成<font color="#ff0000">Number类</font>。了解包装器看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51289443">什么是基本类型包装器</a> <br>
+<font color="#ff0000">String</font>，字符串类。了解字符串看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51473710">String是什么</a></br></br></p></li>
+<li><strong>字符序列</strong> <br>
+<font color="#ff0000">StringBuffer、StringBuilder</font>，可变的字符序列。具体区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761368">StringBuffer/StringBuilder有什么区别</a></br></li>
+<li><p><strong>枚举</strong> <br>
+<font color="#ff0000">Enum</font>，是所有枚举类型的公共基类。</br></p></li>
+<li><p><strong>包</strong> <br>
+<font color="#ff0000">Package</font>，包含了有关Java包（package）的信息。</br></p></li>
+<li><p><strong>无类型</strong> <br>
+<font color="#ff0000">Void</font>，标示关键字void的Class对象的引用，不可被实例化。</br></p></li>
+<li><p><strong>迭代器</strong> <br>
+<font color="#ff0000">Iterable</font>，可迭代接口，实现接口可以使用迭代器进行对象遍历。</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">工具</font></strong></p>
+<ol>
+<li><p><strong>数学</strong> <br>
+<font color="#ff0000">Math、StrictMath</font>，提供了基本的数字操作，如指数、对数、平方根和三角函数。一般情况下，Math调用StrictMath的方法来完成实现。java中还有一个java.math包，这个包主要提供用于执行任意精度整数算法 (BigInteger) 和任意精度小数算法 (BigDecimal) 的类。</br></p></li>
+<li><p><strong>安全</strong> <br>
+<font color="#ff0000">SecurityManager</font>，允许应用程序实现安全策略的类。</br></p></li>
+<li><p><strong>注解</strong> <br>
+<font color="#ff0000">Override</font>，标记类中方法是实现/重写父类的方法。 <br>
+<font color="#ff0000">SuppressWarnings</font>，取消对被标记的元素的警告。了解Java注解看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761368">注解是什么</a> <br>
+<strong><font color="#33ccff">系统</font></strong></br></br></br></p></li>
+<li><p><strong>进程</strong> <br>
+<font color="#ff0000">Process</font>，进程抽象类。 <br>
+<font color="#ff0000">ProcessBuilder</font>，用于创建操作系统进程。 <br>
+<font color="#ff0000">ProcessEnvironment</font>，进程的运行环境参数。 <br>
+<font color="#ff0000">ProcessImpl</font>，进行接口的实现类。</br></br></br></br></p></li>
+<li><p><strong>线程</strong> <br>
+<font color="#ff0000">Thread</font>，进程中的执行线程。 <br>
+<font color="#ff0000">ThreadGroup</font>，线程组，表示一个线程的集合。它构成一个树状结构，可以包含其他线程组，除了根节点的线程组，每个线程组都具有父线程组。 <br>
+<font color="#ff0000">ThreadLocal</font>，提供线程的变量。</br></br></br></p></li>
+<li><p><strong>运行</strong> <br>
+<font color="#ff0000">Runnable</font>，可运行接口，所有Thread都应实现它。 <br>
+<font color="#ff0000">Runtime</font>，运行时类，将应用程序与其运行的环境相关联。 <br>
+<font color="#ff0000">RuntimePermission</font>，用于运行时权限。 <br>
+<font color="#ff0000">System</font>，系统级的很多属性和控制方法都放置在该类的内部。</br></br></br></br></p></li>
+<li><p><strong>堆栈</strong> <br>
+<font color="#ff0000">StackTraceElement</font>，堆栈跟踪中的元素，它的每个实例都表示单独的一个栈帧（表示一个方法调用）。 </br></p></li>
+<li><p><strong>异常</strong> <br>
+<font color="#ff0000">Throwable</font>，异常基类，Java中所有异常都继承于它。了解更多异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948">什么是java中的异常</a></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

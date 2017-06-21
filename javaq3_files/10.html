@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基本语法（010）_break与contine分别如何使用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">break与contine分别如何使用</span></h1>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">break，contine都是使用在循环体中的语句，都有终止执行的作用，具体不同看下面详解。循环语句看这里：</span></p>
+<p></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、break关键字是如何使用的：</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">break是用来<span style="color:#FF0000">停止整个循环</span>。必须在<span style="color:#FF0000">循环体中</span>或<span style="color:#FF0000">switch语句</span>中（switch语法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51042786" target="_blank">switch如何使用</a>）。它将停止<span style="color:#FF0000">本层</span>循环的执行（多层循环只会停止break这一层，跳出后继续父级循环），并开始执行后续的代码。<br>
+</br></span><span style="font-family:Microsoft YaHei; font-size:12px">语法<br>
+break语法是任何循环中一个单独的语句：</br></span><br>
+<pre class="java" code_snippet_id="1634715" name="code" snippet_file_name="blog_20160405_1_3567767">break;</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">例子：</span></p>
+<pre class="java" code_snippet_id="1634715" name="code" snippet_file_name="blog_20160405_2_7711442">public class Test {
+
+public static void main(String args[]) {
+int [] numbers = {10, 20, 30, 40, 50};
+
+for(int x : numbers ) {
+if( x == 30 ) {
+break;
+}
+System.out.println(x);
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+10<br>
+20</br></br></span><br>
+<p></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、continue关键字是如何使用的：</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">continue是用来停止循环中的<span style="color:#FF0000">本次</span>代码，但循环仍然<span style="color:#FF0000">继续</span>。它使循环立即跳转到<span style="color:#FF0000">下一次</span>迭代，继续循环。<br>
+</br></span><span style="font-family:Microsoft YaHei; font-size:12px">在for循环中，continue会立即执行<span style="color:#FF0000">更新语句</span>。在一个while循环或do/while循环中，会立即<span style="color:#FF0000">判断flag值</span>。java循环语法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51043944" target="_blank">java中如何循环执行</a><br>
+语法<br>
+continue 语法是任何循环中一个单独的语句：</br></br></span><br>
+<pre class="java" code_snippet_id="1634715" name="code" snippet_file_name="blog_20160405_3_8649533">continue;</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">例子：</span></p>
+<pre class="java" code_snippet_id="1634715" name="code" snippet_file_name="blog_20160405_4_5443167">public class Test {
+
+public static void main(String args[]) {
+int [] numbers = {10, 20, 30, 40, 50};
+
+for(int x : numbers ) {
+if( x == 30 ) {
+continue;
+}
+System.out.println(x);
+}
+}
+}</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">10<br>
+20<br>
+40<br>
+50</br></br></br></span><br>
+<br>
+</br></br></br></br></br></div>]
+</body>
+</html>

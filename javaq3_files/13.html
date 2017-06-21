@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（013）_&gt;、&gt;&gt;、&gt;&gt;&gt;有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1有什么区别">1、&gt;、&gt;&gt;、&gt;&gt;&gt;有什么区别</h3>
+<p>了解java运算符看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51000161">java种的运算符都有哪些</a> <br>
+了解java运算符优先级看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51019371">java运算符的优先级是怎样的</a> <br>
+<font color="#ff0000">“&gt;”</font>属于<font color="#ff0000">关系运算符</font>，而<font color="#ff0000">“&gt;&gt;”、”&gt;&gt;&gt;”</font>则<font color="#ff0000">按位运算符</font>，看一下它们各自的含义：</br></br></p>
+<ol>
+<li><p>运算符&gt; <br>
+关系运算符，表示<font color="#ff0000">大于</font>。 <br>
+如：if(a&gt;b)…结果是boolean类型。</br></br></p></li>
+<li><p>运算符&gt;&gt; <br>
+按位运算符，表示<font color="#ff0000">右移</font>。<font color="#ff0000">&lt;&lt;</font>表示<font color="#ff0000">左移</font>。 <br>
+j&lt;&lt; i。相当于num除以2的n次幂，j/(int) (Math.pow(2, i))。 <br>
+如：int i=15; i&gt;&gt;2的结果是3，<font color="#ff0000">移出的部分将被抛弃</font>。 <br>
+转为二进制的形式可能更好理解，0 0000 1111(15)右移2位的结果是0 0000 0011(3)。 <br>
+了解二进制运算看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51009508">二进制是怎样做位运算的</a></br></br></br></br></br></p></li>
+<li>运算符&gt;&gt;&gt; <br>
+按位运算符，表示<font color="#ff0000">无符号右移</font>。 <br>
+与&gt;&gt;类似，但移动时忽略符号位，<font color="#ff0000">空位都以0补齐</font>。 <br>
+无符号右移运算符&gt;&gt;&gt;只是对<font color="#ff0000">32位和64位</font>的值有意义（以及负值），其余情况与&gt;&gt;一致。</br></br></br></li>
+</ol>
+<p>实例：</p>
+<pre class="prettyprint"><code class=" hljs avrasm">System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(<span class="hljs-string">"1、以下测试&gt;:"</span>)<span class="hljs-comment">;</span>
+int a = <span class="hljs-number">15</span>, b = <span class="hljs-number">2</span>, c = -<span class="hljs-number">15</span><span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(a &gt; b)<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(<span class="hljs-string">"\n2、以下测试&gt;&gt;:"</span>)<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(a + <span class="hljs-string">" / (int) (Math.pow(2, "</span> + b + <span class="hljs-string">"))) = "</span>
+               + (a / (int) (Math<span class="hljs-preprocessor">.pow</span>(<span class="hljs-number">2</span>, b))))<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(a + <span class="hljs-string">" &gt;&gt; "</span> + b + <span class="hljs-string">" = "</span> + (a &gt;&gt; b))<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(c + <span class="hljs-string">" &gt;&gt; "</span> + b + <span class="hljs-string">" = "</span> + (c &gt;&gt; b))<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(<span class="hljs-string">"\n3、以下测试&gt;&gt;&gt;:"</span>)<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(a + <span class="hljs-string">" &gt;&gt;&gt; "</span> + b + <span class="hljs-string">" = "</span> + (a &gt;&gt;&gt; b))<span class="hljs-comment">;</span>
+System<span class="hljs-preprocessor">.out</span><span class="hljs-preprocessor">.println</span>(c + <span class="hljs-string">" &gt;&gt;&gt; "</span> + b + <span class="hljs-string">" = "</span> + (c &gt;&gt;&gt; b))<span class="hljs-comment">;</span></code></pre>
+<p>执行结果如下：</p>
+<p>1、以下测试&gt;: <br>
+true <br>
+2、以下测试&gt;&gt;: <br>
+15 / (int) (Math.pow(2, 2))) = 3 <br>
+15 &gt;&gt; 2 = 3 <br>
+-15 &gt;&gt; 2 = -4 <br>
+3、以下测试&gt;&gt;&gt;: <br>
+15 &gt;&gt;&gt; 2 = 3 <br>
+-15 &gt;&gt;&gt; 2 = 1073741820</br></br></br></br></br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

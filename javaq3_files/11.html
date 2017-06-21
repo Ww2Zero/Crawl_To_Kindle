@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基本语法（011）_final,finally,finalize有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1finalfinallyfinalize有什么区别">1、final,finally,finalize有什么区别</h3>
+<p>final,finally是java的<font color="#ff0000">关键字</font>，finalize是jdk的一个<font color="#ff0000">方法名</font>，它们虽说字面意思类似，但是他们的使用却<font color="#ff0000">完全不同</font>。具体如下：</p>
+<p><strong><font color="#33ccff">final</font></strong></p>
+<p>final是一个<font color="#ff0000">修饰符关键字</font>。 <br>
+如果一个<font color="#ff0000">类</font>被声明为final，意味着它<font color="#ff0000">不能再派生出新的子类</font>，<font color="#ff0000">不能作为父类被继承</font>。 <br>
+如果一个<font color="#ff0000">变量</font>或<font color="#ff0000">方法</font>声明为final，可以保证它们在使用中<font color="#ff0000">不被改变</font>。被声明为final的变量必须在声明时给定初值，而在以后的引用中<font color="#ff0000">只能读取，不可修改</font>。被声明为final的方法也同样<font color="#ff0000">只能使用，不能重载</font>。 <br>
+因此一个类不能既被声明为abstract的，又被声明为final的。</br></br></br></p>
+<p><strong><font color="#33ccff">finally</font></strong></p>
+<p>finally是一个<font color="#ff0000">异常相关的关键字</font>，用于try后面，finally块中的代码<font color="#ff0000">总是执行</font>，不论是否发生异常（即无论是否执行catch块中代码）。一般用于清理工作、关闭链接等类型的语句。</p>
+<p>了解finally关键字如何使用看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51103487">finally关键字如何使用</a> <br>
+<strong><font color="#33ccff">finalize</font></strong></br></p>
+<p>finalize是一个<font color="#ff0000">jdk方法名</font>，它是Object类的一个protected方法，在垃圾收集器将对象从内存中<font color="#ff0000">清除出去之前</font>会被调用，<font color="#ff0000">默认没有任何操作</font>，源代码如下：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">finalize</span>() <span class="hljs-keyword">throws</span> Throwable { }</code></pre>
+<p>当垃圾收集器在确定这个对象没有被引用时，会调用finalize()，任何一个Object的子类都可以去<font color="#ff0000">覆盖</font>这个方法。</p>
+<p>了解protected关键字看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50983158">public、privite、protected有什么区别</a> <br>
+了解方法覆盖看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51203923">java中覆盖是什么</a></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

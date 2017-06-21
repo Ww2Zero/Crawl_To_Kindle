@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（025）_用二进制如何表示浮点型数值            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1用二进制如何表示浮点型数值">1、用二进制如何表示浮点型数值</h3>
+<p>我们再了解二进制如何表达浮点型数值前，需要先了解用二进制如何表示整型数值：<a href="http://blog.csdn.net/ooppookid/article/details/51814294">用二进制如何表示整型数值</a> <br>
+由于计算机只认识<font color="#ff0000">0、1二进制</font>，所以与表示整数一样，浮点数值最终也都会被解释为<font color="#ff0000">二进制机器码</font>，与整型不同的是，所有由计算机储存的浮点类型，都是通过<font color="#ff0000">运算</font>转换为十进制的，所以都是<font color="#ff0000">高度近似值</font>，并不可能100%精确。具体规则如下：</br></p>
+<ol>
+<li><p>遵循<font color="#ff0000">Ieee754标准</font>（IEEE二进位浮点数算术标准）</p></li>
+<li><p>首位均是<font color="#ff0000">符号位</font>，1代表负，0代表正。</p></li>
+</ol>
+<p>3.除去首位，用来表示浮点型的二进制要需要划分为<font color="#ff0000">指数位</font>和<font color="#ff0000">尾数位</font>（也称作小数位）。</p>
+<ol>
+<li><p>不同浮点类型的指数位和尾数位<font color="#ff0000">占用长度不一样</font>。</p></li>
+<li><p>二进制转换十进制的<font color="#ff0000">指数偏差</font>为：<font color="#ff0000">2^(指数位长度-1)-1</font>。</p></li>
+</ol>
+<p>这里所说的指数位、尾数位是十进制转二进制运算的关键，以32位浮点为例，它由<font color="#ff0000">1位符号位，8位指数位以及23位尾数位</font>组成，例下面这个32位浮点数：</p>
+<p>0100 0010 1101 0110 0101 0001 1100 1111</p>
+<p>其中：<font color="#ff0000">指数位</font>：100 0010 1；<font color="#ff0000">尾数位</font>：101 0110 0101 0001 1100 1111。</p>
+<p>从上面可知一下结论：</p>
+<ol>
+<li><p>符号位为：0，即<font color="#ff0000">正值</font>。</p></li>
+<li><p>32位浮点，故指数偏差值：2^(8-1)-1 = <font color="#ff0000">127</font>。</p></li>
+<li><p>指数位为：100 0010 1，即十进制<font color="#ff0000">133</font>。</p></li>
+<li><p>尾数位为：101 0110 0101 0001 1100 1111。</p></li>
+</ol>
+<p>下面我们根据以上结论来<font color="#ff0000">运算十进制值</font>，步骤如下：</p>
+<ol>
+<li><p>计算指数，指数位减去指数偏差值，即133-127=<font color="#ff0000">6</font></p></li>
+<li><p>计算小数，首先为尾数位前面<font color="#ff0000">补充小数点以及隐藏位1</font>得：1.101 0110 0101 0001 1100 1111，而后<font color="#ff0000">右移指数6位</font>得：1101 011.0 0101 0001 1100 1111</p></li>
+<li><p>逐位运算，<font color="#ff0000">逐位求2的乘方</font>得： <br>
+1*(2^6)+1*(2^5)+0*(2^4)+1*(2^3)+0*(2^2)+1*(2^1)+1*(2^0)+小数点+0*(2^-1)+0*(2^-2)+1*(2^-3)+0*(2^-4)+1*(2^-5)+0*(2^-6)+0*(2^-7)+0*(2^-8)+1*(2^-9)+1*(2^-10)+1*(2^-11)+0*(2^-12)+0*(2^-13)+1*(2^-14)+1*(2^-15)+1*(2^-16)+1*(2^-17) <br>
+=<font color="#ff0000">107.1597824</font></br></br></p></li>
+<li><p>添加符号位得：<font color="#ff0000">+107.1597824</font></p></li>
+</ol>
+<p>由此可知，浮点类型进制转换需要耗费一定的cpu运算，而且并不精确，如果想尽量精确，需要<font color="#ff0000">提升浮点类型的位数</font>，例如64位。而且在一定范围外，不同的十进制浮点数可能会转换为<font color="#ff0000">相同的二进制浮点数</font>，例如：</p>
+<pre class="prettyprint"><code class=" hljs cpp">        <span class="hljs-keyword">float</span> f3 = <span class="hljs-number">423.15243f</span>;
+        <span class="hljs-keyword">float</span> f4 = <span class="hljs-number">423.15244f</span>;
+        System.out.println(f3 == f4);</code></pre>
+<p>结果为：</p>
+<p>true</p>
+<p>也就是说我们只能判断两个浮点数的精度差，一般使用f4 - f3 &lt; 0.0001方式来判断两个浮点数是否相等（近似相等）。</p>
+<h3 id="2java中浮点型如何用二进制表示">2、Java中浮点型如何用二进制表示</h3>
+<p>在Java语言中，浮点数值分2种：<font color="#ff0000">float、double</font>，均是带符号整型。</p>
+<p>了解基本数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a> <br>
+这些类型除了长度不一致外，其他规则均按照以上规则，具体如下：</br></p>
+<p><strong><font color="#33ccff">float</font></strong> <br>
+内存中占用<font color="#ff0000">8个字节，32bit</font>。其中<font color="#ff0000">符号位1位，指数位8位，尾数位23位</font>。指数偏差值：2^(8-1)-1 = <font color="#ff0000">127</font></br></p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws UnsupportedEncodingException {
+        <span class="hljs-keyword">float</span> f1 = <span class="hljs-number">423.1594</span>f;
+        <span class="hljs-keyword">float</span> f2 = -<span class="hljs-number">423.1594</span>f;
+        <span class="hljs-keyword">int</span> floatToIntBits1 = Float.floatToIntBits(f1);<span class="hljs-comment">// 根据IEEE754规则，得到浮点的表示值。</span>
+        <span class="hljs-keyword">int</span> floatToIntBits2 = Float.floatToIntBits(f2);
+
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正float==="</span> + Integer.toBinaryString(floatToIntBits1));<span class="hljs-comment">// 转二进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负float==="</span> + Integer.toBinaryString(floatToIntBits2));
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正float==="</span> + Integer.toHexString(floatToIntBits1));<span class="hljs-comment">// 转十六进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负float==="</span> + Integer.toHexString(floatToIntBits2));
+ }
+}</code></pre>
+<p>结果如下： <br>
+正float===1000011110100111001010001100111 <br>
+负float===11000011110100111001010001100111 <br>
+正float===43d39467 <br>
+负float===c3d39467</br></br></br></br></p>
+<p><strong><font color="#33ccff">double</font></strong> <br>
+内存中占用<font color="#ff0000">16个字节，64bit</font>。其中<font color="#ff0000">符号位1位，指数位11位，尾数位52位</font>。指数偏差值：2^(8-1)-1 = <font color="#ff0000">1023</font></br></p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws UnsupportedEncodingException {
+        <span class="hljs-keyword">double</span> d1 = <span class="hljs-number">423453.1597824345</span>;
+        <span class="hljs-keyword">double</span> d2 = -<span class="hljs-number">423453.1597824345</span>;
+        <span class="hljs-keyword">long</span> doubleToLongBits1 = Double.doubleToLongBits(d1);<span class="hljs-comment">// 根据IEEE754规则，得到浮点的表示值。</span>
+        <span class="hljs-keyword">long</span> doubleToLongBits2 = Double.doubleToLongBits(d2);
+
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正double==="</span> + Long.toBinaryString(doubleToLongBits1));<span class="hljs-comment">// 转二进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负double==="</span> + Long.toBinaryString(doubleToLongBits2));
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正double==="</span> + Long.toHexString(doubleToLongBits1));<span class="hljs-comment">// 转十六进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负double==="</span> + Long.toHexString(doubleToLongBits2));
+ }
+}</code></pre>
+<p>结果如下： <br>
+正double===100000100011001110110000111010010100011100111100000000110101011 <br>
+负double===1100000100011001110110000111010010100011100111100000000110101011 <br>
+正double===4119d874a39e01ab <br>
+负double===c119d874a39e01ab</br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

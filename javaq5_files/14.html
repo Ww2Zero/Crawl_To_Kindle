@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（014）_如何获取范型的类Class            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何获取范型的类class">1、如何获取范型的类Class</h3>
+<p>java中，<font color="#ff0000">无法获取范型的类型</font>，例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Box&lt;T&gt; {
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+     System.<span class="hljs-keyword">out</span>.printf(T);<span class="hljs-comment">//编译错误</span>
+  }
+}</code></pre>
+<p>其实，由于java是<font color="#ff0000">强类型语言</font>，在<font color="#ff0000">编译时</font>我们并不知道T是什么具体类型，只有在<font color="#ff0000">编译后</font>，不同场景指定之后才会知道，所以在编译前是<font color="#ff0000">无法获取T的类型</font>。如果想获取T的类型，可以在泛型类中声明一个对象，通过对象获取当前指定的类型。</p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestGeneric&lt;T&gt; {
+
+    <span class="hljs-keyword">private</span> T t;
+
+    <span class="hljs-keyword">public</span> T <span class="hljs-title">getT</span>() {
+        <span class="hljs-keyword">return</span> t;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setT</span>(T t) {
+        <span class="hljs-keyword">this</span>.t = t;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span>() {
+        System.<span class="hljs-keyword">out</span>.println(t.getClass() + <span class="hljs-string">", "</span> + t);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        TestGeneric&lt;String&gt; testGeneric = <span class="hljs-keyword">new</span> TestGeneric&lt;String&gt;();
+        testGeneric.setT(<span class="hljs-string">"test"</span>);
+        testGeneric.test();
+    }
+}</code></pre></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

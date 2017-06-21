@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（015）_System.exit(0)有什么用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1systemexit0有什么用">1、System.exit(0)有什么用</h3>
+<p>查看<font color="#ff0000">java.lang.System</font>的源代码，我们可以找到<font color="#ff0000">System.exit(status)</font>这个方法，源代码如下：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">System</span> {</span>
+<span class="hljs-javadoc">/**
+    * Terminates the currently running Java Virtual Machine. The
+    * argument serves as a status code; by convention, a nonzero status
+    * code indicates abnormal termination.
+    * &lt;p&gt;
+    * This method calls the &lt;code&gt;exit&lt;/code&gt; method in class
+    * &lt;code&gt;Runtime&lt;/code&gt;. This method never returns normally.
+    * &lt;p&gt;
+    * The call &lt;code&gt;System.exit(n)&lt;/code&gt; is effectively equivalent to
+    * the call:
+    * &lt;blockquote&gt;&lt;pre&gt;
+    * Runtime.getRuntime().exit(n)
+    * &lt;/pre&gt;&lt;/blockquote&gt;
+    *
+    *<span class="hljs-javadoctag"> @param</span>      status  exit status.
+    *<span class="hljs-javadoctag"> @throws</span>  SecurityException
+    *        if a security manager exists and its &lt;code&gt;checkExit&lt;/code&gt;
+    *        method doesn't allow exit with the specified status.
+    *<span class="hljs-javadoctag"> @see</span>        java.lang.Runtime#exit(int)
+    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exit</span>(<span class="hljs-keyword">int</span> status) {
+        Runtime.getRuntime().exit(status);
+    }
+}</code></pre>
+<p>注释中说的很清楚，这个方法是用来<font color="#ff0000">结束当前正在运行中的java虚拟机</font>。参数status作为<font color="#ff0000">状态码</font>，按照惯例，一个非零状态码表示<font color="#ff0000">异常</font>，所以说status如果是非零的，那么表示是<font color="#ff0000">非正常退出</font>。调用System.exit(n)实际上相当于调用:</p>
+<pre class="prettyprint"><code class=" hljs avrasm">Runtime<span class="hljs-preprocessor">.getRuntime</span>()<span class="hljs-preprocessor">.exit</span>(n)<span class="hljs-comment">;</span></code></pre>
+<p>对于System.exit(0)来说，有以下几点需要注意：</p>
+<ol>
+<li><p>System.exit(0)是将<font color="#ff0000">整个虚拟机都停掉了</font> ，也就是说连<font color="#ff0000">内存也都被释放了</font>。而<font color="#ff0000">dispose()</font>只是关闭这个窗口，但是并没有停止整个应用。</p></li>
+<li><p>System.exit(0)是正常退出程序，而<font color="#ff0000">System.exit(1)</font>或者说status非0表示非正常退出程序。</p></li>
+<li><p>不管status为何值都会<font color="#ff0000">退出程序</font>。</p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

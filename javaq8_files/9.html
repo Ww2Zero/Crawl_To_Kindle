@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（009）_java程序如何运行            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1java程序如何运行">1、java程序如何运行</h3>
+<p>java代码首先需要进行<font color="#ff0000">编译</font>，编译为.class类文件，然后通过<font color="#ff0000">java命令（执行器）</font>去<font color="#ff0000">执行</font>。<font color="#ff0000">java命令</font>位于jdk/bin目录下。</p>
+<p>了解如何编译看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51704570">javac是什么</a> <br>
+它通过启动<font color="#ff0000">Java运行时环境</font>（JRE），然后<font color="#ff0000">加载指定类</font>（JRE在启动时会搜索以下路径进行类加载：引导类路径，扩展包路径，用户的类路径），调用<font color="#ff0000">类的main()方法</font>（了解更多main方法看这里：main方法是什么）。</br></p>
+<p>java命令可以<font color="#ff0000">执行一个jar</font>，这个jar必须包含<font color="#ff0000">Main-Class文件</font>，用来指定应用程序的入口。了解如何打jar包看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50921672">不使用IDE如何打jar包</a> <br>
+java命令也可以用来<font color="#ff0000">启动一个JavaFX应用程序</font>，同样通过<font color="#ff0000">main()方法</font>或者<font color="#ff0000">javafx.application.Application</font>。通过javafx.application.Application执行，首先执行器构造类的一个实例，然后调用它的<font color="#ff0000">init()方法</font>，之后调用<font color="#ff0000">start(javafx.stage.Stage)方法</font>。</br></p>
+<p>javaw命令与java命令是相同的，除了一点：javaw<font color="#ff0000">没有相关联的控制台窗口</font>。当你不希望一个出现一个命令提示符窗口时，请使用javaw。当然，如果javaw命令发生错误，则会讲所务信息通过一个<font color="#ff0000">对话框</font>显示出来。</p>
+<h3 id="2java命令如何使用">2、java命令如何使用</h3>
+<p>java命令可以再安装了<font color="#ff0000">jdk</font>的操作系统中执行。了解如何安装jdk看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50908233">如何安装和配置Jdk</a> <br>
+打开操作系统的命令终端，输入相应的命令行，就能够使用<font color="#ff0000">java</font>，具体语法如下：</br></p>
+<p>java [options] classname [args]</p>
+<p>java [options] -jar filename [args]</p>
+<p>javaw [options] classname [args]</p>
+<p>javaw [options] -jar filename [args]</p>
+<p>其中，参数可按<font color="#ff0000">任意次序排列</font>。参数说明如下：</p>
+<p><strong><font color="#33ccff">options</font></strong> <br>
+命令行选项，直接执行<font color="#ff0000">java或者java -help</font>会显示所有options操作，主要有：</br></p>
+<ol>
+<li><p><font color="#33ccff">-classpath</font> <br>
+<font color="#ff0000">类路径</font>，设置用户类的路径，它会覆盖<font color="#ff0000">CLASSPATH环境变量</font>中的用户类路径。若既未指定CLASSPATH又未指定-classpath，则用户类路径由<font color="#ff0000">当前目录</font>构成。多个路径项用<font color="#ff0000">分号”;”</font>进行分隔。</br></p></li>
+<li><p><font color="#33ccff">-version</font> <br>
+输出<font color="#ff0000">产品版本</font>并退出，一般用于测试jdk是否安装成功以及查看当前环境下使用的jdk版本。</br></p></li>
+<li><p><font color="#33ccff">-version:&lt;值&gt;</font> <br>
+需要<font color="#ff0000">指定的版本才能运行</font>。</br></p></li>
+<li><p><font color="#33ccff">-verbose:[class|gc|jni]</font> <br>
+启用时<font color="#ff0000">详细日志</font>输出。</br></p></li>
+<li><p><font color="#33ccff">-D&lt;名称&gt;=&lt;值&gt;</font> <br>
+设置<font color="#ff0000">系统属性</font>。</br></p></li>
+<li><p><font color="#33ccff">其他jvm配置</font> <br>
+可以在这里<font color="#ff0000">设置jvm运行参数</font>，例如内存大小-Xms10M -Xmx10M等。 <br>
+了解jvm常见配置看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51583248">jvm常见配置都有哪些</a></br></br></p></li>
+<li><p><font color="#33ccff">-esa | -enablesystemassertions</font> <br>
+启用<font color="#ff0000">系统断言</font></br></p></li>
+<li><p><font color="#33ccff">-dsa | -disablesystemassertions</font> <br>
+禁用<font color="#ff0000">系统断言</font></br></p></li>
+</ol>
+<p><strong><font color="#33ccff">classname</font></strong> <br>
+所要执行的<font color="#ff0000">类名</font>，注意这里是指类名，不是文件名，所以<font color="#ff0000">不能加文件后缀名</font>。例如：</br></p>
+<p>java Test</p>
+<p><strong><font color="#33ccff">filename</font></strong> <br>
+所要执行的<font color="#ff0000">jar文件名</font>，这里是文件名，<font color="#ff0000">需要文件后缀名</font>。例如：</br></p>
+<p>java -jar Test.jar</p>
+<p><strong><font color="#33ccff">args</font></strong> <br>
+调用main(String[] args)方法的<font color="#ff0000">入参</font>（String类型），多个参数通过<font color="#ff0000">空格</font>分割，没有参数不用填写。</br></p>
+<p>例子如下：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestMain {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws Exception {
+        <span class="hljs-keyword">if</span> (args.length &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">for</span> (String arg : args) {
+                System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"args:"</span> + arg);
+            }
+        }
+        <span class="hljs-keyword">if</span> (args.length &lt;= <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"Exception"</span>);
+        }
+    }
+}</code></pre>
+<p>首先编译：<font color="#ff0000">java Test.java</font> <br>
+然后执行：<font color="#ff0000">java -Xms10M -Xmx10M Test 0 1 2</font> <br>
+结果如下：</br></br></p>
+<p>args:0 <br>
+args:1 <br>
+args:2</br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

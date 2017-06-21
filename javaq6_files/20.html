@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（020）_String是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1string是什么">1、String是什么</h3>
+<p><font color="#ff0000">java.lang.String类</font>表示字符串常亮，所谓字符串，就是一组字符组成的<font color="#ff0000">字符集合</font>。它有以下几个特点：</p>
+<p><font color="#33ccff">String是不可变的对象</font> <br>
+每次对String进行改变的时候，其实都等同于生成了一个<font color="#ff0000">新的String对象</font>，然后将指针指向新的String对象（若不使用new构造，实际是从堆中的<font color="#ff0000">String池</font>查找是否已经再存该字符串，若有则直接指向；若没有则先将该字符串放入String池，然后在指向）。 <br>
+所以<font color="#ff0000">经常改变内容</font>的字符串最好不要用String ，每次生成对象都会对<font color="#ff0000">系统性能</font>产生影响（特别当堆中无引用对象多了以后，JVM的<font color="#ff0000">垃圾回收GC</font>就会开始工作，性能会受影响）。</br></br></p>
+<p>了解垃圾回收看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a> <br>
+了解String在内存中如何储存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51487797">String在内存中如何存放 </a> <br>
+<font color="#33ccff">String与StringBuffer效率比较</font> <br>
+而在某些特别情况下，<font color="#ff0000">String对象</font>的改变速度并不会比<font color="#ff0000">StringBuffer对象</font>慢，而特别是以下的字符串对象生成中，String效率是远要比StringBuffer快的：</br></br></br></p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> s1 = <span class="hljs-string">"hello "</span> + <span class="hljs-string">"world"</span> ;
+StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer( <span class="hljs-string">"hello "</span> ) . append( <span class="hljs-string">"world"</span> );</code></pre>
+<p>你会惊讶的发现，生成String对象的速度<font color="#ff0000">简直太快了</font>，而这个时候StringBuffer居然速度上根本一点都不占优势。 <br>
+其实这是JVM的一个把戏，在JVM眼里，这个</br></p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> s1 = <span class="hljs-string">"hello "</span> + <span class="hljs-string">"world"</span> ;</code></pre>
+<p>等效于：</p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> s1 = <span class="hljs-string">"hello world"</span> ;</code></pre>
+<p>所以不需要太多的时间了。但这里要注意，如果你的字符串是来自其他String对象的话，这时候JVM会规规矩矩创建若干对象，例如：</p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> s2 = <span class="hljs-string">"hello "</span> ;
+<span class="hljs-built_in">String</span> s3 = <span class="hljs-string">"world"</span> ;
+<span class="hljs-built_in">String</span> s1 = <span class="hljs-string">"hello world"</span> ;</code></pre>
+<p>String还有两个类似的常用类，<font color="#ff0000">StringBuffer/StringBuilder</font>，了解他们的使用和区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474117">StringBuffer/StringBuilder有什么区别</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

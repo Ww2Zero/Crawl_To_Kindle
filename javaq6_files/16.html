@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（016）_引用类型数组在内存中如何储存            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1存放基本类型数组在内存中如何储存">1、存放基本类型数组在内存中如何储存</h3>
+<p>java的数组中可以存放<font color="#ff0000">引用类型</font>。 <br>
+存放引用类型的内存分布相比存放基本类型<font color="#ff0000">相对复杂</font>。来看一段<font color="#ff0000">存储基本类型</font>的程序: <br>
+了解什么是数组看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51340241">java中的数组是什么</a> <br>
+了解数组在内存中的储存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51404440">java数组如何存储在内存中</a></br></br></br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestPrimitiveArray {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        <span class="hljs-comment">//1.定义数组</span>
+        <span class="hljs-keyword">int</span>[] numbers;
+        <span class="hljs-comment">//2.分配内存空间</span>
+        numbers = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">4</span>];
+        <span class="hljs-comment">//3.为数组元素指定值</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= numbers.length;i++) {
+            numbers[i] = i ;
+        }
+    }
+}</code></pre>
+<p>内存分布如图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160514132408570" title=""/></p>
+<p>从图中可看出数组元素直接存放在<font color="#ff0000">堆内存</font>中，当操作数组元素时，实际上是操作基本类型的变量。</p>
+<h3 id="2存放引用类型数组在内存中如何储存">2、存放引用类型数组在内存中如何储存</h3>
+<p>先来再看一段存储引用类型数组的实例：</p>
+<pre class="prettyprint"><code class=" hljs cs">class Person {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> age;
+    <span class="hljs-keyword">public</span> String name;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>() {
+        System.<span class="hljs-keyword">out</span>.println(name + <span class="hljs-string">"的年龄是: "</span> + age);
+    }
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestReferenceArray {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        <span class="hljs-comment">//1.定义数组</span>
+        Person[] persons;
+        <span class="hljs-comment">//2.分配内存空间</span>
+        persons = <span class="hljs-keyword">new</span> Person[<span class="hljs-number">2</span>];
+        <span class="hljs-comment">//3.为数组元素指定值</span>
+        Person p1 = <span class="hljs-keyword">new</span> Person();
+        p1.age = <span class="hljs-number">28</span>;
+        p1.name = <span class="hljs-string">"Miracle"</span>;
+        Person p2 = <span class="hljs-keyword">new</span> Person();
+        p2.age = <span class="hljs-number">30</span>;
+        p2.name = <span class="hljs-string">"Miracle He"</span>;
+        persons[<span class="hljs-number">0</span>] = p1;
+        persons[<span class="hljs-number">1</span>] = p2;
+        <span class="hljs-comment">//输出元素的值</span>
+        <span class="hljs-keyword">for</span>(Person p : persons) {
+            p.display();
+        }
+    }
+}</code></pre>
+<p>元素为引用类型的数组，在内存中的存储与基本类型<font color="#ff0000">完全不一样</font>。 <br>
+此时数组元素存放<font color="#ff0000">引用</font>，指向另一块内存，在其中存放<font color="#ff0000">有效的数据</font>。如图：</br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160514132516992" title=""/></p>
+<p>了解数组和普通对象的引用变量：<a href="http://blog.csdn.net/ooppookid/article/details/51404629">数组和普通对象的引用变量有什么区别</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（004）_jdk基础扩展类库都有什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><h3 id="1jdk基础扩展类库都有什么">1、jdk基础扩展类库都有什么</h3>
+<p>了解java核心框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51589070">java核心框架是什么样的</a> <br>
+jdk基础类库分为两大部分，<font color="#ff0000">基础库</font>、<font color="#ff0000">扩展基础库</font>，提供了相当大量的功能，扩展基础库具体如下：</br></p>
+<ol>
+<li><p><strong><font color="#33ccff">I/O工具（I/O）</font></strong> <br>
+<font color="#ff0000">java.io和java.nio包</font>提供了一组非常丰富的api来管理<font color="#ff0000">应用程序的I/O</font>（输入/输出）。包括文件和设备I/O、对象序列化、缓冲区管理、字符集支持等。此外，API还为服务端提供了包括多路复用、非阻塞I/O、内存映射和文件锁等功能。 <br>
+了解更多java.io和java.nio包看这里：[io包nio包有什么区别][3]</br></br></p></li>
+<li><p><strong><font color="#33ccff">对象序列化（Object Serialization）</font></strong> <br>
+<font color="#ff0000">对象序列化</font>扩展了Java核心输入/输出类所支持的对象。对象序列化将对象转换为<font color="#ff0000">流</font>传输，支持编码过的对象、字节流、图像流。序列化用于<font color="#ff0000">轻量级的持久化</font>以及通过<font color="#ff0000">套接字进行的通信</font>和<font color="#ff0000">远程方法调用</font>(RMI)。 <br>
+了解java序列化看这里：[Serializable接口有什么用][4]</br></br></p></li>
+<li><p><strong><font color="#33ccff">javaNet（Networking）</font></strong> <br>
+提供了<font color="#ff0000">网络功能</font>的类，包括寻址、url和uri使用类、连接到服务器的套接字类、网络安全功能等等。主要功能在<font color="#ff0000">javax.net包</font>中。 <br>
+了解javaNet看这里：[javax.net包有什么用][5]</br></br></p></li>
+<li><p><strong><font color="#33ccff">安全库（Security）</font></strong> <br>
+安全库中提供了很多<font color="#ff0000">安全相关</font>的API，如配置访问控制、数字签名、身份验证和授权、密码、网络通信安全等等。主要功能在<font color="#ff0000">java.security、javax.security包</font>中。 <br>
+了解Security看这里：[security包有什么用][6]</br></br></p></li>
+<li><p><strong><font color="#33ccff">国际化库（Internationalization）</font></strong> <br>
+国际化库中提供了很多可以开发<font color="#ff0000">国际化应用程序</font>的API。国际化是指设计一个应用程序，使它在不变更工程的情况下可以适应各种语言和地区。<font color="#ff0000">java.util.Locale</font>中提供了部分国际化功能。 <br>
+了解国际化看这里： [java.util.Locale包有什么用][7]</br></br></p></li>
+<li><p><strong><font color="#33ccff">JavaBeans库（JavaBeans™ Component API）</font></strong> <br>
+JavaBeans库是<font color="#ff0000">开发beans</font>的相关类，包含一些基于javabean™架构的组件，用来操作应用程序中的<font color="#ff0000">bean</font>（简单来说bean就是只有属性、get和set方法，代表某种资源的类）。 <br>
+了解JavaBeans包看这里：[java.beans包有什么用][8]</br></br></p></li>
+<li><p><strong><font color="#33ccff">Java管理扩展库（Java Management Extensions，JMX）</font></strong> <br>
+JMX API是一个标准的API，用来<font color="#ff0000">监管各种资源</font>，包括应用程序、设备、服务和Java虚拟机。典型用途包括查询和修改应用程序配置、收集关于应用程序行为的统计数据、发送状态变化通知以及错误的条件。JMX API还包括<font color="#ff0000">远程访问</font>，因此远程管理程序可以与正在运行的应用程序交互。主要功能在<font color="#ff0000">javax.management包</font>中。 <br>
+了解 JMX看这里：[Java种JMX是什么][9]</br></br></p></li>
+<li><p><strong><font color="#33ccff">xml工具库（Java API for XMLProcessing，JAXP）</font></strong> <br>
+Java平台提供了一组丰富的API（JAXP）来处理<font color="#ff0000">xml文档和数据</font>。主要功能在<font color="#ff0000">javax.xml包</font>中。 <br>
+了解JAXP看这里：[Java中JAXP是什么][10]</br></br></p></li>
+<li><p><strong><font color="#33ccff">Java本地方法接口（Java Native Interface，JNI）</font></strong> <br>
+<font color="#ff0000">Java本地方法接口</font>是一个标准的编程接口，用来<font color="#ff0000">编写Java本地方法</font>和<font color="#ff0000">将一个JVM嵌入到本地应用程序中</font>。本地方法库的主要目标是为不同平台做<font color="#ff0000">二进制兼容性</font>，调用其他平台的方法（常见的如C/C++）。通过<font color="#ff0000">native关键字</font>声明本地方法，通过<font color="#ff0000">System.loadLibrary</font>加载。 <br>
+了解JNI看这里：[Java中JNI是什么][11]</br></br></p></li>
+<li><p><strong><font color="#33ccff">可选扩展机制（Extension Mechanism）</font></strong> <br>
+可选包是可以用它来<font color="#ff0000">扩展核心平台Java类</font>（包括任何相关的本地代码）的包。它的扩展机制允许JVM在Java平台中加载可选扩展类。扩展机制还提供了在尚未安装在jdk或jre的环境中<font color="#ff0000">通过url中检索</font>可选包的功能。通过标准可扩展的方式来让Java平台上所有应用使用<font color="#ff0000">自定义API</font>。 <br>
+了解可选扩展机制看这里：[Java中可选扩展机制是什么][12]</br></br></p></li>
+<li><p><strong><font color="#33ccff">标准覆盖机制（Endorsed Standards Override Mechanism）</font></strong> <br>
+Java平台是在不断更新中发展的，可能会有需要修改Java平台的时候，标准覆盖机制允许在一定范围内<font color="#ff0000">覆盖Java平台的原有内容</font>。标准覆盖机制提供了一种方法，后续版本的类和接口如果实现了<font color="#ff0000">标准接口</font>或者<font color="#ff0000">本身是独立技术</font>，则可能会纳入Java平台。当然<font color="#ff0000">不包括java.lang包</font>中的类。 <br>
+了解标准覆盖机制看这里：[Java中标准覆盖机制是什么][13]</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

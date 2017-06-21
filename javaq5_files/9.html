@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（009）_java的多态性都有什么表现            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是多态">1、什么是多态</h3>
+<p>多态是<font color="#ff0000">对象</font>具有多种表现形式的能力。 <br>
+在面向对象语言中，接口的多种不同的实现方式即为<font color="#ff0000">多态</font>。 <br>
+多态性的科学解释：允许你将父对象设置成为一个或更多的他子对象的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作。 <br>
+通俗的解释，就是一句话：<font color="#ff0000">可以把一个子类的对象转换为父类的对象</font>。 <br>
+在Java中，<font color="#ff0000">所有的Java对象</font>是多态的，因为任何对象都可以设置为自己本身的类和Object类（Object是所有类的父类）。</br></br></br></br></p>
+<p>了解跟多继承看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51193477">java类的继承有什么意义</a></p>
+<h3 id="2如果表现多态">2、如果表现多态</h3>
+<p>让我们来看一个例子。 <br>
+例子：</br></p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Vegetarian</span>{</span>}
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span>{</span>}
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Deer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Vegetarian</span>{</span>}</code></pre>
+<p>现在，Deer类被认为是<font color="#ff0000">多态的</font>，因为这有多重继承。于是：</p>
+<ul>
+<li>鹿is-a动物（is-a等于继承，了解更多is-a看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51174122">is-a，has-a，like-a是什么</a>）</li>
+<li>鹿like-a素食（is-a等于实现）</li>
+<li>鹿 is-a Object</li>
+</ul>
+<p>由于多态性，下面的声明是合法的：</p>
+<pre class="prettyprint"><code class=" hljs javascript">Deer d = <span class="hljs-keyword">new</span> Deer();
+Animal a = d;
+Vegetarian v = d;
+<span class="hljs-built_in">Object</span> o = d;</code></pre>
+<p>所有d的参考变量d,a,v,o在堆中都<font color="#ff0000">指向</font>相同的Deer对象。</p>
+<p>了解更多引用传递看这里： <br>
+了解更多变量内存存储看这里：</br></p>
+<h3 id="3方法多态是什么">3、方法多态是什么</h3>
+<p>我们知道方法覆盖，其中一个子类可以在其父覆盖的方法。即覆盖方法的本质是隐藏父类方法，除非子类使用的重载方法中的<font color="#ff0000">super关键字</font>。无论子类以何种形态被声明，都会执行子类的方法，这就是<font color="#ff0000">方法的多态</font>。</p>
+<p>了解更多覆盖看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51203923">java中覆盖是什么</a> <br>
+了解更多重载和覆盖的区别看这里：java中重载和覆盖有什么关系 <br>
+例如：</br></br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">/* File name : Employee.java */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Employee
+{
+   <span class="hljs-keyword">private</span> String name;
+   <span class="hljs-keyword">private</span> String address;
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> number;
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Employee</span>(String name, String address, <span class="hljs-keyword">int</span> number)
+   {
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Constructing an Employee"</span>);
+      <span class="hljs-keyword">this</span>.name = name; 
+      <span class="hljs-keyword">this</span>.address = address;
+      <span class="hljs-keyword">this</span>.number = number;
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mailCheck</span>()
+   {
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Mailing a check to "</span> + <span class="hljs-keyword">this</span>.name
+       + <span class="hljs-string">" "</span> + <span class="hljs-keyword">this</span>.address);
+   }
+   <span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span>()
+   {
+      <span class="hljs-keyword">return</span> name + <span class="hljs-string">" "</span> + address + <span class="hljs-string">" "</span> + number;
+   }
+   <span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span>()
+   {
+      <span class="hljs-keyword">return</span> name;
+   }
+   <span class="hljs-keyword">public</span> String <span class="hljs-title">getAddress</span>()
+   {
+      <span class="hljs-keyword">return</span> address;
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAddress</span>(String newAddress)
+   {
+      address = newAddress;
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumber</span>()
+   {
+     <span class="hljs-keyword">return</span> number;
+   }
+}</code></pre>
+<p>Salary类继承Employee类，如下所示：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-comment">/* File name : Salary.java */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Salary</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Employee</span>
+{</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> salary; <span class="hljs-comment">//Annual salary</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Salary</span>(String name, String address, <span class="hljs-keyword">int</span> number, <span class="hljs-keyword">double</span>
+      salary)
+   {
+       <span class="hljs-keyword">super</span>(name, address, number);
+       setSalary(salary);
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mailCheck</span>()
+   {
+       System.out.println(<span class="hljs-string">"Within mailCheck of Salary class "</span>);
+       System.out.println(<span class="hljs-string">"Mailing check to "</span> + getName()
+       + <span class="hljs-string">" with salary "</span> + salary);
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getSalary</span>()
+   {
+       <span class="hljs-keyword">return</span> salary;
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSalary</span>(<span class="hljs-keyword">double</span> newSalary)
+   {
+       <span class="hljs-keyword">if</span>(newSalary &gt;= <span class="hljs-number">0.0</span>)
+       {
+          salary = newSalary;
+       }
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">computePay</span>()
+   {
+      System.out.println(<span class="hljs-string">"Computing salary pay for "</span> + getName());
+      <span class="hljs-keyword">return</span> salary/<span class="hljs-number">52</span>;
+   }
+}</code></pre>
+<p>测试代码：</p>
+<pre class="prettyprint"><code class=" hljs d"><span class="hljs-comment">/* File name : VirtualDemo.java */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> VirtualDemo
+{
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main(String [] args)
+   {
+      Salary s = <span class="hljs-keyword">new</span> Salary(<span class="hljs-string">"Mohd Mohtashim"</span>, <span class="hljs-string">"Ambehta, UP"</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3600.00</span>);
+      Employee e = <span class="hljs-keyword">new</span> Salary(<span class="hljs-string">"John Adams"</span>, <span class="hljs-string">"Boston, MA"</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2400.00</span>);
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Call mailCheck using Salary reference --"</span>);
+      s.mailCheck();
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"
+Call mailCheck using Employee reference--"</span>);
+      e.mailCheck();
+    }
+}</code></pre>
+<p>这将产生以下结果： <br>
+Constructing an Employee <br>
+Constructing an Employee <br>
+Call mailCheck using Salary reference – <br>
+Within mailCheck of Salary class <br>
+Mailing check to Mohd Mohtashim with salary 3600.0</br></br></br></br></br></p>
+<p>Call mailCheck using Employee reference– <br>
+Within mailCheck of Salary class <br>
+Mailing check to John Adams with salary 2400.0</br></br></p>
+<p>结论如下： <br>
+1. 在调用s.mailCheck()时，调用Salary类中的mailCheck()。 <br>
+2. 在调用e.mailCheck()时，由于e是Salary对象的一个引用，所以实际调用的是Salary类中的mailCheck()。 <br>
+3. 这种调用被称为<font color="#ff0000">虚拟方法调用</font>，该方法被称为<font color="#ff0000">虚拟方法</font>。</br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

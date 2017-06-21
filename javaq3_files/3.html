@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基本语法（003）_public、privite、protected有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px">
+<p><span style="font-family:SimSun"><br>
+</br></span></p>
+</h1>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">public、privite、protected有什么区别</span></h1>
+<span style="font-family:Microsoft YaHei; font-size:12px">首先，public、privite、protected都是Java的<span style="color:#FF0000">修饰符</span>，我们先看看Java修饰符是什么</span>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、java修饰符是什么</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">Java修饰符是用来修饰Java中的<span style="color:#FF0000">标识符</span>（包括<span style="color:#FF0000">变量名</span>、<span style="color:#FF0000">方法名</span>、<span style="color:#FF0000">类名</span>、<span style="color:#FF0000">包名</span>和<span style="color:#FF0000">参数名</span>等等）的，用来改变它们的含义的关键词。
+ Java语言有各种各样修饰符，大体分为两类：<span style="color:#FF0000">访问控制修饰符</span>、<span style="color:#FF0000">非访问控制修饰符</span>。如图：<br>
+</br></span><pre class="java" code_snippet_id="1623898" name="code" snippet_file_name="blog_20160325_1_7930588">public class className {
+  private boolean myFlag;
+  static final double weeks = 9.5;
+  protected static final int BOXWIDTH = 42;
+  public static void main(String[] arguments) {
+
+  }
+}</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、public、privite、protected的区别是什么</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">public、private、protected都属于<span style="color:#FF0000">访问控制修饰符</span>，用来设置类，变量，方法和构造函数的<span style="color:#FF0000">访问级别</span>，如果不加任何访问控制修饰符，则为<span style="color:#FF0000">default</span>。</span><br>
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF">public：</span><br>
+</br></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">公共的。Java语言中访问限制最宽的修饰符，被其修饰的类、属性以及方法不仅可以<span style="color:#FF0000">跨类</span>访问，而且允许<span style="color:#FF0000">跨包</span>（package）访问。​</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">private：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">私有的。Java语言中对访问权限限制的最窄的修饰符，被其修饰的类、属性以及方法<span style="color:#FF0000">只能被该类的对象</span>访问，其子类不能访问，更不能允许跨包访问。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">protected：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">被保护的。介于public和private之间的一种访问修饰符。被其修饰的类、属性以及方法只能被类<span style="color:#FF0000">本身</span>的方法及<span style="color:#FF0000">子类</span>访问，即使子类在不同的包中也可以访问。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">default：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">默认的。即不加任何访问修饰符。该模式下，只允许在<span style="color:#FF0000">同一个包</span>中进行访问。</span></p>
+<br>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">3、非访问控制修饰符有哪些</span></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">出了访问控制符之外的，都归类为<span style="color:#FF0000">非访问控制修饰符</span>，来实现很多其他的功能。<br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">static：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">用来修饰静态类、方法和变量。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">final：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">用来修饰不会被修改的方法和变量。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">abstract：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">用来修饰抽象类和方法。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">synchronized：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">表明一个方法或一段代码需要同步执行。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">volatile：</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">修饰被不同线程访问和修改的变量，都会直接读取原值，而不会因编译器的优化而读取备份。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"><br>
+</br></span>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+</br></span></div>
+<p><br>
+</br></p>
+</br></br></div>]
+</body>
+</html>

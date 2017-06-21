@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（007）_java类的继承有什么意义            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1继承是什么">1、继承是什么</h3>
+<p><font color="#ff0000">继承</font>，是面向对象语言的重要机制。 <br>
+概念：一个类（子类）可以使用从另一个类（父类、超类）继承<font color="#ff0000">属性和方法</font>。 <br>
+java中的继承是<font color="#ff0000">单一继承</font>，即一个子类只能有一个父类。 <br>
+当然，<font color="#ff0000">接口(interface)</font>也可以继承。 <br>
+了解什么是类看这里:<a href="http://blog.csdn.net/ooppookid/article/details/51161448">类、对象到底有什么秘密</a> <br>
+了解接口的概念看这里:<a href="http://blog.csdn.net/ooppookid/article/details/51172263">java接口到底是什么</a> <br>
+接口和抽象类的区别看这:<a href="http://blog.csdn.net/ooppookid/article/details/51173179">接口和抽象类有什么区别</a></br></br></br></br></br></br></p>
+<h3 id="2如何使用继承">2、如何使用继承</h3>
+<p>广义上讲，继承类、继承抽象类、实现接口都可以称为继承，但目前所说的java继承只是继承类或抽象类，即<font color="#ff0000">is-a模式</font>最直接的体现。 <br>
+了解更多is-a模式看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51174122">is-a，has-a，like-a是什么</a> <br>
+继承类、抽象类使用<font color="#ff0000">extends关键字</font>，实现接口使用<font color="#ff0000">implements关键字</font>。通过使用这些关键字，我们可以使一个对象获得另一个对象的属性及方法。</br></br></p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span>{</span>
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mammal</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span>{</span>
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Reptile</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span>{</span>
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mammal</span>{</span>
+}</code></pre>
+<p>根据上面的例子，面向对象的术语即：</p>
+<ul>
+<li>动物是哺乳动物类的父类。</li>
+<li>动物是爬虫类的父类。</li>
+<li>哺乳动物和爬行动物是动物类的子类。</li>
+<li>狗是哺乳动物双方和动物类的子类。</li>
+<li>因此：狗也是动物的子类。</li>
+</ul>
+<p>使用这个例子：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Mammal</span>{</span>
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+
+      Animal a = <span class="hljs-keyword">new</span> Animal();
+      Mammal m = <span class="hljs-keyword">new</span> Mammal();
+      Dog d = <span class="hljs-keyword">new</span> Dog();
+
+      System.out.println(m <span class="hljs-keyword">instanceof</span> Animal);
+      System.out.println(d <span class="hljs-keyword">instanceof</span> Mammal);
+      System.out.println(d <span class="hljs-keyword">instanceof</span> Animal);
+   }
+}</code></pre>
+<p>这将产生以下结果： <br>
+true <br>
+true <br>
+true</br></br></br></p>
+<p>要注意的一个非常重要的事实是，Java只支持<font color="#ff0000">单一继承</font>。这意味着，一个类不能扩展多个类。因此，以下是非法的：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span>, <span class="hljs-title">Mammal</span>{</span>
+}</code></pre>
+<h3 id="3如何继承接口">3、如何继承接口</h3>
+<p>接口也可以扩展另一个接口，类似于一个类扩展另一个类中的方法。同样使用<font color="#ff0000">extends关键字</font>来扩展接口，使子接口继承父接口的方法。 <br>
+下面的Sports接口是由Hockey和Football接口扩展。</br></p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-comment">//Filename: Sports.java</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sports</span>
+{</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setHomeTeam</span>(String name);
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setVisitingTeam</span>(String name);
+}
+
+<span class="hljs-comment">//Filename: Football.java</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Football</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Sports</span>
+{</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">homeTeamScored</span>(<span class="hljs-keyword">int</span> points);
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">visitingTeamScored</span>(<span class="hljs-keyword">int</span> points);
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endOfQuarter</span>(<span class="hljs-keyword">int</span> quarter);
+}
+
+<span class="hljs-comment">//Filename: Hockey.java</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Hockey</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Sports</span>
+{</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">homeGoalScored</span>();
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">visitingGoalScored</span>();
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endOfPeriod</span>(<span class="hljs-keyword">int</span> period);
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">overtimePeriod</span>(<span class="hljs-keyword">int</span> ot);
+}</code></pre>
+<p>Hockey接口有四个方法，但它继承了两个Sports接口的方法，因此，实现Hockey类需要实现六个方法。同样地，一个实现Football类需要实现Football的三个方法，以及Sports的两个方法。</p>
+<h3 id="4java如何多重继承">4、java如何多重继承</h3>
+<p>我们知道，一个java类只能继承一个父类，所以，多重继承是<font color="#ff0000">不允许的</font>。 <br>
+但是，一个接口可以扩展<font color="#ff0000">多个</font>父接口。 <br>
+例如，Sports和Event都是接口：</br></br></p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Hockey</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Sports</span>, <span class="hljs-title">Event</span></span></code></pre></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

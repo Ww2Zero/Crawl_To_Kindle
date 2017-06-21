@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（006）_is-a，has-a，like-a是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1is-ahas-alike-a是什么">1、is-a，has-a，like-a是什么</h3>
+<p>在面向对象设计的领域里，有若干种设计思路，主要有如下三种： <br>
+<font color="#33ccff">is-a</font>、<font color="#33ccff">has-a</font>、<font color="#33ccff">like-a</font> <br>
+java中在类、接口、抽象类中有很多体现。 <br>
+了解java看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50887927">什么是Java</a> <br>
+了解类和对象看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51161448">类、对象到底有什么秘密</a> <br>
+了解接口和抽象类看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51173179">接口和抽象类有什么区别</a></br></br></br></br></br></p>
+<h3 id="2is-a是什么">2、is-a是什么</h3>
+<p>is-a，顾名思义，<font color="#ff0000">是一个</font>，代表<font color="#ff0000">继承关系</font>。 <br>
+如果A is-a B，那么<font color="#ff0000">B就是A的父类</font>。 <br>
+一个类完全包含另一个类的所有属性及行为。 <br>
+例如PC机是计算机，工作站也是计算机，PC机和工作站是两种不同类型的计算机，但都继承了计算机的共同特性。因此在用Java语言实现时，应该将PC机和工作站定义成两种类，均继承计算机类。 <br>
+了解更多继承看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51193477">java类的继承有什么意义 </a></br></br></br></br></p>
+<h3 id="3has-a是什么">3、has-a是什么</h3>
+<p>has-a，顾名思义，<font color="#ff0000">有一个</font>，代表<font color="#ff0000">从属关系</font>。 <br>
+如果A has a B，那么<font color="#ff0000">B就是A的组成部分</font>。 <br>
+同一种类的对象，通过它们的属性的不同值来区别。 <br>
+例如一台PC机的操作系统是Windows，另一台PC机的操作系统是Linux。操作系统是PC机的一个成员变量，根据这一成员变量的不同值，可以区分不同的PC机对象。 </br></br></br></p>
+<h3 id="4-like-a是什么">4、 like-a是什么</h3>
+<p>like-a，顾名思义，<font color="#ff0000">像一个</font>，代表<font color="#ff0000">组合关系</font>。 <br>
+如果A like a B，那么<font color="#ff0000">B就是A的接口</font>。 <br>
+新类型有老类型的接口，但还包含其他函数，所以不能说它们完全相同。 <br>
+例如一台手机可以说是一个微型计算机，但是手机的通讯功能显然不是计算机具备的行为，所以手机继承了计算机的特性，同时需要实现通讯功能，而通讯功能需要作为单独接口，而不是计算机的行为。</br></br></br></p>
+<h3 id="5is-ahas-alike-a如何应用">5、is-a，has-a，like-a如何应用</h3>
+<p>如果你确定两件对象之间是is-a的关系，那么此时你应该使用<font color="#ff0000">继承</font>；比如菱形、圆形和方形都是形状的一种，那么他们都应该从形状类继承。 <br>
+如果你确定两件对象之间是has-a的关系，那么此时你应该使用<font color="#ff0000">聚合</font>；比如电脑是由显示器、CPU、硬盘等组成的，那么你应该把显示器、CPU、硬盘这些类聚合成电脑类。 <br>
+如果你确定两件对象之间是like-a的关系，那么此时你应该使用<font color="#ff0000">组合</font>；比如空调继承于制冷机，但它同时有加热功能，那么你应该把让空调继承制冷机类，并实现加热接口。</br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

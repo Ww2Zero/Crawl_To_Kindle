@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（008）_java中覆盖是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是覆盖">1、什么是覆盖</h3>
+<p>在java中，覆盖是<font color="#ff0000">针对继承</font>才有的概念，某一个子类需要某些方法或属性，但又不想使用父类中的同名的方法或属性，就需要使用<font color="#ff0000">覆盖</font>。 <br>
+直白的来说，就是在子类中编写与父类<font color="#ff0000">同名</font>、<font color="#ff0000">同参数</font>、<font color="#ff0000">同返回值</font>的方法，或<font color="#ff0000">同名</font>、<font color="#ff0000">同类型</font>的属性，子类对象调用该方法/属性时，运行的是子类的方法，而不会执行父类的方法（除非在方法第一行写<font color="#ff0000">super();</font>会先执行父类方法，再继续执行子类代码。）</br></p>
+<p>了解类的构造函数看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51161448">类、对象到底有什么秘密</a> <br>
+了解更多继承看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51193477">java类的继承有什么意义</a></br></p>
+<h3 id="2构造函数如何覆盖">2、构造函数如何覆盖</h3>
+<p>了解类的构造函数看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51161448">类、对象到底有什么秘密</a> <br>
+当子类继承一个父类时，构造子类时需要调用父类的构造函数，存在三种情况</br></p>
+<ol>
+<li><font color="#33ccff">父类无构造函数或者一个无参数构造函数时</font>。子类若无构造函数或者有无参数构造函数，子类构造函数中不需要显式调用父类的构造函数，系统会自动在调用子类构造函数前调用父类的构造函数。</li>
+<li><font color="#33ccff">父类只有有参数构造函数时</font>。子类在构造方法中必须要显示调用父类的构造函数，否则编译出错。</li>
+<li><font color="#33ccff">父类既有无参数构造函数，也有有参构造函数</font>。子类可以不在构造方法中调用父类的构造函数，这时使用的是父类的无参数构造函数。</li>
+</ol>
+<h3 id="3方法如何覆盖">3、方法如何覆盖</h3>
+<ol>
+<li>子类覆盖父类的方法，必须有同样的<font color="#ff0000">参数</font>和<font color="#ff0000">返回类型</font>。</li>
+<li>子类覆盖父类的方法，在jdk1.5后，参数、返回类型可以是父类方法返回类的<font color="#ff0000">子类</font>。</li>
+<li>子类覆盖父类的方法，可以修改方法的<font color="#ff0000">修饰符</font>，但只能把方法的作用域放大，而不能把public修改为private。 <br>
+了解更多java修饰符看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50983158">public、privite、protected有什么区别</a></br></li>
+<li>子类方法能够访问父类的<font color="#ff0000">protected属性</font>，但不能够访问<font color="#ff0000">默认的属性</font>。</li>
+<li>子类的静态方法，与父类同名静态方法<font color="#ff0000">互不影响</font>。由于静态方法使用类名调用，使用子类类名调用子类的方法，使用父类类名调用父类的方法。</li>
+<li>多态时，当子类覆盖了父类的方法，使用子类覆盖的方法。 <br>
+了解什么是多态：[java的多态性都有什么表现][6] <br>
+[6]:</br></br></li>
+</ol>
+<h3 id="4属性如何覆盖">4、属性如何覆盖</h3>
+<ol>
+<li>当子类覆盖父类的实例变量时，父类方法使用的是父类的实例变量，子类方法使用的是子类的实例变量。</li>
+<li>子类或父类使用实例变量时，都相当于在前面加了一个<font color="#ff0000">this指针</font>（this.）。</li>
+</ol>
+<p>了解更多java变量看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50969733">局部变量、类变量、实例变量有什么区别</a></p>
+<h3 id="5实例">5、实例</h3>
+<pre class="prettyprint"><code class=" hljs axapta"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperClass</span> {</span> 
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> number; 
+
+
+    <span class="hljs-keyword">public</span> SuperClass() { 
+        <span class="hljs-keyword">this</span>.number = <span class="hljs-number">0</span>; 
+    } 
+
+
+    <span class="hljs-keyword">public</span> SuperClass(<span class="hljs-keyword">int</span> number) { 
+        <span class="hljs-keyword">this</span>.number = number; 
+    } 
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> getNumber() { 
+        number++; 
+        <span class="hljs-keyword">return</span> number; 
+    } 
+} 
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass1</span> <span class="hljs-inheritance"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">SuperClass</span> {</span> 
+    <span class="hljs-keyword">public</span> SubClass1(<span class="hljs-keyword">int</span> number) { 
+        <span class="hljs-keyword">super</span>(number); 
+    } 
+
+} 
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass2</span> <span class="hljs-inheritance"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">SuperClass</span> {</span> 
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> number; 
+
+
+    <span class="hljs-keyword">public</span> SubClass2(<span class="hljs-keyword">int</span> number) { 
+        <span class="hljs-keyword">super</span>(number); 
+    } 
+
+} 
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span> <span class="hljs-inheritance"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">SuperClass</span> {</span> 
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> number; 
+
+
+    <span class="hljs-keyword">public</span> SubClass(<span class="hljs-keyword">int</span> number) { 
+        <span class="hljs-keyword">super</span>(number); 
+    } 
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> getNumber() { 
+        number++; 
+        <span class="hljs-keyword">return</span> number; 
+    } 
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> main(String[] args) { 
+        SuperClass s = <span class="hljs-keyword">new</span> SubClass(<span class="hljs-number">20</span>); 
+        SuperClass s1 = <span class="hljs-keyword">new</span> SubClass1(<span class="hljs-number">20</span>); 
+        SuperClass s2 = <span class="hljs-keyword">new</span> SubClass2(<span class="hljs-number">20</span>); 
+        System.out.println(s.getNumber()); 
+        System.out.println(s1.getNumber()); 
+        System.out.println(s2.getNumber()); 
+        <span class="hljs-comment">//结论一：多态时，当子类覆盖了父类的方法，使用子类覆盖的方法 </span>
+        <span class="hljs-comment">//结论二：当子类覆盖父类的实例变量时，父类方法使用的是父类的 实例变量，子类方法使用的是子类的实例变量</span>
+    } 
+
+} </code></pre>
+<p>输出结果： <br>
+1 <br>
+21 <br>
+21</br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

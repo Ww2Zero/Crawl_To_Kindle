@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（006）_常见的Java异常有哪些(运行时)            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><h3 id="1常见的java运行时异常有哪些">1、常见的java运行时异常有哪些</h3>
+<p>了解运行时异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948">什么是java中的异常</a> <br>
+常见的非运行时异常看这里：[常见的非运行时异常有哪些][3] <br>
+[3]:</br></br></p>
+<p>我们所说的java<font color="#ff0000">常见异常</font>是指jdk或者其他常用第三方jar中，出现<font color="#ff0000">频次很高</font>的异常。常见的<font color="#ff0000">运行时异常（RuntimeException）</font>包括： <br>
+空指针异常类：NullPointerException <br>
+数组下标越界异常：ArrayIndexOutOfBoundsException <br>
+数组负长度异常：NegativeArraySizeException <br>
+数组存储异常：ArrayStoreException <br>
+算术异常类：ArithmeticException</br></br></br></br></br></p>
+<p>非法参数异常：IllegalArgumentException <br>
+类型强制转换异常：ClassCastException <br>
+枚举常量不存在异常：EnumConstantNotPresentException <br>
+数字转换异常：NumberFormatException <br>
+无效的状态异常：IllegalStateException</br></br></br></br></p>
+<p>无效的监控状态异常：IllegalMonitorStateException <br>
+无效的线程状态异常：IllegalThreadStateException</br></p>
+<h3 id="2什么情况下会抛出这些异常">2、什么情况下会抛出这些异常</h3>
+<p>如何抛出异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51100373">如何抛出异常</a></p>
+<ol>
+<li><p><strong><font color="#33ccff">java.lang.NullPointerException</font></strong> <br>
+这个异常大家肯定都经常遇到，异常的解释是：<font color="#ff0000">程序遇上了空指针</font>。简单地说就是调用了<font color="#ff0000">未经初始化的对象</font>或者是<font color="#ff0000">不存在的对象</font>。 <br>
+这个错误经常出现在操作方法返回值、调用数组这些操作中等等。 <br>
+一般在调用他人有可能返回null的方法时，对null进行了后续操作，会抛出该异常，这里应该首先<font color="#ff0000">进行null判断</font>然后再进行后续操作。 <br>
+对数组操作中出现空指针，很多情况下是一些刚开始学习编程的朋友常犯的错误，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要 的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还<font color="#ff0000">需要对每个元素都进行初始化</font>（如果要调用的话）</br></br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.ArrayIndexOutOfBoundsException</font></strong> <br>
+这个异常相信很多朋友也经常遇到过，异常的解释是：<font color="#ff0000">数组下标越界</font>（这里的数组包括各类集合，如List等）。 <br>
+现在程序中大多都有对数组的操作，因此在调用数组的时候一定要认真检查，看调用的下标是不是超出了数组的范围。再通过下标获取数组值之前，最好先查看一下数组的length，以免出现这个异常。 <br>
+另外，如果传入的<font color="#ff0000">下标为负数</font>，也会出现这个异常。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.NegativeArraySizeException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">数组长度为负值异常</font>。 <br>
+当使用负数作为数组长度创建数组时抛出该异常。 <br>
+在创建数组之前，一定要确保数组长度非负，尤其是隐式创建（数组长度为变量）。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.ArrayStoreException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">数组存储异常</font>。 <br>
+当向数组中存放非数组声明类型对象时抛出。 <br>
+在为数组赋值时，一定要注意类型的一致。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.ArithmeticException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">数学运算异常</font>。 <br>
+比如程序中出现了除以零这样的运算就会出这样的异常。对这种异常，大家只要好好检查一下自己程序中涉及到数学运算的地方，就能够解决。</br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.IllegalArgumentException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">非法参数异常</font>。 <br>
+很 多java或者第三方类库中的方法在某情况下都会引发这样的错误。比如g.setcolor(int red,int green,int blue)这个方法中的三个值，如果有超过255的则会出现这个异常。一旦发现这个异常，我们要赶紧去检查一下方法调用中的参数传递是不是出现了错误。</br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.ClassCastException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">强制类型转换异常</font>。 <br>
+假设有类A和B（A不是B的父类或子类），O是A的实例，那么当强制将O构造为类B的实例时抛出该异常。 <br>
+一般会在类型强制转换时出现，我们一定要梳理好继承关系采取强转即可避免。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.EnumConstantNotPresentException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">枚举常量不存在异常</font>。 <br>
+当应用试图通过名称和枚举类型访问一个枚举对象，但该枚举对象并不包含常量时，抛出该异常。 <br>
+定义和使用枚举类型时需要小心。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.NumberFormatException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">数字转换异常</font>。该异常继承于IllegalArgumentException。 <br>
+当将<font color="#ff0000">字符串转换为数字</font>时，若格式错误则转换失败，抛出该异常。例如将”abc”抓换为整型即会抛出该异常。 <br>
+我们在做数字转换时一定要注意。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.IllegalStateException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">无效的状态异常</font>。 <br>
+当在Java环境和应用尚未处于某个方法的合法调用状态，而调用了该方法时，抛出该异常。 <br>
+例如在程序中两次调用了response.sendRedirect()方法，就会抛出该异常。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.IllegalMonitorStateException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">无效的监控状态异常</font>。 <br>
+当某个线程试图等待一个<font color="#ff0000">自己并不拥有的对象</font>（O）的监控器或者通知其他线程等待该对象（O）的监控器时，抛出该异常。 <br>
+异常的发生是由于程序员没有注意notify()，notifyAll()，wait()方法的使用条件，<font color="#ff0000">没有真正理解线程同步机制</font>。如果当前的线程<font color="#ff0000">不是此对象锁的所有者</font>，却调用该对象的notify()，notifyAll()，wait()方法时抛出该异常。</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">java.lang.IllegalThreadStateException</font></strong> <br>
+该异常的解释是：<font color="#ff0000">无效的线程状态异常</font>。该异常继承于IllegalArgumentException。 <br>
+当线程尚未处于某个方法的合法调用状态，而调用了该方法时，抛出异常。 <br>
+当对一个已经死亡的线程调用start，sleep之类的操作，会抛出该异常。</br></br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

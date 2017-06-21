@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（024）_用二进制如何表示整型数值            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1用二进制如何表示整型数值">1、用二进制如何表示整型数值</h3>
+<p>我们都知道，计算机只认识<font color="#ff0000">0、1二进制</font>，我们一般操作的<font color="#ff0000">寄存器和存储单元</font>也都只认识二进制，我们称一个二进制为一个<font color="#ff0000">bit（位）</font>，一般32位计算机的寄存器允许操作<font color="#ff0000">32bit的数据</font>，即32个0或1，由于书写过长，我们一般使用十六进制表示（每两个十六进制成为一个byte字节，即8bit=1byte）。例如：</p>
+<p>1111 1111 1111 1111 1111 1111 1111 1111 = ffffffff</p>
+<p>了解32位和64位计算机看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51810507">32位和64位计算机有什么区别</a></p>
+<p>Java中也是一样，以上整型数值最终都会被解释为<font color="#ff0000">二进制机器码</font>，具体规则如下：</p>
+<ol>
+<li><p>首位均是<font color="#ff0000">符号位</font>，1代表负，0代表正。</p></li>
+<li><p>正值的二进制<font color="#ff0000">补码</font>，即对应的负值。</p></li>
+<li><p>不同类型的范围均是<font color="#ff0000">-2^(n-1)到2^(n-1)-1</font>，其中n为类型所占用的bit数。</p></li>
+</ol>
+<p>其中所提到的补码，即<font color="#ff0000">反码+1</font>，反码也就是对原码的每一个二进制<font color="#ff0000">位取反</font>，以长度8bit整型为例：</p>
+<p>原码：0100 1010</p>
+<p>反码：1011 0101</p>
+<p>补码：1011 0110</p>
+<h3 id="2java中整型如何用二进制表示">2、Java中整型如何用二进制表示</h3>
+<p>在Java语言中，整型数值分为4种：<font color="#ff0000">byte、short、int、long</font>，均是带符号整型。</p>
+<p>了解基本数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a> <br>
+这些基本类型除了长度不一致外，其他规则均按照以上规则，具体如下：</br></p>
+<p><strong><font color="#33ccff">byte</font></strong> <br>
+内存中占用<font color="#ff0000">1个字节，8bit</font>。由于是带符号数值，所以只能使用<font color="#ff0000">7bit的二进制来表示大小</font>，最大只能表示111 1111，最小即它的补码1000 0000，所以他的范围是：</br></p>
+<p><font color="#ff0000">1 000 0000 到 0 111 1111</font></p>
+<p>其中，首位符号位，1代表负，0代表正，故转换为10进制即<font color="#ff0000">-128到127</font>。</p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws UnsupportedEncodingException {
+        <span class="hljs-keyword">byte</span> b1 = <span class="hljs-number">100</span>;
+        <span class="hljs-keyword">byte</span> b2 = -<span class="hljs-number">100</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正byte==="</span> + Integer.toBinaryString(b1));<span class="hljs-comment">// 转二进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负byte==="</span> + Integer.toBinaryString(b2));
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正byte==="</span> + Integer.toHexString(b1));<span class="hljs-comment">// 转十六进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负byte==="</span> + Integer.toHexString(b2));
+ }
+}</code></pre>
+<p>结果如下： <br>
+正byte===1111111 <br>
+负byte===11111111111111111111111110000000 <br>
+正byte===7f <br>
+负byte===ffffff80</br></br></br></br></p>
+<p>这里我们看到，byte通过Integer类的工具转为二进制拥有<font color="#ff0000">32bit长度</font>，实际上在java中，byte和short都是<font color="#ff0000">通过int进行赋值</font>操作，正值会在前端补零，但真正压入栈或作为对象的属性存入堆时，只会占用对应长度：<font color="#ff0000">byte占用8bit，short占用16bit</font>。例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">byte</span> b = <span class="hljs-number">0x81</span>;<span class="hljs-comment">//编译错误</span>
+<span class="hljs-keyword">byte</span> b = <span class="hljs-number">0xffffff81</span>;<span class="hljs-comment">//正确</span></code></pre>
+<p>了解byte、short到内存占用看这里：[byte、short到底占用多少内存][4]</p>
+<p><strong><font color="#33ccff">short</font></strong> <br>
+内存中占用<font color="#ff0000">2个字节，16bit</font>。同byte，带符号数值，使用<font color="#ff0000">15bit的二进制来表示大小</font>，最大只能表示111 1111 1111 1111，最小即它的补码1000 0000 0000 0000，所以他的范围是：</br></p>
+<p><font color="#ff0000">1 000 0000 0000 0000 到 0 111 1111 1111 1111</font></p>
+<p>其中，首位符号位，1代表负，0代表正，故转换为10进制即<font color="#ff0000">-32768到32767</font>。</p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws UnsupportedEncodingException {
+        <span class="hljs-keyword">short</span> s1 = <span class="hljs-number">23235</span>;
+        <span class="hljs-keyword">short</span> s2 = -<span class="hljs-number">23235</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正short==="</span> + Integer.toBinaryString(s1));<span class="hljs-comment">// 转二进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负short==="</span> + Integer.toBinaryString(s2));
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正short==="</span> + Integer.toHexString(s1));<span class="hljs-comment">// 转十六进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负short==="</span> + Integer.toHexString(s2));
+ }
+}</code></pre>
+<p>结果如下： <br>
+正short===101101011000011 <br>
+负short===11111111111111111010010100111101 <br>
+正short===5ac3 <br>
+负short===ffffa53d</br></br></br></br></p>
+<p>同样，在java中short只能<font color="#ff0000">通过int进行赋值</font>。</p>
+<p><strong><font color="#33ccff">int</font></strong> <br>
+内存中占用<font color="#ff0000">4个字节，32bit</font>。带符号数值，使用31bit的二进制来表示大小，规则同上，他的范围是：</br></p>
+<p><font color="#ff0000">1 000 0000 0000 0000 0000 0000 0000 0000 到 0 111 1111 1111 1111 1111 1111 1111 1111</font></p>
+<p>其中，首位符号位，1代表负，0代表正，故转换为10进制即<font color="#ff0000">-2,147,483,648到2,147,483,648</font>。</p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws UnsupportedEncodingException {
+        <span class="hljs-keyword">int</span> i1 = <span class="hljs-number">328999123</span>;
+        <span class="hljs-keyword">int</span> i2 = -<span class="hljs-number">328999123</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正int==="</span> + Integer.toBinaryString(i1));<span class="hljs-comment">// 转二进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负int==="</span> + Integer.toBinaryString(i2));
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正int==="</span> + Integer.toHexString(i1));<span class="hljs-comment">// 转十六进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负int==="</span> + Integer.toHexString(i2));
+ }
+}</code></pre>
+<p>结果如下：</p>
+<p>正int===10011100111000010000011010011 <br>
+负int===11101100011000111101111100101101 <br>
+正int===139c20d3 <br>
+负int===ec63df2d</br></br></br></p>
+<p><strong><font color="#33ccff">long</font></strong> <br>
+内存中占用<font color="#ff0000">8个字节，64bit</font>。带符号数值，使用63bit的二进制来表示大小，规则同上，他的范围是：</br></p>
+<p><font color="#ff0000">1 000 0000 0000 0000 0000 0000 0000 0000 到 0 111 1111 1111 1111 1111 1111 1111 1111</font></p>
+<p>其中，首位符号位，1代表负，0代表正，故转换为10进制即<font color="#ff0000">-2,147,483,648到2,147,483,648</font>。</p>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws UnsupportedEncodingException {
+        <span class="hljs-keyword">int</span> i1 = <span class="hljs-number">328999123</span>;
+        <span class="hljs-keyword">int</span> i2 = -<span class="hljs-number">328999123</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正int==="</span> + Integer.toBinaryString(i1));<span class="hljs-comment">// 转二进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负int==="</span> + Integer.toBinaryString(i2));
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"正int==="</span> + Integer.toHexString(i1));<span class="hljs-comment">// 转十六进制</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"负int==="</span> + Integer.toHexString(i2));
+ }
+}</code></pre>
+<p>结果如下：</p>
+<p>正int===10011100111000010000011010011 <br>
+负int===11101100011000111101111100101101 <br>
+正int===139c20d3 <br>
+负int===ec63df2d</br></br></br></p>
+<p>这里要说的是，对于32位机，由于寄存器指令<font color="#ff0000">只能接受32bit的值</font>，所以64bit的long在进行运算时只能<font color="#ff0000">分段处理</font>，性能相对较慢。所以在32位机最好不要使用long和double等64bit的类型。而64位计算机可以完美使用。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

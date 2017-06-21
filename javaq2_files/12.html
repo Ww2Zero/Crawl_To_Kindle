@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（012）_如何编写非阻塞SocketChannel程序            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何编写非阻塞socketchannel程序">1、如何编写非阻塞SocketChannel程序</h3>
+<p>了解Socket看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51704681">Socket是什么</a> <br>
+了解 SocketChannel看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51711443">Socket、SocketChannel有什么区别</a></br></p>
+<p>使用SocketChannel的最大好处就是可以进行<font color="#ff0000">非阻塞IO</font>，每次链接后都会<font color="#ff0000">直接返回，不会阻塞线程</font>。将需要多个线程的任务通过几个线程就能完成，降低了了性能消耗。</p>
+<p>了解阻塞、非阻塞看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761325">阻塞、非阻塞有什么区别</a> <br>
+要编写SocketChannel，需要了解<font color="#ff0000">java.nio包</font>中如下几个类： <br>
+1. <font color="#33ccff">ServerSocketChannel</font> <br>
+ServerSocket的替代类, 支持阻塞通信与非阻塞通信。</br></br></br></p>
+<ol>
+<li><p><font color="#33ccff">SocketChannel</font> <br>
+Socket的替代类, 支持阻塞通信与非阻塞通信。</br></p></li>
+<li><p><font color="#33ccff">Selector</font> <br>
+为ServerSocketChannel监控接收客户端连接就绪事件, 为SocketChannel监控连接服务器读就绪和写就绪事件。</br></p></li>
+<li><p><font color="#33ccff">SelectionKey</font> <br>
+代表ServerSocketChannel及SocketChannel向Selector注册事件的<font color="#ff0000">句柄</font>。当一个 SelectionKey对象位于Selector对象的selected-keys集合中时，就表示与这个SelectionKey对象相关的事件发生了。 </br></p></li>
+</ol>
+<p>我们的通过<font color="#ff0000">客户端</font>和<font color="#ff0000">服务端</font>两部分代码来介绍。</p>
+<p>服务端代码：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> SocketChannelServer {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> port = <span class="hljs-number">8000</span>;<span class="hljs-comment">// 端口</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">SocketChannelServer</span>() throws Exception {
+        Selector selector = Selector.open();
+        ServerSocketChannel serverChannel = ServerSocketChannel.open();
+        serverChannel.configureBlocking(<span class="hljs-keyword">false</span>); <span class="hljs-comment">// 设置为非阻塞方式,如果为true 那么就为传统的阻塞方式</span>
+        serverChannel.socket().bind(<span class="hljs-keyword">new</span> InetSocketAddress(port)); <span class="hljs-comment">// 绑定IP 及 端口</span>
+        serverChannel.register(selector, SelectionKey.OP_ACCEPT); <span class="hljs-comment">// 注册</span>
+
+        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) {
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Waiting accept!"</span>);
+            Thread.sleep(<span class="hljs-number">1000</span>);
+            selector.<span class="hljs-keyword">select</span>();<span class="hljs-comment">// 刚启动时，没有客户端连接时，会堵塞在这里</span>
+
+            Set&lt;SelectionKey&gt; keys = selector.selectedKeys();
+            Iterator&lt;SelectionKey&gt; iterator = keys.iterator();
+            <span class="hljs-keyword">while</span> (iterator.hasNext()) {
+                SelectionKey key = iterator.next();
+                iterator.remove();<span class="hljs-comment">// 为了防止重复迭代</span>
+                <span class="hljs-keyword">if</span> (key.isAcceptable()) {
+                    ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
+                    SocketChannel socketChannel = serverSocketChannel.accept();<span class="hljs-comment">// 新的连接</span>
+                    System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Client accept!"</span> + socketChannel);
+                    socketChannel.configureBlocking(<span class="hljs-keyword">false</span>);
+                    <span class="hljs-comment">// socketChannel.register(selector,</span>
+                    <span class="hljs-comment">// SelectionKey.OP_WRITE);// 注册write</span>
+                    socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(<span class="hljs-number">1024</span>));<span class="hljs-comment">// 注册read</span>
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key.isWritable()) {<span class="hljs-comment">// 写入</span>
+                    SocketChannel socketChannel = (SocketChannel) key.channel();<span class="hljs-comment">// 获得与客户端通信的信道</span>
+                    String sendMsg = <span class="hljs-string">"hello world!"</span>;
+                    ByteBuffer writeBuffer = ByteBuffer.wrap(sendMsg.getBytes());
+                    System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"server send msg==="</span> + sendMsg);
+                    socketChannel.write(writeBuffer);
+                    key.cancel();
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key.isReadable()) {<span class="hljs-comment">// 读取</span>
+                    SocketChannel socketChannel = (SocketChannel) key.channel();<span class="hljs-comment">// 获得与客户端通信的信道</span>
+
+                    ByteBuffer readbuffer = (ByteBuffer) key.attachment();<span class="hljs-comment">// 得到并清空缓冲区</span>
+                    readbuffer.clear();
+
+                    <span class="hljs-keyword">long</span> bytesRead = socketChannel.read(readbuffer); <span class="hljs-comment">// 读取信息获得读取的字节数</span>
+
+                    <span class="hljs-keyword">if</span> (bytesRead != -<span class="hljs-number">1</span>) {
+
+                        readbuffer.flip();<span class="hljs-comment">// 准备读取</span>
+
+                        String receiveMsg = <span class="hljs-string">""</span>;<span class="hljs-comment">// 将字节转化为字符串</span>
+                        <span class="hljs-keyword">while</span> (readbuffer.hasRemaining()) {
+                            receiveMsg += String.valueOf((<span class="hljs-keyword">char</span>) readbuffer.<span class="hljs-keyword">get</span>());
+                        }
+      Thread.sleep(<span class="hljs-number">5000</span>);<span class="hljs-comment">// 服务端等待5秒再打印，但是客户端不会等待</span>
+                        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"server receive msg==="</span> + receiveMsg);
+                    }
+                    key.cancel();
+                }
+            }
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws Exception {
+        <span class="hljs-keyword">new</span> SocketChannelServer();
+    }
+}</code></pre>
+<p>运行服务端代码后，程序会进行监听，直到接收到客户端请求为止。结果如下：</p>
+<p>waitting connet…</p>
+<p>客户端代码：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> SocketChannelClient {
+
+    <span class="hljs-keyword">private</span> String host = <span class="hljs-string">"127.0.0.1"</span>;<span class="hljs-comment">// 要发送给服务端的ip</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> port = <span class="hljs-number">8000</span>;<span class="hljs-comment">// 要发送给服务端的端口</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">SocketChannelClient</span>() throws IOException {
+        SocketChannel sc = SocketChannel.open(<span class="hljs-keyword">new</span> InetSocketAddress(host, port));<span class="hljs-comment">// 打开一个SocketChannel并连接到服务器</span>
+        sc.configureBlocking(<span class="hljs-keyword">false</span>);
+
+        <span class="hljs-comment">// 从server接受消息</span>
+        ByteBuffer readbuffer = ByteBuffer.allocate(<span class="hljs-number">20</span>);
+        sc.read(readbuffer);
+
+        readbuffer.flip();<span class="hljs-comment">// 准备读取</span>
+
+        String receiveMsg = <span class="hljs-string">""</span>;<span class="hljs-comment">// 将字节转化为字符串</span>
+        <span class="hljs-keyword">while</span> (readbuffer.hasRemaining()) {
+            receiveMsg += String.valueOf((<span class="hljs-keyword">char</span>) readbuffer.<span class="hljs-keyword">get</span>());
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"client receive msg==="</span> + receiveMsg);
+
+        <span class="hljs-comment">// 发送消息给server</span>
+        String sendMsg = <span class="hljs-string">"I am a coder."</span>;
+        ByteBuffer writeBuffer = ByteBuffer.wrap(sendMsg.getBytes());
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"client send msg==="</span> + sendMsg);
+        sc.write(writeBuffer);
+        sc.close();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws IOException {
+        <span class="hljs-keyword">new</span> SocketChannelClient();
+    }
+}</code></pre>
+<p>我们客户端做了2件事情，一是接受服务端消息，一是给服务端发送消息。由于我们要测试多个客户端连接同一个服务端，所以我们需要多次运行客户端代码。这里我们运行两次之后（称为客户端1、客户端2），查看<font color="#ff0000">服务端的Console</font>，未超过5秒时会出现以下结果，说明已经连接成功。这里需要注意，最后一句再次打印了Waiting accept!，说明并没有一直等待客户端发送请求，而是继续监听请求，即没有被阻塞：</p>
+<p>Waiting accept! <br>
+Client accept!java.nio.channels.SocketChannel[connected local=/127.0.0.1:8000 remote=/127.0.0.1:59481] <br>
+Waiting accept!</br></br></p>
+<p>这时，每个<font color="#ff0000">客户端Console</font>如下，成功接收到服务端的消息，并发出给服务端的消息，之后便立刻释放了线程，并没有一直等待服务端的执行：</p>
+<p>client receive msg=== <br>
+client send msg===I am a coder.</br></p>
+<p>再回到<font color="#ff0000">服务端Console</font>，5秒后，会打印我们收到的请求：</p>
+<p>Waiting accept! <br>
+Client accept!java.nio.channels.SocketChannel[connected local=/127.0.0.1:8000 remote=/127.0.0.1:59481] <br>
+Waiting accept! <br>
+server receive msg===I am a coder. <br>
+Waiting accept! <br>
+Client accept!java.nio.channels.SocketChannel[connected local=/127.0.0.1:8000 remote=/127.0.0.1:59485] <br>
+Waiting accept! <br>
+server receive msg===I am a coder. <br>
+Waiting accept!</br></br></br></br></br></br></br></br></p>
+<p>这里我们可以看到处理了2个客户端的请求。在服务端代码中，我们可以注册write，达到向客户端写数据的需求。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_09基础类库（002）_util包有什么功能            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-009.html">点击进入_更多_Java千百问-基础类库</a></p>
+<h3 id="1util包有什么功能">1、util包有什么功能</h3>
+<p>java.util包提供了java中的基础工具类。包括基本的<font color="#ff0000">集合框架</font>等基础类以及<font color="#ff0000">通用的工具类</font>。主要类如下图：</p>
+<p><img alt="" src="http://img.blog.csdn.net/20160723083435610" title="">￼</img></p>
+<p>大体将java.util包分为两类：<font color="#ff0000">集合、工具</font>，下面分别介绍其中比较常用的类：</p>
+<p><strong><font color="#33ccff">集合</font></strong></p>
+<ol>
+<li><p><strong>位集合</strong> <br>
+<font color="#ff0000">BitSet</font>，只存储0、1的集合。</br></p></li>
+<li><p><strong>数据集合</strong> <br>
+<font color="#ff0000">Collection</font>，常用集合容器，包括列表List、数据集Set、队列Queue。 <br>
+<font color="#ff0000">Map</font>，键值对容器。 <br>
+<font color="#ff0000">Dictionary</font>，字典容器，和Map非常类似。 <br>
+Java提供的若干数据集合容器是我们在开发过程中经常使用的，不同容器具有自己的特性，应用于不同的场景。了解集合容器看这里：[什么是集合容器][2] <br>
+[2]:</br></br></br></br></br></p></li>
+<li><p><strong>集合工具</strong> <br>
+<font color="#ff0000">Collections</font>，为集合容器提供常用的工具。 <br>
+<font color="#ff0000">Arrays</font>，为数组提供常用的工具。</br></br></p></li>
+<li><p><strong>迭代器</strong> <br>
+<font color="#ff0000">Iterator</font>，迭代器，使用迭代器可以对对象进行遍历。</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">工具</font></strong></p>
+<ol>
+<li><p><strong>字符集</strong> <br>
+<font color="#ff0000">Base64</font>，提供对Base64的编码解码工具。</br></p></li>
+<li><p><strong>日期时间</strong> <br>
+<font color="#ff0000">Date</font>，提供对日期、时间的操作和处理，以及获取当前系统的时间。 <br>
+<font color="#ff0000">Calendar</font>，比Date更加强大的日期处理工具，可以实现国际化，官方建议使用的日期工具。 <br>
+<font color="#ff0000">TimeZone</font>，描述时区，为Calendar提供国际化基础。</br></br></br></p></li>
+<li><p><strong>货币</strong> <br>
+<font color="#ff0000">Currency</font>，描述各国的货币。</br></p></li>
+<li><p><strong>比较器</strong> <br>
+<font color="#ff0000">Comparator</font>，可以通过实现Comparator接口，对集合对象或数组对象进行自定义排序。</br></p></li>
+<li><p><strong>数据统计</strong> <br>
+<font color="#ff0000">IntSummaryStatistics、LongSummaryStatistics、DoubleSummaryStatistics</font>，Java 8中新特性，主要用于统计数值型数组中元素的常见统计值，例如：最大值，最小值，平均值，总和等。常与Stream一起使用。</br></p></li>
+<li><p><strong>监听</strong> <br>
+<font color="#ff0000">EventListener</font>，事件监听器，想使用事件监听需要实现它。 <br>
+<font color="#ff0000">EventObject</font>，事件对象，包含事件对应的数据，需要自定义类继承它。</br></br></p></li>
+<li><p><strong>观察者模式</strong> <br>
+<font color="#ff0000">Observable</font>，被观察对象接口，需要被观察的对象实现该接口。 <br>
+<font color="#ff0000">Observer</font>，观察者需要实现的接口，当Observable对象发生变化时，Observer得到通知，就可以进行相应的工作。</br></br></p></li>
+<li><p><strong>本地化</strong> <br>
+<font color="#ff0000">Locale</font>，描述了特定的地理、政治和文化地区，通过它来实现Java国际化。</br></p></li>
+<li><p><strong>对象工具</strong> <br>
+<font color="#ff0000">Objects</font>，为Java对象提供常用工具方法，例如是否相等、比较大小等。 <br>
+<font color="#ff0000">Optional</font>，可以承载为null的容器对象，通过返回该对象可以避免null值带来的问题。</br></br></p></li>
+<li><p><strong>随机数</strong> <br>
+<font color="#ff0000">Random</font>，用来产生随机数，原理是通过种子数来生成伪随机数。 <br>
+<font color="#ff0000">UUID</font>，可以生成128位长、且不重复的数字。它结合机器的网卡、当地时间、随机数来生成GUID。从理论上讲，如果一台机器每秒产生10000000个GUID，则可以保证（概率意义上）3240年不重复。</br></br></p></li>
+<li><p><strong>文本</strong> <br>
+<font color="#ff0000">Scanner</font>，主要功能是简化文本扫描，其他功能例如检索文本、对字符串和基本类型进行分析。</br></p></li>
+<li><p><strong>调度</strong> <br>
+<font color="#ff0000">Timer</font>，定时器工具，在主线程之外启动一个单独的线程，来执行指定的计划任务，可以指定执行一次或者反复执行多次。 <br>
+<font color="#ff0000">TimerTask</font>，一个可以被Timer执行的任务，实现了Runnable接口。</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

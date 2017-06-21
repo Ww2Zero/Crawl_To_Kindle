@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（015）_XmnXmsXmxXss有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1xmnxmsxmxxss有什么区别">1、XmnXmsXmxXss有什么区别</h3>
+<p>首先，Xmn、Xms、Xmx、Xss都是JVM对<font color="#ff0000">内存的配置参数</font>，我们可以根据不同需要区修改这些参数，以达到运行程序的最好效果。</p>
+<p>了解jvm内存管理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a></p>
+<p><strong><font color="#33ccff">Xms、Xmx</font></strong></p>
+<p>-Xms、-Xmx分配用来设置进程<font color="#ff0000">堆内存</font>的最小大小和最大大小。</p>
+<p>了解堆内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java堆内存是什么样的</a> <br>
+了解java垃圾回收机制看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java垃圾回收机制是什么</a></br></p>
+<p><strong><font color="#33ccff">Xmn</font></strong></p>
+<p>-Xmn用来设置堆内<font color="#ff0000">新生代</font>的大小。通过这个值我们也可以得到老生代的大小：<font color="#ff0000">-Xmx减去-Xmn</font></p>
+<p>了解堆新生代垃圾处理算法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523701">什么是新生代的复制算法</a></p>
+<p><strong><font color="#33ccff">Xss</font></strong></p>
+<p>-Xss设置<font color="#ff0000">每个线程</font>可使用的内存大小。</p>
+<p>在相同物理内存下，减小这个值能生成更多的线程。当然操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在<font color="#ff0000">3000~5000</font>左右。</p>
+<p>除了这些配置，JVM还有非常多的配置，常用的如下：</p>
+<ol>
+<li><p>-XX:PermSize、-XX:MaxPermSize <br>
+分配用来设置<font color="#ff0000">永久代</font>的最小大小和最大大小。Java 8以后移除了方法区，取而代之的是<font color="#ff0000">本地元空间Metaspace</font>，大小由<font color="#ff0000">-XX:MetaspaceSize和-XX:MaxMetaspaceSize</font>调节。</br></p></li>
+<li><p>-XX:MaxTenuringThreshold <br>
+设置<font color="#ff0000">转入老生代的存活次数</font>。如果是0，则直接跳过新生代进入老生代。</br></p></li>
+<li><p>-XX:NewRatio <br>
+设置<font color="#ff0000">老生代和新生代的比值</font>，例如该值为3，则表示新生代与老生代比值为1:3。</br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

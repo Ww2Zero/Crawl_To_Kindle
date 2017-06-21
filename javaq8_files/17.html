@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（017）_Javadoc是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1javadoc是什么">1、Javadoc是什么</h3>
+<p><font>javadoc</font>是Sun公司提供的一个技术，它从<font>程序源代码</font>中抽取类、方法、成员等注释，形成一个和源代码配套的<font>API帮助文档</font>。也就是说，只要在编写程序时以一套特定的标签作注释，在程序编写完成后，通过<font>Javadoc</font>就可以形成开发文档了。</p>
+<p>了解注释看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51757373">注释是什么</a></p>
+<h3 id="2如何使用javadoc">2、如何使用Javadoc</h3>
+<p>java为<font>javadoc</font>技术独立出了一个工具，它位于<font>JAVA_HOME/bin/</font>路径中，在终端中执行如下命令：</p>
+<p><code>javadoc 文件名.java</code></p>
+<p>javadoc工具就会根据指定的文件生成<font>对应的文档</font>，默认生成在同目录，我们看下面一个实例。</p>
+<p>首先我们写一个java类，命名为Test.java，并为其添加注释：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-javadoc">/**
+ * 
+ * 测试
+ * 
+ *<span class="hljs-javadoctag"> @author</span> sunjie at 2016年7月7日
+ *
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> {</span>
+
+    <span class="hljs-javadoc">/**
+     * 
+     * 主方法
+     *
+     *<span class="hljs-javadoctag"> @author</span> sunjie at 2016年7月7日
+     *
+     *<span class="hljs-javadoctag"> @param</span> args
+     *<span class="hljs-javadoctag"> @throws</span> UnsupportedEncodingException
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) <span class="hljs-keyword">throws</span> UnsupportedEncodingException {
+
+    }
+
+    <span class="hljs-javadoc">/**
+     * 
+     * 文档方法
+     *
+     *<span class="hljs-javadoctag"> @author</span> sunjie at 2016年7月7日
+     *
+     *<span class="hljs-javadoctag"> @param</span> testStr
+     *            文档参数
+     *<span class="hljs-javadoctag"> @return</span> 我是返回值
+     */</span>
+    <span class="hljs-keyword">public</span> Boolean <span class="hljs-title">testJavadoc</span>(String testStr) {
+        <span class="hljs-keyword">return</span> Boolean.FALSE;
+    }
+
+}</code></pre>
+<p>我们通过终端访问改文件的路径，执行一下命令：</p>
+<p><code>javadoc Test.java</code></p>
+<p>我们会看到结果：</p>
+<p><code>正在加载源文件Test.java... <br>
+正在构造 Javadoc 信息... <br>
+标准 Doclet 版本 1.7.0_79 <br>
+正在构建所有程序包和类的树... <br>
+正在生成/com/test/Test.html... <br>
+正在生成/com/test/package-frame.html... <br>
+正在生成/com/test/package-summary.html... <br>
+正在生成/com/test/package-tree.html... <br>
+正在生成/constant-values.html... <br>
+正在构建所有程序包和类的索引... <br>
+正在生成/overview-tree.html... <br>
+正在生成/index-all.html... <br>
+正在生成/deprecated-list.html... <br>
+正在构建所有类的索引... <br>
+正在生成/allclasses-frame.html... <br>
+正在生成/allclasses-noframe.html... <br>
+正在生成/index.html... <br>
+正在生成/help-doc.html...</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></code></p>
+<p>这时，我们去Test.java路径，会发现生成了若干html文件，我看找到index.html并打开，开发文档成功生成，如下：</p>
+<p><img alt="" src="media/14678706071315/14678925081410.jpg" title=""> <br>
+<img alt="" src="media/14678706071315/14678925233043.jpg" title=""/></br></img></p>
+<h3 id="3javadoc注释标签有哪些">3、javadoc注释标签有哪些</h3>
+<p>在上面例子中我们可以看到，每一段注释都用了@author，这些叫做<font>注释标签</font>，根javadoc相关的主要有：</p>
+<ol>
+<li><p><font>@author</font> <br>
+对类的说明，标明开发该类模块的作者</br></p></li>
+<li><p><font>@version</font> <br>
+对类的说明，标明该类模块的版本</br></p></li>
+<li><p><font>@see</font> <br>
+对类、属性、方法的说明，描述相关主题</br></p></li>
+<li><p><font>@param</font> <br>
+对方法的说明，对方法中某参数的说明</br></p></li>
+<li><p><font>@return</font> <br>
+对方法的说明，对方法返回值的说明</br></p></li>
+<li><p><font>@throws</font> <br>
+对方法的说明，对方法可能抛出的异常进行说明</br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

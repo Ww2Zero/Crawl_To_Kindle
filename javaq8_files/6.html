@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（006）_jdk用户界面类库都有什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jdk用户界面类库都有什么">1、jdk用户界面类库都有什么</h3>
+<p>了解java核心框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51589070">java核心框架是什么样的</a> <br>
+1. <strong><font color="#33ccff">输入法框架（Input Method Framework）</font></strong> <br>
+输入法框架包括<font color="#ff0000">文本编辑组件</font>与<font color="#ff0000">文本输入</font>。文本输入是软件组件，使得用户输入文本而不是简单的在键盘上打字。它们通常用于输入日本、中国或韩国的语言，输入比键盘按键多出数百倍的文本。当然，框架还支持其他语言，以及完全不同的<font color="#ff0000">输入机制</font>，如手写和语音识别。 <br>
+了解更多输入法框架看这里：[java输入法框架是什么][3]</br></br></br></p>
+<ol>
+<li><p><strong><font color="#33ccff">可接入性库（Accessibility）</font></strong> <br>
+开发人员通过Java可接入性API，可以轻松地创建<font color="#ff0000">残疾人都可以访问</font>的Java应用程序。它使Java兼容了屏幕阅读器、语音识别系统、可刷新的布莱叶盲文显示器等辅助技术。主要功能在<font color="#ff0000">javax.accessibility包</font>中。 <br>
+了解更多可接入性库看这里：[javax.accessibility包有什么用][4]</br></br></p></li>
+<li><p><strong><font color="#33ccff">打印服务（Print Service）</font></strong> <br>
+Java™打印服务API，允许<font color="#ff0000">所有Java平台上的印刷</font>，包括那些需要占用空间小的文件，比如Java ME概要文件。主要功能在<font color="#ff0000">javax.print包</font>中。 <br>
+了解java打印服务看这里：[javax.print包有什么用][5]</br></br></p></li>
+<li><p><strong><font color="#33ccff">音乐组件（Sound）</font></strong> <br>
+Java平台包括一个强大的API来获取、处理和播放<font color="#ff0000">音频与MIDI</font>( Musical Instrument Digital Interface，数字乐器接口)的数据。这个API支持高效的声音引擎，保证高质量的音频混合以及MIDI合成能力。主要功能在<font color="#ff0000">javax.sound包</font>中。 <br>
+了解java音乐组件看这里：[javax. sound包有什么用][6]</br></br></p></li>
+<li><p><strong><font color="#33ccff">图片I/O（Image I/O）</font></strong> <br>
+Java图像I/O API提供了一个<font color="#ff0000">可插拔</font>的架构，来处理存储在<font color="#ff0000">文件中或者网络中的图像</font>。它为添加<font color="#ff0000">特定格式的插件</font>提供了一个框架，在Java I/O中包含几种常见的格式图像，但第三方可以使用这个API来创建自己的、处理特殊格式的插件。主要功能在<font color="#ff0000">javax.imageio包</font>中。 <br>
+了解java图片I/O看这里：[javax.imageio包有什么用][7]</br></br></p></li>
+<li><p><strong><font color="#33ccff">2D图像组件（Java 2D™ Graphics and Imaging）</font></strong> <br>
+Java 2D™ API是一个先进的<font color="#ff0000">2D图形、图像</font>组件。它包含艺术线条、文本、图像以及综合模型。还包括对alpha通道图像的支持、颜色空间的定义和转换、丰富的display-oriented成像操作符。主要功能在<font color="#ff0000">javax.imageio包</font>中。</br></p></li>
+<li><p><strong><font color="#33ccff">抽象窗口工具集（ Abstract Windowing Toolkit ，AWT）</font></strong> <br>
+Java™平台的抽象窗口工具包（AWT）提供了创建<font color="#ff0000">用户界面组件</font>(如菜单、按钮、文本框、对话框、复选框等）的API，并通过这些组件来<font color="#ff0000">处理用户的输入</font>。此外，AWT还能呈现很多简单的图形（如椭圆、多边形），使开发人员能够选择用户界面布局和字体。主要功能在<font color="#ff0000">java.awt包</font>中。 <br>
+了解更多AWT看这里：[java中AWT是什么][8]</br></br></p></li>
+<li><p><strong><font color="#33ccff">用户界面开发工具集（Swing）</font></strong> <br>
+Swing是由<font color="#ff0000">Java图形用户界面（GUI）组件</font>所构成，可运行在<font color="#ff0000">任一支持Java的本地平台</font>上。Swing API是用Java编写的，并没有任何代码依赖于底层操作系统的GUI工具。这允许Swing GUI组件有一个与操作系统不同的”插入”外观。主要功能在<font color="#ff0000">javax.swing包</font>中。 <br>
+了解更多Swing看这里：[java中Swing是什么][9]</br></br></p></li>
+<li><p><strong><font color="#33ccff">JavaFX</font></strong> <br>
+JavaFX是用来开发具有高度互动性、丰富用户体验以及功能强大的客户端的<font color="#ff0000">RIA（Rich Internet Applications）程序</font>。它拥有UI控制、嵌入式图形堆栈、现代主题、3D图形处理再加上HTML 5支持等多项功能特性。其工具集在设计思路上专注于性能与图形，且能够在嵌入式系统之上顺畅运作。</br></p></li>
+</ol>
+<p>了解更多JavaFX看这里：[JavaFX是什么][10]</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

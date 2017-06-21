@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（001）_什么是java中的异常            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></span>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、java异常是什么</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">java在执行期间产生了某些问题，导致执行中断，这一问题就称为<span style="color:#FF0000">异常</span>。<br>
+不同的原因都可能产生异常，包括以下内容：<br>
+<span style="color:#3366FF">==</span>用户输入无效数据。<br>
+<span style="color:#3366FF">==</span>需要打开的文件不存在。<br>
+<span style="color:#3366FF">==</span>网络连接已丢失。<br>
+<span style="color:#3366FF">==</span>JVM已经耗尽内存。<br>
+<span style="color:#3366FF">==</span>将null当作某种对象进行操作。</br></br></br></br></br></br></span><br>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、异常都分为哪些</span></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">要了解在Java中如何异常处理工作，需要了解三类异常：<br>
+<strong><span style="color:#3366FF">检查异常（checked exception）</span></strong><br>
+检查异常通常是用户错误，程序员并<span style="color:#FF0000">不可预见</span>的问题。例如，如果一个文件被打开，但该文件无法找到，则会出现异常。这些异常并不能在编译时被发现。<br>
+<strong><span style="color:#3366FF">运行时异常（runtime exception也叫unchecked exception）</span></strong><br>
+运行时异常时本来可以由程序<span style="color:#FF0000">避免</span>的异常。而不是已检查异常，运行时异常是在编译时被忽略。这里的运行时异常<span style="color:#FF0000">并不是</span>我们所说的运行期间产生的异常，只是Java中用运行时异常这个术语来表示而已。另外，所有Exception异常都是在<span style="color:#FF0000">运行期间</span>产生的。<br>
+<strong><span style="color:#3366FF">错误（error）</span></strong><br>
+</br></br></br></br></br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#FF0000">无法处理</span>的异常，比如OutOfMemoryError，一般发生这种异常，JVM会选择终止程序。因此我们编写程序时不需要关心这类异常。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">要想自定义异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51106457" target="_blank">如何自定义异常</a><br>
+</br></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">3、异常层次结构是怎样的</span></h2>
+<img alt="" src="http://img.blog.csdn.net/20160406215812691?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+<span style="font-family:Microsoft YaHei; font-size:12px">在Java中，所有异常类的父类是<span style="color:#FF0000">Throwable类</span>，<span style="color:#FF0000">Error类</span>是error类型异常的父类，<span style="color:#FF0000">Exception类</span>是exception类型异常的父类，<span style="color:#FF0000">RuntimeException类</span>是所有运行时异常的父类，RuntimeException以外的并且继承Exception的类是<span style="color:#FF0000">非运行时异常</span>。<br>
+常见的RuntimeException包括NullPointerException、IndexOutOfBoundsException、IllegalArgumentException等。<br>
+常见的非RuntimeException包括IOException、SQLException等。</br></br></span><br>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">4、异常提供哪些方法</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">以下是<span style="color:#FF0000">Throwable类</span>中比较重要的方法。<br>
+<strong><span style="color:#3366FF">1 </span></strong>public String getMessage()<br>
+返回有关已发生异常的<span style="color:#FF0000">详细消息</span>。此消息在Throwable的构造函数中被初始化。<br>
+<strong><span style="color:#3366FF">2 </span></strong>public Throwable getCause()<br>
+返回异常由一个Throwable对象所表示的<span style="color:#FF0000">错误原因</span>。<br>
+<strong><span style="color:#3366FF">3 </span></strong>public String toString()<br>
+返回getMessage()结果的名称。<br>
+<span style="color:#3366FF"><strong>4 </strong></span>public void printStackTrace()<br>
+打印toString()结果以及<span style="color:#FF0000">堆栈跟踪信息</span>到System.err，输出错误流。<br>
+<span style="color:#3366FF"><strong>5 </strong></span>public StackTraceElement [] getStackTrace()<br>
+返回<span style="color:#FF0000">堆栈跟踪信息</span>的<span style="color:#FF0000">数组</span>。索引为0的元素表示堆栈的顶部，最后一个元素表示堆栈的底部。<br>
+<br>
+如何捕获java中异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51088832" target="_blank">如何捕获异常</a><br>
+<br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">如何将异常抛出看这里：</span><span style="font-family:Microsoft YaHei; font-size:12px"><a href="http://blog.csdn.net/ooppookid/article/details/51100373" target="_blank">如何抛出异常</a></span></p>
+<p><br>
+</br></p>
+</br></br></img></br></div>]
+</body>
+</html>

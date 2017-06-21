@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（018）_多维数组如何储存在内存中            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1多维数组如何储存在内存中">1、多维数组如何储存在内存中</h3>
+<p>了解一维数组如何储存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51404440">java数组如何存储在内存中</a></p>
+<p>从底层来看，数组元素可以存放引用类型，数组也是<font color="#ff0000">引用类型</font>的一种。也就是说，在数组元素的内部还可以包含<font color="#ff0000">数组</font>(如int[][] numbers = new int[length][])，即二维数组可当作<font color="#ff0000">一维数组</font>(数组长度为length)来处理。</p>
+<p>了解数组和普通引用对象在内存中的区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51404629">数组和普通对象的引用变量有什么区别</a></p>
+<p>由此我们得出结论: 任何多维数组(维度为n，n&gt;1)都可以当作<font color="#ff0000">一维数组</font>，其数组元素为<font color="#ff0000">n-1维数组</font>。多维数组在内存中的储存同<font color="#ff0000">引用类型数组</font>在内存中的储存。</p>
+<p>了解引用类型数组在内存中的储存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51405466">引用类型数组在内存中如何储存</a> <br>
+以二维数组为例：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestMultiArray {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        <span class="hljs-comment">// 1.定义二维数组</span>
+        <span class="hljs-keyword">int</span>[][] numbers;
+        <span class="hljs-comment">// 2.分配内存空间</span>
+        numbers = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>][];
+        <span class="hljs-comment">// 可以把numbers看作一维数组来处理</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numbers.length; i++) {
+            System.<span class="hljs-keyword">out</span>.print(numbers[i] + <span class="hljs-string">","</span>);<span class="hljs-comment">// null,null,null</span>
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">""</span>);
+        <span class="hljs-comment">// 3.为数组元素指定值</span>
+        numbers[<span class="hljs-number">0</span>] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];
+        numbers[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+        numbers[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];
+        numbers[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">11</span>;
+        numbers[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">15</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; numbers.length; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; numbers[i].length; j++) {
+                System.<span class="hljs-keyword">out</span>.print(numbers[i][j] + <span class="hljs-string">","</span>);
+            }
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">""</span>);
+        }
+    }
+}</code></pre>
+<p>结果如下： <br>
+null,null, <br>
+0,1, <br>
+11,15,</br></br></br></p>
+<p>以一个图展示这个数组在内存中的存储：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160515092057747" title=""/></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

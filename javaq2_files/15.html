@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（015）_java如何通过汇编方式运行            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-002.html">点击进入_更多_Java千百问-基本使用</a></p>
+<h3 id="1java如何通过汇编方式运行">1、java如何通过汇编方式运行</h3>
+<p>java本身<strong><font color="#ff0000">不能通过汇编方式运行</font></strong>。但是，我们可以通过某些插件，在运行中将java代码<font color="#ff0000">解释为</font>汇编指令，让我们能够通过分析执行的汇编指令来查找一些问题，也可以帮助我们分析和理解JVM是<font color="#ff0000">如何解释和编译的</font>（当然java本身的编译和运行和汇编无关）。</p>
+<p><font color="#ff0000">PrintAssembly</font>是JVM的一个运行参数，它允许我们获取在控制台打印java代码翻译成的<font color="#ff0000">汇编指令</font>。使用PrintAssembly需要一些插件的支持，这些并不是JVM直接提供的，<font color="#ff0000">Kenai项目</font>则提供了可用的插件（下载 <a href="https://kenai.com/projects/base-hsdis/downloads">https://kenai.com/projects/base-hsdis/downloads</a> ）。根据不同的环境下在对应的指令集。本人是mac系统，所以下载了<font color="#ff0000">hsdis-amd64.dylib</font>。</p>
+<p>下载后需要将hsdis-amd64.dylib放在<font color="#ff0000">$JAVA_PATH/jre/lib/server/</font>中，<font color="#ff0000">与libjvm.dylib同目录</font>。</p>
+<p>之后我们就可以通过指定运行参数来运行我们的代码：</p>
+<pre class="prettyprint"><code class=" hljs ruby">java -<span class="hljs-constant">XX</span><span class="hljs-symbol">:+UnlockDiagnosticVMOptions</span> -<span class="hljs-constant">XX</span><span class="hljs-symbol">:+PrintAssembly</span> <span class="hljs-constant">TestHsdis</span></code></pre>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestHsdis {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"1"</span>);
+    }
+}</code></pre>
+<p>编译运行时加入<font color="#ff0000">-XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly</font>，结果如下： <br>
+<code>Java HotSpot(TM) 64-Bit Server VM warning: PrintAssembly is enabled; turning on DebugNonSafepoints to gain additional output <br>
+Loaded disassembler from /Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/jre/lib/server/hsdis-amd64.dylib <br>
+Decoding compiled method 0x000000010b4fd710: <br>
+Code: <br>
+[Disassembling for mach='i386:x86-64'] <br>
+[Entry Point] <br>
+[Constants] <br>
+  # {method} {0x000000011f270fc8} 'hashCode' '()I' in 'java/lang/String' <br>
+  #           [sp+0x40]  (sp of caller) <br>
+  0x000000010b4fd880: mov    0x8(%rsi),%r10d <br>
+  0x000000010b4fd884: shl    $0x3,%r10 <br>
+  0x000000010b4fd888: cmp    %rax,%r10 <br>
+  0x000000010b4fd88b: jne    0x000000010b445e20  ;   {runtime_call} <br>
+  0x000000010b4fd891: data32 data32 nopw 0x0(%rax,%rax,1) <br>
+  0x000000010b4fd89c: data32 data32 xchg %ax,%ax <br>
+  ....</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></code></br></p>
+<h3 id="2printassembly-is-disabled是什么原因">2、PrintAssembly is disabled是什么原因</h3>
+<p>我们在加入参数<font color="#ff0000">-XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly</font>运行时，可能会报如下错误：</p>
+<p><code>Java HotSpot(TM) 64-Bit Server VM warning: PrintAssembly is enabled; turning on DebugNonSafepoints to gain additional output <br>
+Could not load hsdis-amd64.dylib; library not loadable; PrintAssembly is disabled</br></code></p>
+<p>原因是对应的hsdis-amd64插件<font color="#ff0000">没有放入指定路径</font>，导致运行时无法加载。我们一定要将hsdis-amd64.dylib放在$JAVA_PATH/jre/lib/server/中，与libjvm.dylib同目录（mac系统，如果是linux放在与libjvm.so同目录）。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

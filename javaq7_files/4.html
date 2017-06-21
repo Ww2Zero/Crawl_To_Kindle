@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（004）_jvm是如何管理内存的            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jvm是如何管理内存的">1、JVM是如何管理内存的</h3>
+<p>Java中，内存管理是JVM自动进行的，<font color="#ff0000">无需人为干涉</font>。</p>
+<p>了解java内存模型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java内存模型是什么样的</a> <br>
+了解jvm实例结构看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469272">jvm实例的结构是什么样的</a> <br>
+创建对象或者变量时， JVM会<font color="#ff0000">自动分配</font>内存（当然这个分配是遵循严格规则的）。当JVM发现某些对象<font color="#ff0000">不再需要</font>的时候，就会对该对象<font color="#ff0000">占用的内存</font>进行<font color="#ff0000">重分配</font>（释放）操作，而且使得分配出来的内存能够提供给<font color="#ff0000">所需要的对象</font>。</br></br></p>
+<p>在这个方面，其他一些编程语言里面，内存管理是<font color="#ff0000">程序员的职责</font>，程序员是需要<font color="#ff0000">手动管理内存</font>。这一点C++的程序员很清楚，最终大部分开发时间都花在了调试这种内存管理程序以及修复相关错误上。</p>
+<p>了解显示内存管理的弊端看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474168">显示内存管理有什么弊端</a></p>
+<h3 id="2jvm内存组成结构">2、JVM内存组成结构</h3>
+<p>了解内存分配策略看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469703">内存分配有哪些策略</a> <br>
+JVM的内存组织需要在不同的运行时数据区进行操作。包括<font color="#ff0000">PC寄存器</font>（计数器 pc registers）、<font color="#ff0000">方法区</font>（method area）、<font color="#ff0000">本地方法栈</font>（native method stacks）、<font color="#ff0000">栈</font>（stacks）、<font color="#ff0000">堆</font>（heap）。如图： <br>
+<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160607112221659" title=""/></br></br></p>
+<p><font color="#33ccff">PC寄存器</font>（计数器 pc registers） <br>
+每个新的线程启动后，它就会被JVM在内部分配自己的<font color="#ff0000">PC寄存器</font>（计数器 pc registers），通过<font color="#ff0000">计数器</font>来指示下一条<font color="#ff0000">指令</font>执行。</br></p>
+<p><font color="#33ccff">方法区</font>（method area） <br>
+方法区是用来储存<font color="#ff0000">类的装载信息</font>的。当JVM加载一个类的时候，它定位到<font color="#ff0000">对应路径</font>里去查找对应的<font color="#ff0000">Class文件</font>，类加载器读取<font color="#ff0000">类文件</font>（线性二进制数据），然后将该文件传递给JVM，JVM从二进制数据中提取信息并且将这些信息存储在<font color="#ff0000">方法区</font>。 <br>
+在JVM内部，所有的线程<font color="#ff0000">共享</font>相同的方法区。需要注意的是：类中的<font color="#ff0000">静态变量（类变量）</font>就是储存在方法区中的（了解静态变量看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50969733">局部变量、类变量、实例变量有什么区别</a>）。</br></br></p>
+<p>方法区中除了有类文件信息外，还包含一个<font color="#ff0000">运行时常量池（Runtime Constant Pool）</font>，用来存放<font color="#ff0000">基本类型包装类</font>（包装类不管理浮点型，整形只会管理-128到127）和<font color="#ff0000">String</font>（通过String.intern()方法可以强制将String放入常量池）。之所以称之为动态，是因为不单能在编译期产生常量，<font color="#ff0000">运行期间</font>也可以，当然运行时常量池同样是<font color="#ff0000">所有线程共享</font>。（Java虚拟机对Class文件的每一部分的格式都有严格的规定，每一个字节用于存储哪种数据都必须符合规范，这样才会被虚拟机装载和执行。但对于<font color="#ff0000">运行时常量池</font>，Java虚拟机规范<font color="#ff0000">没有做任何细节的要求</font>，不同的提供商实现的虚拟机可以按照自己的需要来实现这个内存区域。）</p>
+<p>由于运行时常量池是方法区的一部分，所以会受到<font color="#ff0000">方法区内存的限制</font>，当常量池无法再申请到内存时会抛出<font color="#ff0000">OutOfMemoryError: PermGen space异常</font>（Java 8以后没有方法区，由本地元空间代替，溢出会抛出<font color="#ff0000">OutOfMemoryError: Metaspace异常</font>）。</p>
+<p><font color="#33ccff">本地方法栈</font>（native method stacks） <br>
+若某线程正在执行一个<font color="#ff0000">本地Java方法</font>，该线程的本地方法内存栈中，保存了本地Java方法<font color="#ff0000">调用状态</font>，其状态包括<font color="#ff0000">局部变量</font>、<font color="#ff0000">被调用的参数</font>、<font color="#ff0000">它的返回值</font>、以及<font color="#ff0000">中间计算结果</font>。 <br>
+在这种情况下，使得这些本地方法和其他内存数据区的内容尽可能<font color="#ff0000">独立</font>，而且这些本地方法执行的字节码，有可能根据操作系统环境的不同，使得其编译出来的本地字节码的结构也有一定的差异。</br></br></p>
+<p><font color="#33ccff">栈</font>（stacks）</p>
+<ol>
+<li><p>对于线程内存栈分配：当一个<font color="#ff0000">新线程启动</font>的时候，JVM会为Java线程创建每个线程的<font color="#ff0000">独立内存栈</font>。内存栈是由<font color="#ff0000">栈帧</font>构成，在JVM里面，栈帧的操作只有两种：<font color="#ff0000">出栈和入栈</font>。正在被线程执行的方法称为<font color="#ff0000">当前线程方法</font>，而该方法的栈帧就称为<font color="#ff0000">当前帧</font>，而在该方法内定义的类称为<font color="#ff0000">当前类</font>。</p></li>
+<li><p>对于方法：当一个线程调用某个<font color="#ff0000">Java方法</font>时，Jvm创建并将一个新帧压入到内存栈中，这个帧成为当前栈帧，当该方法执行的时候，JVM使用内存栈来存储<font color="#ff0000">参数引用</font>、<font color="#ff0000">局部引用变量</font>、<font color="#ff0000">基本类型数值</font>、<font color="#ff0000">中间计算结果</font>以及其他相关数据。 <br>
+方法在执行过程有可能因为两种方式而结束：如果一个方法返回，属于<font color="#ff0000">正常结束</font>；如果在这个过程抛出异常而结束，为<font color="#ff0000">异常结束</font>。不论是正常结束还是异常结束，JVM都会弹出或者丢弃该栈帧，则上一帧的方法就成为了当前帧。</br></p></li>
+<li><p>对于线程：在JVM中，Java线程的栈数据是某个线程独有的，其他的线程<font color="#ff0000">不能修改或访问</font>该线程的栈帧。当一个线程调用某个方法的时候，方法的局部变量是在线程<font color="#ff0000">独有的栈帧</font>存储，只有当前线程可以访问该局部变量， 所以不用担心多线程同步访问Java的局部变量。</p></li>
+<li><p>对于容量：编程过程，允许指定Java栈的<font color="#ff0000">初始大小</font>以及<font color="#ff0000">最大、最小容量</font>。</p></li>
+</ol>
+<p><font color="#33ccff">堆</font>（heap）</p>
+<ol>
+<li><p>对于对象内存堆分配：当一个Java程序<font color="#ff0000">创建</font>一个对象或者一个数组时，JVM实例会针对该对象和数组分配一个<font color="#ff0000">新的内存堆空间</font>。在JVM实例内部，只存在一个内存堆的实例，所有的依赖该JVM的Java程序都共享该实例。</p></li>
+<li><p>对于进程内存堆分配：在Java程序启动的时候，会得到JVM分配的属于自己的<font color="#ff0000">堆空间</font>，而且针对每一个Java应用程序，这些运行Java程序的堆空间都是<font color="#ff0000">相互独立</font>的。</p></li>
+<li><p>对于内存堆共享：上述两种分配并不冲突，JVM在初始化运行的时候整体堆空间<font color="#ff0000">只有一个</font>，这个是Java语言平台直接从操作系统上能够拿到的<font color="#ff0000">整体堆空间</font>（不会超过物理内存最大值），所以的依赖该JVM的程序都可以得到这些内存空间。但是针对每一个独立的Java程序而言，这些堆空间是<font color="#ff0000">相互独立的</font>，每一个Java应用程序在运行最初都是依靠<font color="#ff0000">JVM</font>来进行堆空间的分配的。</p></li>
+<li><p>对于进程：两个相同的Java程序，在运行时处于<font color="#ff0000">不同的进程</font>中（一般为java.exe），它们各自分配的堆空间都是<font color="#ff0000">独立的</font>，不能相互访问。只是两个Java进程初始化拿到的堆空间都是来自JVM的分配（从最初的内存堆实例里面分配出来的）。</p></li>
+<li><p>对于线程：在同一个Java进程中，不同的线程是可以<font color="#ff0000">共享</font>每一个Java程序拿到的<font color="#ff0000">内存堆空间</font>的。这也是为什么在开发多线程程序的时候，针对同一个Java程序<font color="#ff0000">必须考虑线程安全问题</font>，因为在一个Java进程里，所有的线程是可以共享这个Java进程堆空间中的数据的。了解进程和线程看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51468995">线程和进程有什么区别</a></p></li>
+<li>堆内存释放：JVM拥有针对新的对象<font color="#ff0000">分配内存的指令</font>，但是却不包含<font color="#ff0000">释放该内存空间的指令</font>。当然开发过程可以在Java源代码中显示释放内存或者说在JVM字节码中进行显示的内存释放，但是JVM仅仅只是<font color="#ff0000">检测</font>堆空间中是否有引用不可达（不可以引用）的对象，然后将接下来的操作交给<font color="#ff0000">垃圾回收器（GC）</font>来处理。</li>
+</ol>
+<p>了解java堆和栈的区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474468">java堆和栈有什么区别</a> <br>
+了解堆的结构看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java堆内存是什么样的</a> <br>
+了解java垃圾处理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（015）_JVMTI提供哪些功能            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jvmti提供哪些功能">1、JVMTI提供哪些功能</h3>
+<p>了解JVMTI看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51809545">JVMTI是什么</a> <br>
+编写JVMTI程序看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51809925">如何编写JVMTI agent程序</a> <br>
+JVMTI 的功能非常丰富，包含了虚拟机中<font color="#ff0000">线程、内存堆/栈、类/方法/变量、事件/定时器处理、代码调试</font>等多种功能，这里我们介绍一些常用的功能。</br></br></p>
+<p><strong><font color="#33ccff">调试功能</font></strong></p>
+<p>调试功能是JVMTI的基本功能之一，这主要包括了<font color="#ff0000">设置断点、调试</font>等，在JVMTI里面，设置断点的API本身很简单：</p>
+<pre class="prettyprint"><code class=" hljs oxygene">jvmtiError SetBreakpoint(jvmtiEnv* env, jmethodID <span class="hljs-function"><span class="hljs-keyword">method</span>, <span class="hljs-title">jlocation</span> <span class="hljs-title">location</span>)</span></code></pre>
+<p><font color="#ff0000">jlocation</font>这个数据结构在这里代表的是对应方法方法中一个<font color="#ff0000">可执行代码的行数</font>。在断点发生的时候，虚拟机会触发一个<font color="#ff0000">事件</font>，我们可以使用在上文中介绍过的方式对事件进行处理。</p>
+<p><strong><font color="#33ccff">事件处理和回调函数</font></strong></p>
+<p>使用JVMTI一个基本的方式就是<font color="#ff0000">设置回调函数</font>，在某些事件发生的时候触发并作出相应的动作。 <br>
+因此这一部分的功能非常基本，回调事件包括<font color="#ff0000">虚拟机初始化/开始运行/结束、类的加载、方法出入、线程始末</font>等等。如果想对某些事件进行处理，我们首为该事件写一个函数，然后在<font color="#ff0000">jvmtiEventCallbacks</font>这个结构中指定相应的函数指针。</br></p>
+<p>比如，我们对线程启动感兴趣，并写了一个HandleThreadStart函数，那么我们需要在Agent_OnLoad函数里加入：</p>
+<pre class="prettyprint"><code class=" hljs cpp">jvmtiEventCallbacks eventCallBacks;
+<span class="hljs-built_in">memset</span>(&amp;ecbs, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(ecbs)); <span class="hljs-comment">// 初始化</span>
+eventCallBacks.ThreadStart = &amp;HandleThreadStart; <span class="hljs-comment">// 设置函数指针</span>
+jvmti-&gt;SetEventCallbacks(eventCallBacks, <span class="hljs-keyword">sizeof</span>(eventCallBacks));</code></pre>
+<p>在虚拟机运行过程中，一旦有线程开始，虚拟机就会回调HandleThreadStart方法。</p>
+<p>设置回调函数的时候，需要注意：虚拟机<font color="#ff0000">不保证回调函数同步</font>，比如，好几个线程同时开始运行了，这个HandleThreadStart就会被同时调用几次.</p>
+<p><strong><font color="#33ccff">内存控制和对象获取</font></strong></p>
+<p>内存控制是一切运行态的基本功能。 JVMTI除了提供最简单的<font color="#ff0000">内存申请和撤销</font>之外（这块内存不受 Java 堆管理，需要自行进行清理工作，不然会造成内存泄漏），也提供了<font color="#ff0000">对Java堆的操作</font>。众所周知，Java堆中存储了Java的对象，通过对堆的操作，可以很容易的查找任意的对象，还可以<font color="#ff0000">强行执行垃圾收集</font>工作。 </p>
+<p>JVMTI中没有提供一个直接获取的方式，而是使用一个<font color="#ff0000">迭代器（iterater）</font>的方式遍历，由此可见，虚拟机对对象的管理并非是哈希表，而是某种<font color="#ff0000">树/图</font>方式：</p>
+<pre class="prettyprint"><code class=" hljs cs">jvmtiError FollowReferences(jvmtiEnv* env,
+    jint heap_filter,
+    jclass klass,
+    jobject initial_object,<span class="hljs-comment">// 该方式可以指定根节点</span>
+    <span class="hljs-keyword">const</span> jvmtiHeapCallbacks* callbacks,<span class="hljs-comment">// 设置回调函数</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span>* user_data)</code></pre>
+<p>或者</p>
+<pre class="prettyprint"><code class=" hljs cs">jvmtiError IterateThroughHeap(jvmtiEnv* env,
+    jint heap_filter,
+    jclass klass,
+    <span class="hljs-keyword">const</span> jvmtiHeapCallbacks* callbacks,
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span>* user_data)<span class="hljs-comment">// 遍历整个 heap</span></code></pre>
+<p>在遍历的过程中，我们可以<font color="#ff0000">设定一定的条件</font>，例如指定某一个类的对象，并设置一个回调函数，如果条件被满足，回调函数就会被执行。还可以在回调函数中对当前传回的指针进行<font color="#ff0000">打标记（tag）</font>操作，在遍历中，只能对满足条件的对象进行tag，然后再使用GetObjectsWithTags函数获取需要的对象。如下：</p>
+<pre class="prettyprint"><code class=" hljs cs">jvmtiError GetObjectsWithTags(jvmtiEnv* env,
+    jint tag_count,
+    <span class="hljs-keyword">const</span> jlong* tags, <span class="hljs-comment">// 设定特定的 tag，即我们上面所设置的</span>
+    jint* count_ptr,
+    jobject** object_result_ptr,
+    jlong** tag_result_ptr)</code></pre>
+<p>如果你仅仅想对特定Java对象操作，应该避免设置其他类型的回调函数，否则会影响效率。多增加一个primitive的回调函数，可能会使整个操作效率下降一个数量级。</p>
+<p><strong><font color="#33ccff">线程和锁</font></strong></p>
+<p>在JVMTI中也提供了很多API进行线程的操作，包括查询当前<font color="#ff0000">线程状态、暂停、恢复或者终端线程</font>，还可以对线程锁进行操作。我们可以获得特定线程所拥有的锁：</p>
+<pre class="prettyprint"><code class=" hljs mel">jvmtiError GetOwnedMonitorInfo(jvmtiEnv* <span class="hljs-keyword">env</span>,
+    jthread thread,
+    jint* owned_monitor_count_ptr,
+    jobject<span class="hljs-variable">**</span> owned_monitors_ptr)</code></pre>
+<p>也可以获得当前线程正在等待的锁：</p>
+<pre class="prettyprint"><code class=" hljs mel">jvmtiError GetCurrentContendedMonitor(jvmtiEnv* <span class="hljs-keyword">env</span>,
+    jthread thread,
+    jobject* monitor_ptr)</code></pre>
+<p>我们可以通过以上接口设计自己的算法来判断是否死锁。</p>
+<p>JVMTI还提供了一系列的<font color="#ff0000">监视器（Monitor）</font>操作，来帮助我们在native环境中实现同步，主要的操作是构建监视器（CreateRawMonitor），获取监视器（RawMonitorEnter），释放监视器（RawMonitorExit），等待和唤醒监视器 (RawMonitorWait,RawMonitorNotify) 等操作，通过这些简单锁，程序的同步操作可以得到保证。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

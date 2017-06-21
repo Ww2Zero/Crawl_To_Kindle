@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（012）_泛型是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是泛型">1、什么是泛型</h3>
+<p>泛型是Java SE 1.5的新特性，泛型即<font color="#ff0000">参数化类型</font>，也就是说所操作的数据类型被指定为一个<font color="#ff0000">参数</font>。 <br>
+这种参数类型可以用在类、接口和方法的创建中，分别称为<font color="#ff0000">泛型类</font>、<font color="#ff0000">泛型接口</font>、<font color="#ff0000">泛型方法</font>。 <br>
+如何使用泛型方法、泛型类/接口看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51233633">泛型如何使用</a> <br>
+在没有泛型的情况的下，通过对类型Object的引用来实现参数的“任意化”，“任意化”带来的缺点是要做显式的<font color="#ff0000">强制类型转换</font>，而这种转换是要求开发者对实际参数类型可以预知的情况下进行的。 <br>
+对于强制类型转换错误的情况，编译器可能不提示错误，在运行的时候才出现异常，这是一个<font color="#ff0000">安全隐患</font>。 <br>
+所以，Java语言引入泛型的好处是<font color="#ff0000">安全简单</font>，在编译的时候检查类型安全，并且所有的强制转换都是自动和隐式的，以提高代码的重用率。</br></br></br></br></br></p>
+<h3 id="2泛型有那些特点">2、泛型有那些特点</h3>
+<ol>
+<li>泛型的类型参数只能是<font color="#ff0000">类类型</font>（包括自定义类），不能是<font color="#ff0000">基础类型</font>（如int，double和char）。</li>
+<li>同一种泛型可以对应多个版本（因为参数类型是不确定的），不同版本的泛型类实例是不兼容的。</li>
+<li>类的泛型类型可以有<font color="#ff0000">多个</font>。</li>
+<li>泛型之间<font color="#ff0000">没有继承关系</font>，即使String继承了Object。下面的代码是非法的 <br>
+List ls = new ArrayList(); <br>
+List lo = ls;</br></br></li>
+<li>泛型的类型参数可以使用extends语句，例如。习惯上称为<font color="#ff0000">有界类型</font>。</li>
+<li>泛型的类型参数还可以是<font color="#ff0000">通配符类型</font>。例如Class</li></ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

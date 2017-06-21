@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（005）_如何自定义异常            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:Microsoft YaHei; font-size:12px"><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></span></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、如何定义自己的异常</span></h2>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">Java支持自己创建的异常。了解异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948" target="_blank">什么是java中的异常</a></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">方法如下：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">1、所有的异常必须是<span style="color:#FF0000">Throwable</span>的子类。<br>
+2、如果想写一个检查异常，需要扩展<span style="color:#FF0000">Exception类</span>。<br>
+3、如果想编写一个运行时异常，则需要扩展<span style="color:#FF0000">RuntimeException类</span>。<br>
+4、异常类与任何其他类一样，可以包含<span style="color:#FF0000">字段</span>和<span style="color:#FF0000">方法</span>。<br>
+我们可以定义如下自己的异常处理类：<br>
+</br></br></br></br></br></span><pre class="java" code_snippet_id="1640412" name="code" snippet_file_name="blog_20160409_1_1640277">class MyException extends Exception{
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">例子：</span><br>
+<pre class="java" code_snippet_id="1640412" name="code" snippet_file_name="blog_20160409_2_4083275">import java.io.*;
+
+public class InsufficientFundsException extends Exception
+{
+private double amount;
+public InsufficientFundsException(double amount)
+{
+this.amount = amount;
+}
+public double getAmount()
+{
+return amount;
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">为了证明我们的使用用户定义的异常，下面的CheckingAccount类包含一个withdraw()方法抛出一个InsufficientFundsException。</span><br>
+<span style="font-family:Microsoft YaHei; font-size:12px"></span><pre class="java" code_snippet_id="1640412" name="code" snippet_file_name="blog_20160409_3_2273132">import java.io.*;
+
+public class CheckingAccount
+{
+private double balance;
+private int number;
+public CheckingAccount(int number)
+{
+this.number = number;
+}
+public void deposit(double amount)
+{
+balance += amount;
+}
+public void withdraw(double amount) throws
+InsufficientFundsException
+{
+if(amount &lt;= balance)
+{
+balance -= amount;
+}
+else
+{
+double needs = amount - balance;
+throw new InsufficientFundsException(needs);
+}
+}
+public double getBalance()
+{
+return balance;
+}
+public int getNumber()
+{
+return number;
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">下面BankDemo程序演示调用deposit()和withdraw() 方法。</span><br>
+<pre class="java" code_snippet_id="1640412" name="code" snippet_file_name="blog_20160409_4_5446478">public class BankDemo
+{
+public static void main(String [] args)
+{
+CheckingAccount c = new CheckingAccount(101);
+System.out.println("Depositing $500...");
+c.deposit(500.00);
+try
+{
+System.out.println("
+Withdrawing $100...");
+c.withdraw(100.00);
+System.out.println("
+Withdrawing $600...");
+c.withdraw(600.00);
+}catch(InsufficientFundsException e)
+{
+System.out.println("Sorry, but you are short $"
++ e.getAmount());
+e.printStackTrace();
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">编译所有上述三个文件并运行BankDemo，这将产生以下结果：<br>
+Depositing $500...<br>
+<br>
+Withdrawing $100...<br>
+<br>
+Withdrawing $600...<br>
+Sorry, but you are short $200.0<br>
+InsufficientFundsException<br>
+at CheckingAccount.withdraw(CheckingAccount.java:25)<br>
+at BankDemo.main(BankDemo.java:13)<br>
+<br>
+</br></br></br></br></br></br></br></br></br></br></br></span><br>
+</br></br></br></br></div>]
+</body>
+</html>

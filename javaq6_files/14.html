@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（014）_java数组如何存储在内存中            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1数组的内存空间是何时分配的">1、数组的内存空间是何时分配的</h3>
+<p>java中的数组是用来存储<font color="#ff0000">同一种数据类型</font>的数据结构，一旦初始化完成，即所占的空间就已固定下来，初始化的过程就是分配<font color="#ff0000">对应内存空间</font>的过程。即使某个元素被清空，但其所在空间仍然保留，因此数组长度将<font color="#ff0000">不能被改变</font>。 <br>
+了解什么是数组看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51340241">java中的数组是什么</a> <br>
+当仅定义一个数组变量(int[] numbers)时，该变量还<font color="#ff0000">未指向</font>任何有效的内存，因此不能指定数组的长度，只有对数组进行初始化(为数组元素分配内存空间)后才可以使用。 <br>
+数组初始化分为<font color="#ff0000">静态初始化</font>(在定义时就指定数组元素的值，此时不能指定数组长度)和<font color="#ff0000">动态初始化</font>(只指定数组长度，由系统分配初始值)。</br></br></br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">//静态初始化</span>
+<span class="hljs-keyword">int</span>[] numbers = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] { <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">12</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span> };
+String[] names = { <span class="hljs-string">"Miracle"</span>, <span class="hljs-string">"Miracle He"</span> };<span class="hljs-comment">//使用静态初始化的简化形式</span>
+<span class="hljs-comment">//动态初始化</span>
+<span class="hljs-keyword">int</span>[] numbers = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">5</span>];
+String[] names = <span class="hljs-keyword">new</span> String[<span class="hljs-number">2</span>];</code></pre>
+<p>建议<font color="#ff0000">不要</font>混用静态初始化和动态初始化，即不要既指定数组的长度的同时又指定每个元素的值。</p>
+<p>当初始化完毕后，就可以按<font color="#ff0000">索引位置</font>(0~array.length-1)来访问数组元素了。 <br>
+当使用动态初始化时，如在对应的索引位未指定值的话，系统将指定相应数据类型对应的<font color="#ff0000">默认值</font>(整数为0，浮点数为0.0，字符为’\u0000’，布尔类型为false，引用类型(包括String)为null)。</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArray {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        String[] names = <span class="hljs-keyword">new</span> String[<span class="hljs-number">3</span>];
+        names[<span class="hljs-number">0</span>] = <span class="hljs-string">"Miracle"</span>;
+        names[<span class="hljs-number">1</span>] = <span class="hljs-string">"Miracle He"</span>;
+        <span class="hljs-comment">/*
+        for(int i = 0; i &lt; names.length;i++) {
+            System.out.print(names[i] + " ");
+        }
+        */</span>
+        <span class="hljs-comment">//还可以使用foreach来遍历</span>
+        <span class="hljs-keyword">for</span>(String name : names) {
+            System.<span class="hljs-keyword">out</span>.print(name + <span class="hljs-string">" "</span>);
+        }
+    }
+}</code></pre>
+<p>结果如下： <br>
+Miracle Miracle He null <br>
+Miracle Miracle He null</br></br></p>
+<h3 id="2数组在内存中如何储存">2、数组在内存中如何储存</h3>
+<p>首先给出数组(数组引用和数组元素)在内存中的<font color="#ff0000">存放形式</font>，如图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160514100405460" title=""/></p>
+<p>数组引用变量是存放在<font color="#ff0000">栈内存</font>(stack)中，数组元素本质是一个对象，是存放在<font color="#ff0000">堆内存</font>(heap)中。通过栈内存中的指针指向对应元素的在堆内存中的位置来实现访问。 <br>
+了解堆和栈看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474468">java堆和栈有什么区别</a> <br>
+当数组在<font color="#ff0000">初始化</font>时，就会在<font color="#ff0000">堆</font>中分配对应的空间，这个大小是不会因为内部元素的变化而变化，也就是说，如果数组中某个元素被清空，数组占用的内存空间也<font color="#ff0000">不会缩小</font>。</br></br></p>
+<p>存放引用类型数组在内存中如何储存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51405466">引用类型数组在内存中如何储存</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（001）_类、对象到底有什么秘密            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1类对象的概念是什么">1、类、对象的概念是什么</h3>
+<p>Java是目前应用最为广泛的面向对象特的语言，它具有以下基本概念：</p>
+<ul>
+<li>类</li>
+<li>对象</li>
+<li>方法</li>
+<li>抽象化</li>
+<li>多态性</li>
+<li>继承</li>
+<li>封装</li>
+</ul>
+<p>我们首先看看类和对象的概念。</p>
+<h4 id="类"><font color="#33ccff"><strong>类</strong></font></h4>
+<p>类是一个<font color="#ff0000">模版</font>。是一个可以定义一类具有相同属性、行为的模版。 <br>
+例如：狗是一个类，它具有四肢、尾巴、头、脊椎等属性，具有吠叫、吃、繁殖等行为。</br></p>
+<h4 id="对象"><font color="#33ccff"><strong>对象</strong></font></h4>
+<p>对象是一个<font color="#ff0000">具体实例</font>。根据是一个类的具体实例。 <br>
+例如：我家对门养的一只狗，具体到了某一只。</br></p>
+<h3 id="2java如何定义类">2、Java如何定义类</h3>
+<p>类的定义如下︰</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Dog{
+   String breed;
+   <span class="hljs-keyword">int</span> age;
+   String color;
+
+   <span class="hljs-keyword">void</span> barking(){
+   }
+
+   <span class="hljs-keyword">void</span> hungry(){
+   }
+
+   <span class="hljs-keyword">void</span> sleeping(){
+   }
+}</code></pre>
+<p>类有以下关键点：</p>
+<ul>
+<li>1、类可以包含以下任意类型的变量。 <br>
+局部变量、实例变量、类变量。了解三者详情看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50969733">局部变量、类变量、实例变量有什么区别</a></br></li>
+<li>2、类可以有任意数量的方法。 <br>
+在上面的例子中，该类拥有barking(), hungry() 和 sleeping()三个方法。</br></li>
+<li>3、类的构造函数 <br>
+有关于类的讨论，其中最重要的部分之一是构造函数。每个类都有<font color="#ff0000">一个</font>构造函数，如果我们不明确地写一个构造函数的类，Java编译器生成一个<font color="#ff0000">默认的</font>构造函数（无参数的）。 <br>
+在每次创建一个类的新对象时，<font color="#ff0000">至少有一个</font>构造函数被调用，在这里会按照不同需求初始化一些对象内部的属性。 <br>
+构造函数的主要规则是，他们应该具有相同的名称作为类。一个类可以有多个构造函数（当然每一个的参数都应该不同）。</br></br></br></li>
+</ul>
+<p>构造函数的例子如下︰</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Puppy{
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(){
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(String name){
+      <span class="hljs-comment">// This constructor has one parameter, name.</span>
+   }
+}</code></pre>
+<p>Java还支持单实例类，在这里能够创建的类只有一个实例。更多单例模式看这里：<a href="http://blog.csdn.net/ooppookid/article/details/42556577">单例模式（Singleton）</a></p>
+<h3 id="3java中如何创建对象">3、java中如何创建对象</h3>
+<p>如前面提到的，类提供的是模版，所以基本上一个对象是根据一个类创建的。 <br>
+在Java中，使用<font color="#ff0000">关键字new</font>创建新的对象。</br></p>
+<p>根据类创建对象有三个步骤： <br>
+- <font color="#33ccff">声明</font>:  变量声明，一个变量名的对象类型。 <br>
+- <font color="#33ccff">实例化</font>: 使用new关键字创建对象。 <br>
+- <font color="#33ccff">初始化</font>: 关键字new后跟调用一个构造函数。初始化新的对象。</br></br></br></p>
+<p>创建对象的实例：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Puppy{
+
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(String name){
+      <span class="hljs-comment">// This constructor has one parameter, name.</span>
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Passed Name is :"</span> + name );
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String []args){
+      <span class="hljs-comment">// Following statement would create an object myPuppy</span>
+      Puppy myPuppy = <span class="hljs-keyword">new</span> Puppy( <span class="hljs-string">"tommy"</span> );
+   }
+}</code></pre>
+<p>将产生以下结果：</p>
+<p>Passed Name is :tommy</p>
+<h3 id="4如何访问对象的实例变量和方法">4、如何访问对象的实例变量和方法</h3>
+<p>实例变量和方法是通过刚才创建的<font color="#33ccff">对象</font>来访问的。 <br>
+要访问一个实例变量和方法如下：</br></p>
+<pre class="prettyprint"><code class=" hljs vbnet">/* First create an <span class="hljs-built_in">object</span> */
+ObjectReference = <span class="hljs-keyword">new</span> Constructor();
+
+/* Now <span class="hljs-keyword">call</span> a variable <span class="hljs-keyword">as</span> follows */
+ObjectReference.variableName;
+
+/* Now you can <span class="hljs-keyword">call</span> a <span class="hljs-keyword">class</span> method <span class="hljs-keyword">as</span> follows */
+ObjectReference.MethodName();</code></pre>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Puppy{
+
+   <span class="hljs-keyword">int</span> puppyAge;
+
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(String name){
+      <span class="hljs-comment">// This constructor has one parameter, name.</span>
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Passed Name is :"</span> + name );
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span>( <span class="hljs-keyword">int</span> age ){
+       puppyAge = age;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getAge</span>( ){
+       System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Puppy's age is :"</span> + puppyAge );
+       <span class="hljs-keyword">return</span> puppyAge;
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String []args){
+      <span class="hljs-comment">/* Object creation */</span>
+      Puppy myPuppy = <span class="hljs-keyword">new</span> Puppy( <span class="hljs-string">"tommy"</span> );
+
+      <span class="hljs-comment">/* Call class method to set puppy's age */</span>
+      myPuppy.setAge( <span class="hljs-number">2</span> );
+
+      <span class="hljs-comment">/* Call another class method to get puppy's age */</span>
+      myPuppy.getAge( );
+
+      <span class="hljs-comment">/* You can access instance variable as follows as well */</span>
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Variable Value :"</span> + myPuppy.puppyAge );
+   }
+}</code></pre>
+<p>将产生以下结果：</p>
+<p>Passed Name is :tommy <br>
+Puppy’s age is :2 <br>
+Variable Value :2</br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

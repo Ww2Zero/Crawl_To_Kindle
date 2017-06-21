@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（003）_不使用IDE如何打jar包            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px">
+<p><span style="font-family:SimSun"><br>
+</br></span></p>
+</h1>
+<p></p>
+<p></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">不使用IDE如何打jar包</span></h1>
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1.什么是jar包</span></h2>
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">jar包，最直白的感受就是后缀是<span style="color:#FF0000">.jar</span>的一种<span style="color:#FF0000">压缩文件</span>，它是以<span style="color:#FF0000">zip文件格式</span>为基础的<span style="color:#FF0000">压缩包</span>。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">与zip文件不同的是，jar文件不仅用于压缩和发布，而且还用于部署和封装<span style="color:#FF0000">库</span>、<span style="color:#FF0000">组件</span>和<span style="color:#FF0000">插件程序</span>。<br>
+jar包可以被类似<span style="color:#FF0000">Jvm</span>这样的工具直接使用，通过<span style="color:#FF0000">MANIFEST</span>、<span style="color:#FF0000">部署描述符</span>等特殊文件，来指示工具处理特定的jar。<br>
+jar包大体分为2种，<span style="color:#FF0000">可执行jar包</span>，<span style="color:#FF0000">不可执行jar包</span>。<br>
+目前大多数的jar包都是不可被执行的，这类jar包就是提供给其他应用显现某些特定功能的。而可执行jar包可以在java环境上直接运行，大多数体现为小型工具。</br></br></br></span><br>
+<p></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2.不使用IDE如何打jar包</span></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">本文是延续：<a href="http://blog.csdn.net/ooppookid/article/details/50908233" target="_blank">如何用记事本编写Java程序</a>，所以还是通过记事本来完成教程。<br>
+<span style="color:#3366FF">1.</span>首先，为了区别单文件，这次我们在不同的包下编写了两个类。类的具体功能非常明确，不再多说。</br></span><br>
+<pre class="java" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_1_6278693">package com.helloword;
+
+import com.helloword.impl.HelloWordImpl;
+
+public class HelloWord {
+
+public static void main(String[] args) {
+HelloWordImpl helloWordImpl = new HelloWordImpl();
+System.out.println(helloWordImpl.getText());
+}
+}</pre><pre class="java" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_2_8929435">package com.helloword.impl;
+
+public class HelloWordImpl {
+
+    public String getText() {
+        return "Hello word jar";
+    }
+}</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">2.</span><span style="font-family:Microsoft YaHei; font-size:12px">其次，把这两个类<span style="color:#FF0000">放在对应目录下</span>，所谓"<span style="color:#FF0000">对应</span>"及要求类的包与实际路径相符，只有这样，运行时才能找到正确路径下的类。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><img alt="" src="http://img.blog.csdn.net/20160318114150465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+</br></img></span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">3.</span><span style="font-family:Microsoft YaHei; font-size:12px">然后，使用<span style="color:#FF0000">javac工具</span>进行批量编译，如果需要编译的量很大的话，需写一些工具脚本进行大量编译（<span style="color:#FFCCFF">TODO，以后会有文章介绍</span>）。</span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_3_3531242">javac com/helloword/impl/HelloWordImpl.java com/helloword/HelloWord.java</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><img alt="" src="http://img.blog.csdn.net/20160318114154141?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+</br></img></span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">编译后会在对应目录生成<span style="color:#FF0000">.class</span>文件。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"><img alt="" src="http://img.blog.csdn.net/20160318114250813?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+</br></img></span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"><span style="color:#3366FF">4.</span>最后，对其进行打包。在打包之前，我们需要把我们的整个文件夹<span style="color:#FF0000">移动</span>到一个新的文件夹下，这里将com放在了一个叫bin的文件夹下（如果不想把源代码打入其中，需要将.java文件<span style="color:#FF0000">移除</span>）。<br>
+打包需要使用<span style="color:#FF0000">jar工具</span>，这个工具会将所制定的文件夹里的内容打包成jar。<span style="color:#FF0000">cmd/终端</span>进入bin所在的路径，输入：</br></span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_4_4196333">jar cvf myHelloWord.jar -C bin .</pre><span style="font-family:Microsoft YaHei; font-size:12px">其中"<span style="color:#FF0000">myHelloWord.jar</span>"是生成jar包的名称，"<span style="color:#FF0000">bin</span>"是我们的文件夹目录。<br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">P.S.</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">该方式打的jar包是<span style="color:#FF0000">没有办法运行</span>的。其中，cvf是<span style="color:#FF0000">jar工具</span>提供的几个参数，下面是jar命令的帮助说明：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">用法：jar {ctxui}[vfm0Me] [jar-file] [manifest-file] [entry-point] [-C dir] files ...<br>
+选项包括：<br>
+-c 创建新的归档文件<br>
+-t 列出归档目录<br>
+-x 解压缩已归档的指定（或所有）文件<br>
+-u 更新现有的归档文件<br>
+-v 在标准输出中生成详细输出<br>
+-f 指定归档文件名<br>
+-m 包含指定清单文件中的清单信息<br>
+-e 为捆绑到可执行 jar 文件的独立应用程序，指定应用程序入口点<br>
+-0 仅存储；不使用任何 ZIP 压缩<br>
+-M 不创建条目的清单文件<br>
+-i 为指定的 jar 文件生成索引信息<br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">-C 更改为指定的目录并包含其中的文件，如果有任何目录文件，则对其进行递归处理。</span></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">清单文件名、归档文件名和入口点名的指定顺序与 "m"、"f" 和 "e" 标志的指定顺序相同。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px; color:#FF0000">示例 1：</span><span style="font-family:Microsoft YaHei; font-size:12px">将两个类文件归档到一个名为 classes.jar 的归档文件中：</span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_5_2593933">jar cvf classes.jar A.class B.class</pre><span style="font-family:Microsoft YaHei; font-size:12px; color:#FF0000">示例 2：</span><span style="font-family:Microsoft YaHei; font-size:12px">使用现有的清单文件 "mymanifest" 并将 my/ 目录中的所有文件归档到 "classes.jar" 中：</span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_6_4131076">jar cvfm classes.jar mymanifest -C my/ .</pre><span style="font-family:Microsoft YaHei; font-size:12px; color:#3366FF">5.</span><span style="font-family:Microsoft YaHei; font-size:12px">我们需要的是一个<span style="color:#FF0000">能够运行</span>的jar，所以我们需要编写并指定<span style="color:#FF0000">MANIFEST.MF</span>，告诉<span style="color:#FF0000">java工具</span>jar包的<span style="color:#FF0000">执行入口</span>（即我们的main方法）。<br>
+在com的同级目录（bin下面）下创建名称为"<span style="color:#FF0000">MANIFEST.MF</span>"的文件，并输入如下内容（还可以指定更多jar包的信息，这里我们只指定它的main类）：</br></span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_7_5908983">Manifest-Version: 1.0
+Main-Class: com.helloword.HelloWord</pre><span style="font-family:Microsoft YaHei; font-size:12px">保存之后，通过<span style="color:#FF0000">jar工具</span>打包，这里要指定<span style="color:#FF0000">MANIFEST.MF</span>文件：</span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_8_6258430">jar cvfm counter.jar MANIFEST.MF -C bin .</pre><span style="font-family:Microsoft YaHei; font-size:12px">打包结果如下：<br>
+<img alt="" src="http://img.blog.csdn.net/20160318114332246?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+这样就能在bin下看到打好的myHelloWord.jar包。</br></img></br></span><br>
+<p></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">3.如何运行jar包</span></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px; color:#FF0000">cmd/终端</span><span style="font-family:Microsoft YaHei; font-size:12px">进入jar包所在的路径，输入：</span><br>
+<pre class="plain" code_snippet_id="1614726" name="code" snippet_file_name="blog_20160318_9_4448287">java -jar myHelloWord.jar</pre><span style="font-family:Microsoft YaHei; font-size:12px">运行结果：</span><br>
+<p><img alt="" src="http://img.blog.csdn.net/20160318114336215?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"/></p>
+<p><br>
+</br></p>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+</br></span></div>
+<p></p>
+<p><br>
+</br></p>
+</br></br></br></br></br></br></br></br></br></br></br></div>]
+</body>
+</html>

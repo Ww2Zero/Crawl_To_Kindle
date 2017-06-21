@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（015）_数组和普通对象的引用变量有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1数组和普通对象的引用变量有什么区别">1、数组和普通对象的引用变量有什么区别</h3>
+<p>了解什么是数组看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51340241">java中的数组是什么</a> <br>
+对于java的数组来说，只有<font color="#ff0000">类型兼容</font>(即属于同一数据类型体系且遵守优先级由低到高原则)，才能将数组引用<font color="#ff0000">传递给</font>另一数组引用，但仍然<font color="#ff0000">不能改变</font>数组长度(仅仅只是调整数组引用指针的指向)。 <br>
+了解数组传递看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51347912">数组如何传递</a></br></br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArrayLength {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        <span class="hljs-keyword">int</span>[] numbers = { <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">12</span> };
+        <span class="hljs-keyword">int</span>[] digits = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">4</span>];
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"digits数组长度："</span> + digits.length);<span class="hljs-comment">//4</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> number : numbers) {
+            System.<span class="hljs-keyword">out</span>.print(number + <span class="hljs-string">","</span>);<span class="hljs-comment">//3,5,12,</span>
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">""</span>);
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> digit : digits) {
+            System.<span class="hljs-keyword">out</span>.print(digit + <span class="hljs-string">","</span>);<span class="hljs-comment">//0,0,0,0,</span>
+        }
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">""</span>);
+        digits = numbers;
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"digits数组长度："</span> + digits.length);<span class="hljs-comment">//3</span>
+    }
+}</code></pre>
+<p>执行结果如下： <br>
+digits数组长度：4 <br>
+3,5,12, <br>
+0,0,0,0, <br>
+digits数组长度：3</br></br></br></br></p>
+<p>数组初始化之后在<font color="#ff0000">内存中的存储</font>如下图，在<font color="#ff0000">堆</font>中有2个新的数组对象，<font color="#ff0000">栈</font>中有2个分别指向这两个数组对象的引用变量： <br>
+<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160514103507191" title=""/></br></p>
+<p>在执行digits = numbers赋值后，虽然看似digits的数组长度看似由4变成3，其实只是numbers和digits<font color="#ff0000">指向同一个数组对象</font>而已。 <br>
+而digits本身失去引用而<font color="#ff0000">变成垃圾</font>，等待垃圾回收来回收(但其长度仍然为4)。如图： <br>
+了解java垃圾回收看这里：java垃圾回收机制是什么</br></br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160514103517441" title=""/></p>
+<p>看这篇文章就能清楚的明白数组在内存中的存储：<a href="http://blog.csdn.net/ooppookid/article/details/51404440">java数组如何存储在内存中</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

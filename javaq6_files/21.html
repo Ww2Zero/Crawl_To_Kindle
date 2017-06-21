@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（021）_StringBuffer/StringBuilder有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1stringbuilder是什么">1、StringBuilder是什么</h3>
+<p>StringBuilder是<font color="#ff0000">非线程安全</font>的可变字符串类。 <br>
+<font color="#ff0000">java.lang.StringBuilder</font>这个可变的字符序列类是5.0新增的。继承于<font color="#ff0000">AbstractStringBuilder</font>（大部分方法都在该类实现），并<font color="#ff0000">不是线程安全的</font>，当多个线程同时修改一个对象时很可能会冲突。</br></p>
+<p>了解String是什么看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51473710">String是什么</a></p>
+<p>部分AbstractStringBuilder、StringBuilder源码：</p>
+<pre class="prettyprint"><code class=" hljs axapta"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractStringBuilder</span> <span class="hljs-inheritance"><span class="hljs-keyword">implements</span></span> <span class="hljs-title">Appendable</span>, <span class="hljs-title">CharSequence</span> {</span>
+
+    <span class="hljs-keyword">public</span> AbstractStringBuilder append(Object obj) {
+
+        <span class="hljs-keyword">return</span> append(String.valueOf(obj));
+
+   }
+
+    <span class="hljs-keyword">public</span> AbstractStringBuilder append(String <span class="hljs-keyword">str</span>) {
+
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">str</span> == <span class="hljs-keyword">null</span> ) <span class="hljs-keyword">str</span> = <span class="hljs-string">"null"</span> ;
+
+        <span class="hljs-keyword">int</span> len = <span class="hljs-keyword">str</span>.length();
+
+       ensureCapacityInternal(<span class="hljs-keyword">count</span> + len);
+
+       <span class="hljs-keyword">str</span>.getChars( <span class="hljs-number">0</span> , len, value, <span class="hljs-keyword">count</span>);
+
+       <span class="hljs-keyword">count</span> += len;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> ;
+
+   }
+
+}</code></pre>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringBuilder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractStringBuilder</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span>, <span class="hljs-title">CharSequence</span>
+
+{</span>
+
+    <span class="hljs-keyword">public</span> StringBuilder <span class="hljs-title">append</span>(Object obj) {
+
+        <span class="hljs-keyword">return</span> append(String.valueOf(obj));
+
+   }
+
+    <span class="hljs-keyword">public</span> StringBuilder <span class="hljs-title">append</span>(String str) {
+
+        <span class="hljs-keyword">super</span> . append(str);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> ;
+
+   }
+
+}</code></pre>
+<h3 id="2stringbuffer是什么">2、StringBuffer是什么</h3>
+<p>StringBuffer是线程安全的可变字符串类</p>
+<p><font color="#ff0000">java.lang.StringBuffer</font>继承于AbstractStringBuilder（同StringBuilder一样也继承于该类，并且部分方法都在该类实现），重写了其大部分方法，逻辑没变只是将其改为<font color="#ff0000">synchronized线程同步</font>。</p>
+<p>部分StringBuffer源码：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StringBuffer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractStringBuilder</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">java</span>.<span class="hljs-title">io</span>.<span class="hljs-title">Serializable</span>, <span class="hljs-title">CharSequence</span>
+
+{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> StringBuffer <span class="hljs-title">append</span>(Object obj) {
+
+        <span class="hljs-keyword">super</span> . append(String.valueOf(obj));
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> ;
+
+   }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> StringBuffer <span class="hljs-title">append</span>(String str) {
+
+        <span class="hljs-keyword">super</span> . append(str);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> ;
+
+   }
+
+}</code></pre>
+<h3 id="3stringbufferstringbuilder有什么区别">3、StringBuffer/StringBuilder有什么区别</h3>
+<p>由上面概念可以看到，<font color="#ff0000">StringBuffer是线程安全的</font>，而<font color="#ff0000">StringBuilder并不是</font>，StringBuilder在多线程中可能会<font color="#ff0000">发生冲突</font>。</p>
+<p>所以，当要保证线程安全的时候就需要用StringBuffer，然而在多线程时，StringBuffer比StringBuilder<font color="#ff0000">性能要差</font>（synchronized相当于线程堵塞）。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

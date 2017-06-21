@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（023）_基本数据类型在内存中如何存放            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1基本数据类型在内存中如何存放">1、基本数据类型在内存中如何存放</h3>
+<p>了解基本数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a> <br>
+对于java中的<font color="#ff0000">8种基本数据类型</font>，可以通过如下方式赋值给变量赋值。</br></p>
+<pre class="prettyprint"><code class=" hljs autohotkey">int <span class="hljs-literal">a</span> = <span class="hljs-number">3</span><span class="hljs-comment">;</span>
+
+float b = <span class="hljs-number">4.0</span>f<span class="hljs-comment">;</span>
+
+<span class="hljs-literal">a</span> = <span class="hljs-literal">a</span> + <span class="hljs-number">2</span><span class="hljs-comment">;</span></code></pre>
+<p>8中基本数据是将具体值直接存放在<font color="#ff0000">栈</font>中，在发生变更时，将具体值<font color="#ff0000">替换为新的值</font>。具体如下：</p>
+<p>了解java如何管理内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+了解java堆和栈的区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474468">java堆和栈有什么区别</a></br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160703095006986" title=""/></p>
+<p>对于基本数据类型，并<font color="#ff0000">没有基本数据池</font>的概念，每次赋值并不会在栈中进行任何查询，而是直接存储值。</p>
+<p>但是，对于基本数据类型的<font color="#ff0000">包装器</font>，在一定数值范围内是存放在运行时常量池中的。</p>
+<p>了解基本类型包装器看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51289443">什么是基本类型包装器</a> <br>
+了解运行时常量池看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51619551">运行时常量池是什么</a></br></p>
+<p>顺便提一句，对于基本数据类型，在内存中都是以<font color="#ff0000">二进制储存</font>（当然，内存是以8位二进制作为一个存储单元，也就是一个字节），不同的类型所占用的内存空间（体现为存储单元）也不同。在java中，数值类型都是<font color="#ff0000">有符号存储</font>（二进制首位为符号位），浮点类型也是遵循<font color="#ff0000">IEEE754、854标准</font>。</p>
+<p>了解二进制表示整型看这里：[用二进制如何表示整型数值][7] <br>
+了解二进制表示浮点型看这里：[用二进制如何表示浮点型数值][8]</br></p>
+<p>对于一些不靠谱的资料或博客会混淆这个概念，认为基本数据类型在存储时首先回去看看栈中是否有该值，如果没有则放入，如果有则指向。这种说法<font color="#ff0000">纯属瞎扯</font>，一个简单的道理，如果我分配了2G的栈内存，是否每次简单的int a = 1的赋值时，难道都会去排查一下这2g的空间？java没有这些人想象的这么无聊。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

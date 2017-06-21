@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_09基础类库（004）_java.lang.management包有什么功能            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-009.html">点击进入_更多_Java千百问-基础类库</a></p>
+<h3 id="1javalangmanagement包有什么功能">1、java.lang.management包有什么功能</h3>
+<p>java.lang.management包提供了全面的<font color="#ff0000">监控和管理工具</font>，包括JVM的监管API、监管API日志、jconsole和其他监控工具、out-of-the-box的监管工具（开箱即用）、Java管理扩展平台（JMX）等等。sun在sun.management中提供了对应的实现类。主要类如下图：</p>
+<p><img alt="" src="http://img.blog.csdn.net/20160723085923659" title="">￼</img></p>
+<p>下面介绍java.lang.management中的类：</p>
+<ol>
+<li><p><strong>管理接口</strong> <br>
+<font color="#ff0000">PlatformManagedObject</font>，平台管理对象的接口，是JMX MXBean监视管理平台的核心组件。每个平台管理对象都要实现这个接口。 <br>
+<font color="#ff0000">BufferPoolMXBean</font>，缓冲池管理接口，可以管理和监控缓冲池，direct或mapped两类缓冲池。 <br>
+<font color="#ff0000">ClassLoadingMXBean</font>，类加载管理接口，可以管理和监控Java虚拟机的类加载系统。 <br>
+<font color="#ff0000">CompilationMXBean</font>，编译管理接口，可以管理和监控Java虚拟机的编译系统。 <br>
+<font color="#ff0000">GarbageCollectorMXBean</font>，垃圾回收管理接口，可以管理和监控用于Java虚拟机的垃圾回收。 <br>
+<font color="#ff0000">MemoryManagerMXBean</font>，内存/内存池基本信息管理接口，可以管理和监控用于Java虚拟机内存/内存池的基本信息。 <br>
+<font color="#ff0000">MemoryMXBean</font>，内存信息管理接口，可以管理和监控Java虚拟机的内存信息。 <br>
+<font color="#ff0000">MemoryPoolMXBean</font>，内存池管理接口，可以管理和监控Java虚拟机内存池的使用。 <br>
+<font color="#ff0000">OperatingSystemMXBean</font>，操作系统管理接口，可以管理和监控Java虚拟机所运行操作系统的信息。 <br>
+<font color="#ff0000">PlatformLoggingMXBean</font>，日志管理接口，可以管理和监控Java虚拟机的日志。 <br>
+<font color="#ff0000">RuntimeMXBean</font>，运行时系统管理接口，可以管理和监控Java虚拟机运行的情况。 <br>
+<font color="#ff0000">ThreadMXBean</font>，线程管理接口，可以管理和监控Java虚拟机的线程。</br></br></br></br></br></br></br></br></br></br></br></br></p></li>
+<li><p><strong>管理工厂</strong> <br>
+<font color="#ff0000">ManagementFactory</font>，MXBean的工厂类，MXBean是通过工厂模式进行管理的，通过该工厂获取对应的MXBean。</br></p></li>
+<li><p><strong>信息体</strong> <br>
+<font color="#ff0000">LockInfo、MonitorInfo</font>，锁的信息类，LockInfo可以是任何的Java锁（包括简单Java锁和java.util.concurrent包中所使用的锁： AbstractOwnableSynchronizer和Condition的实现类/子类），而MonitorInfo是简单的Java对象所代表的锁。 <br>
+<font color="#ff0000">MemoryNotificationInfo</font>，内存通知的信息类。 <br>
+<font color="#ff0000">MemoryUsage</font>，内存快照的信息类，通过MemoryMXBean、MemoryPoolMXBean内存管理接口可以获取到内存快照的信息。 <br>
+<font color="#ff0000">ThreadInfo</font>，线程的信息类，通过ThreadMXBean线程管理接口可以获取到线程的信息。</br></br></br></br></p></li>
+<li><p><strong>管理权限</strong> <br>
+<font color="#ff0000">ManagementPermission</font>，权限管理类，一般不会手动创建，而是由安全策略文件创建。</br></p></li>
+</ol>
+<p>了解java.lang.management包使用看这里：[java.lang.management包如何使用][2]</p>
+<p>[2]:</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（022）_String在内存中如何存放            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1string在内存中如何存放">1、String在内存中如何存放</h3>
+<p>了解String是什么看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51473710">String是什么</a> <br>
+String是一个特殊的包装类数据。 <br>
+可以用两种的形式来创建：</br></br></p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> str = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>( <span class="hljs-string">"abc"</span> );
+<span class="hljs-built_in">String</span> str = <span class="hljs-string">"abc"</span> ;</code></pre>
+<p>了解java如何管理内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+了解java堆和栈的区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474468">java堆和栈有什么区别</a></br></p>
+<p>第一种是用<font color="#ff0000">new()</font>来新建对象的，它会在存放于<font color="#ff0000">堆</font>中，每调用一次就会创建一个新的对象。 <br>
+第二种是先在<font color="#ff0000">栈</font>中创建一个对String类的对象引用变量str，然后查找<font color="#ff0000">运行时常量池</font>中有没有存放”abc”，如果没有，则将”abc”存放进<font color="#ff0000">常量池</font>，并令str指 向”abc”，如果已经有”abc” 则直接令str指向”abc”。</br></p>
+<p>常量池在方法区内，用来存放基本类型包装类（包装类不管理浮点型，整形只会管理-128到127）和String（通过String.intern()方法可以强制将String放入常量池）。</p>
+<h3 id="2string的equals方法如何使用">2、String的equals方法如何使用</h3>
+<p>比较类里面的<font color="#ff0000">数值是否相等</font>时，用<font color="#ff0000">equals()</font>方法；当测试两个包装类的<font color="#ff0000">引用是否指向同一个对象</font>时，用<font color="#ff0000">==</font>（可以理解为比较逻辑地址，实际是比较对象号），下面用例子说明上面的理论。</p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> str1 = <span class="hljs-string">"abc"</span> ;
+<span class="hljs-built_in">String</span> str2 = <span class="hljs-string">"abc"</span> ;
+System.out.println(str1==str2); <span class="hljs-comment">//true</span></code></pre>
+<p>可以看出str1和str2是指向<font color="#ff0000">同一个对象</font>的。</p>
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-built_in">String</span> str1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span> ( <span class="hljs-string">"abc"</span> );
+<span class="hljs-built_in">String</span> str2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span> ( <span class="hljs-string">"abc"</span> );
+System.out.println(str1==str2); <span class="hljs-comment">// false</span></code></pre>
+<ul>
+<li><p>对于第二种方式（String str1 =”abc”）创建多个”abc”字符串，在内存中其实<font color="#ff0000">只存在一个对象</font>而已。这种方式<font color="#ff0000">节省内存空间</font>，同时它可以在一定程度上<font color="#ff0000">提高程序的运行速度</font>，因为JVM会自动根据<font color="#ff0000">常量池</font>中数据的实际情况来决定是否有必要创建新对象。</p></li>
+<li><p>而对于第一种方式，String str = new String(“abc”)，则一概在堆中<font color="#ff0000">创建新对象</font>，而不管其字符串值是否相等，是否有必要创建新对象，从而<font color="#ff0000">加重了程序的负担</font>。</p></li>
+</ul>
+<p>另一个要注意的地方：我们在使用诸如String str = “abc”；的格式定义类时，总是想当然地认为，创建了String类的对象str。这里担心陷阱：<font color="#ff0000">对象可能并没有被创建！</font>而可能只是指向一个先前已经创建的对象。只有通过new()方法才能保证每次都创建一个新的对象。</p>
+<p>由于String类的<font color="#ff0000">immutable（不可变）</font>性质，当String变量需要经常变换其值时，应该考虑使用<font color="#ff0000">StringBuffer/StringBuilder类</font>，以提高程序效率。</p>
+<p>StringBuffer/StringBuilder的区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474117">StringBuffer/StringBuilder有什么区别</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

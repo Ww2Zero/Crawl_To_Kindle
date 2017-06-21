@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（011）_java垃圾回收都有哪些方式            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1java垃圾回收都有哪些方式">1、java垃圾回收都有哪些方式</h3>
+<p>所谓<font color="#ff0000">垃圾回收方式</font>，是指JVM提供的几种不同的<font color="#ff0000">垃圾回收器</font>，不同的垃圾回收器进行垃圾回收时采用不同的方式。当然，总体原则遵循<font color="#ff0000">java垃圾回收机制</font>。</p>
+<p>了解java内存模型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java内存模型是什么样的</a> <br>
+了解堆内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java堆内存是什么样的</a> <br>
+了解java垃圾回收机制看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a></br></br></p>
+<p>每种方式都有自己的优势与劣势。我们编程的时候可以通过<font color="#ff0000">向JVM传递参数</font>来选择垃圾回收器。不同的垃圾回收期有大的不同，可以为我们提供完全不同的<font color="#ff0000">应用程序性能</font>，所以理解每种垃圾回收器，并且根据不同的应用选择进行正确的选择是<font color="#ff0000">非常重要的</font>。</p>
+<p>垃圾回收器主要有4种：<font color="#ff0000">串行垃圾回收器</font>（Serial Garbage Collector） <br>
+、<font color="#ff0000">并行垃圾回收器</font>（Parallel Garbage Collector）、<font color="#ff0000">并发标记扫描垃圾回收器</font>（CMS Garbage Collector）、<font color="#ff0000">G1垃圾回收器</font>（G1 Garbage Collector），具体如下：</br></p>
+<p><strong><font color="#33ccff">串行垃圾回收器</font></strong></p>
+<p>串行垃圾回收器通过持有应用程序<font color="#ff0000">所有的线程</font>进行工作。它为<font color="#ff0000">单线程环境</font>设计，只使用一个<font color="#ff0000">单独的线程</font>进行垃圾回收，通过冻结所有应用程序线程进行工作，所以可能不适合服务器环境。它最适合的是简单的命令行程序。 <br>
+通过JVM参数<font color="#ff0000">-XX:+UseSerialGC</font>可以使用串行垃圾回收器。</br></p>
+<p><strong><font color="#33ccff">并行垃圾回收器</font></strong></p>
+<p>并行垃圾回收器是JVM的默认垃圾回收器。与串行垃圾回收器不同，它使用<font color="#ff0000">多线程</font>进行垃圾回收。相似的是，当执行垃圾回收的时候它也会冻结所有的应用程序线程。</p>
+<p><strong><font color="#33ccff">并发标记扫描垃圾回收器</font></strong></p>
+<p>并发标记垃圾回收使用<font color="#ff0000">多线程扫描堆内存</font>，标记需要清理的实例并且清理被标记过的实例。并发标记垃圾回收器只会在下面两种情况持有应用程序所有线程：</p>
+<ol>
+<li>当标记的引用对象在<font color="#ff0000">老生代</font>；</li>
+<li>在进行垃圾回收的时候，堆内存的数据被<font color="#ff0000">并发的改变</font>。</li>
+</ol>
+<p>相比并行垃圾回收器，并发标记扫描垃圾回收器使用<font color="#ff0000">更多的CPU</font>来确保程序的吞吐量。如果我们能够为了更好的程序性能分配更多的CPU，那么相比并发垃圾回收器，并发标记扫描垃圾回收器是更好的选择。 <br>
+通过JVM参数<font color="#ff0000">XX:+USeParNewGC</font>打开并发标记扫描垃圾回收器。</br></p>
+<p><strong><font color="#33ccff">G1垃圾回收器</font></strong></p>
+<p>G1垃圾回收器将堆内存<font color="#ff0000">分割成不同的区域</font>，并且<font color="#ff0000">并发的</font>对其进行进行垃圾回收。G1也可以在回收内存之后对剩余的堆内存空间进行压缩。 <br>
+G1垃圾回收会优先选择第一块<font color="#ff0000">垃圾最多</font>的区域，它适用于堆内存很大的情况。 <br>
+通过JVM参数<font color="#ff0000">–XX:+UseG1GC</font>使用G1垃圾回收器 <br>
+在Java 8中，G1可以通过JVM参数<font color="#ff0000">-XX:+UseStringDeduplication</font>删除重复的字符串，只保留一个char[]来优化堆内存。</br></br></br></p>
+<h3 id="2如何选择不同的垃圾回收器">2、如何选择不同的垃圾回收器</h3>
+<p>我们需要根据<font color="#ff0000">应用场景</font>、<font color="#ff0000">硬件性能</font>和<font color="#ff0000">吞吐量需求</font>来决定使用哪一种垃圾回收器，通过JVM参数的配置来选择垃圾回收器：</p>
+<p><font color="#ff0000">-XX:+UseSerialGC</font>：串行垃圾回收器 <br>
+<font color="#ff0000">-XX:+UseParallelGC</font>：并行垃圾回收器 <br>
+<font color="#ff0000">-XX:+UseConcMarkSweepGC</font>：并发标记扫描垃圾回收器 <br>
+<font color="#ff0000">-XX:ParallelCMSThreads</font>：并发标记扫描垃圾回收器 =为使用的线程数量 <br>
+<font color="#ff0000">-XX:+UseG1GC</font>：G1垃圾回收器</br></br></br></br></p>
+<p>其他内存常见配置：</p>
+<p><font color="#ff0000">-Xms</font>：初始化堆内存大小 <br>
+<font color="#ff0000">-Xmx</font>：堆内存最大值 <br>
+<font color="#ff0000">-Xmn</font>：新生代大小 <br>
+<font color="#ff0000">-XX:PermSize</font>：初始化永久代大小 <br>
+<font color="#ff0000">-XX:MaxPermSize</font>：永久代最大容量</br></br></br></br></p>
+<p>配置JVM GC参数的实例：</p>
+<pre class="prettyprint"><code class=" hljs lasso">java <span class="hljs-attribute">-Xmx1024m</span> <span class="hljs-attribute">-Xms512m</span> <span class="hljs-attribute">-Xmn256m</span> <span class="hljs-attribute">-XX</span>:PermSize<span class="hljs-subst">=</span><span class="hljs-number">64</span>m <span class="hljs-attribute">-XX</span>:MaxPermSize<span class="hljs-subst">=</span><span class="hljs-number">128</span>m <span class="hljs-attribute">-XX</span>:<span class="hljs-subst">+</span>UseSerialGC <span class="hljs-attribute">-jar</span> java<span class="hljs-attribute">-application</span><span class="hljs-built_in">.</span>jar</code></pre>
+<p>上述配置的含义是： <br>
+堆内存512-1024M，新生代256M，永久代64-128M，采用串行垃圾回收器执行java-application.jar。</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

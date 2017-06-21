@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（010）_java、javaw、javaws有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1javajavawjavaws有什么区别">1、java、javaw、javaws有什么区别</h3>
+<p><font color="#ff0000">java、javaw、javaws</font>这三个都是jdk自带的三个工具，都在<font color="#ff0000">jdk/bin路径</font>下，这三个工具都是为了<font color="#ff0000">启动java应用</font>存在的，具体区别如下：</p>
+<p><strong><font color="#33ccff">java</font></strong> <br>
+java命令即<font color="#ff0000">java应用的执行器</font>，通过它执行的应用<font color="#ff0000">日志</font>会再<font color="#ff0000">控制台console</font>显示输出与错误信息。</br></p>
+<p>了解更多java命令看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51711103">java程序如何运行</a></p>
+<p><strong><font color="#33ccff">javaw</font></strong> <br>
+javaw与java一样，是<font color="#ff0000">java应用的执行器</font>，不同的是它<font color="#ff0000">不会再控制台console</font>显示输出与错误信息，取而代之的是使用<font color="#ff0000">文本</font>记录这些信息。主要用来<font color="#ff0000">启动基于GUI</font>（Graphical User Interface，用户图形接口）的应用程序。</br></p>
+<p><strong><font color="#33ccff">javaws</font></strong> <br>
+<font color="#ff0000">Java Web Start</font>，是用来启动<font color="#ff0000">通过web来描述</font>的项目的。我们需要一个<font color="#ff0000">jnlp文件</font>（Java Network Launching Protocol，java网络执行协议文件），通过<font color="#ff0000">javaws jnlp</font>来启动应用。jnlp文件中描述了应用的url、应用程序的基本信息（应用名称、版本、供应商、 应用icon等）、必要的系统环境等。</br></p>
+<p>了解jnlp文件看这里：[jnlp文件是什么][3]</p>
+<p>它首先通过<font color="#ff0000">jnlp文件</font>中的url下载应用并启动，它是一个很有用的获取资源命令，通过<font color="#ff0000">中央统一控制</font>，提供更新，可以确保所有的用户都是使用最新的应用。当应用程序被调用时，它被缓存在<font color="#ff0000">本地计算机</font>。每次启动时，它会检查是否有更新。</p>
+<p>具体使用语法如下：</p>
+<p>javaws [run-options] </p>
+<p>javaws [control-options]</p>
+<p>参数说明如下：</p>
+<p><strong><font color="#33ccff">run-options</font></strong></p>
+<p>命令行运行时选项，多个参数允许无顺序。直接执行<font color="#ff0000">javaws</font>会显示所有操作，常见的如下：</p>
+<ol>
+<li><p><font color="#33ccff">-verbose</font> <br>
+启用详细输出。</br></p></li>
+<li><p><font color="#33ccff">-offline</font> <br>
+以脱机模式运行应用程序。</br></p></li>
+<li><p><font color="#33ccff">-system</font> <br>
+仅从系统高速缓存运行应用程序。</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">jnlp</font></strong></p>
+<p>jnlp文件的路径。</p>
+<p><strong><font color="#33ccff">control-options</font></strong></p>
+<p>命令行控制选项，多个参数允许无顺序。常见的如下：</p>
+<ol>
+<li><p><font color="#33ccff">-viewer</font> <br>
+在Java控制面板中显示高速缓存查看器，操作系统会<font color="#ff0000">自动打开一个查看器</font>。</br></p></li>
+<li><p><font color="#33ccff">-clearcache</font> <br>
+从高速缓存删除所有<font color="#ff0000">未安装的应用程序</font>。</br></p></li>
+<li><p><font color="#33ccff">-uninstall</font> <br>
+从高速缓存删除所有<font color="#ff0000">应用程序</font>。</br></p></li>
+<li><p><font color="#33ccff">-uninstall jnlp-file</font> <br>
+从高速缓存删除<font color="#ff0000">指定应用程序</font>。</br></p></li>
+<li><p><font color="#33ccff">-import [导入选项] jnlp-file</font> <br>
+将指定应用程序<font color="#ff0000">导入高速缓存</font>，导入选项有如下几个： <br>
+-silent：以无提示模式 (不出现用户界面) 导入 <br>
+-system：将应用程序导入系统高速缓存 <br>
+-codebase  ：从给定的代码库检索资源 <br>
+-shortcut：以用户接受提示的方式安装快捷方式 <br>
+-association ： 以用户接受提示的方式安装关联       </br></br></br></br></br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（014）_如何编写JVMTI agent程序            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何编写jvmti-agent程序">1、如何编写JVMTI agent程序</h3>
+<p>了解JPDA看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761566">JPDA是什么</a> <br>
+了解JVMTI看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51809545">JVMTI是什么</a> <br>
+我们需要使用<font color="#ff0000">C++</font>编写agent程序，JVM在<font color="#ff0000">不同时机回调</font>下面的接口函数：</br></br></p>
+<pre class="prettyprint"><code class=" hljs perl">JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM <span class="hljs-variable">*jvm</span>, char <span class="hljs-variable">*options</span>, void <span class="hljs-variable">*reserved</span>)
+
+JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM <span class="hljs-variable">*jvm</span>, char <span class="hljs-variable">*options</span>, void <span class="hljs-variable">*reserved</span>);
+
+JNIEXPORT void JNICALL Agent_OnUnload(JavaVM <span class="hljs-variable">*jvm</span>)</code></pre>
+<p>其中第一个是<font color="#ff0000">jvm启动时调用</font>，第二个是<font color="#ff0000">jvm运行时发出attach时调用</font>，第三个是<font color="#ff0000">jvm卸载时调用</font>。</p>
+<p>其中<font color="#ff0000">*jvm参数</font>传入JavaVM指针，可以用来操作JVM；<font color="#ff0000">*options参数</font>是命令行传入的参数；<font color="#ff0000">*reserved</font>是一个预留参数。</p>
+<p>给出<font color="#ff0000">运行加载模式</font>实现的一个简单功能：打印jvm内所有已经装载成功的class。具体如下：</p>
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-comment">/*
+*  JVMTI agent
+*
+*  Created on: 2016-07-02
+*      Author: sunjie
+*/</span>
+<span class="hljs-preprocessor">#include &lt;jvmti.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;string&gt;</span>
+<span class="hljs-preprocessor">#include &lt;cstring&gt;</span>
+<span class="hljs-preprocessor">#include &lt;iostream&gt;</span>
+<span class="hljs-preprocessor">#include &lt;list&gt;</span>
+<span class="hljs-preprocessor">#include &lt;map&gt;</span>
+<span class="hljs-preprocessor">#include &lt;set&gt;</span>
+<span class="hljs-preprocessor">#include &lt;stdlib.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;jni_md.h&gt;</span>
+
+JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM *jvm, <span class="hljs-keyword">char</span> *options,
+                <span class="hljs-keyword">void</span> *reserved) {
+        jvmtiEnv *jvmti;
+        jint result = jvm-&gt;GetEnv((<span class="hljs-keyword">void</span> **) &amp;jvmti, JVMTI_VERSION_1_1);
+        <span class="hljs-keyword">if</span> (result != JNI_OK) {
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"ERROR: Unable to access JVMTI!\n"</span>);
+        }
+        jvmtiError err = (jvmtiError) <span class="hljs-number">0</span>;
+        jclass *classes;
+        jint count;
+
+        err = jvmti-&gt;GetLoadedClasses(&amp;count, &amp;classes);<span class="hljs-comment">//获取class</span>
+        <span class="hljs-keyword">if</span> (err) {
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"ERROR: JVMTI GetLoadedClasses failed!\n"</span>);
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) {
+                <span class="hljs-keyword">char</span> *sig;
+                jvmti-&gt;GetClassSignature(classes[i], &amp;sig, NULL);<span class="hljs-comment">//获取并打印class签名</span>
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"cls sig=%s\n"</span>, sig);
+        }
+        <span class="hljs-keyword">return</span> err;
+}
+
+JNIEXPORT <span class="hljs-keyword">void</span> JNICALL Agent_OnUnload(JavaVM *vm) {
+        <span class="hljs-comment">// nothing to do</span>
+}</code></pre>
+<p>我们将它命名为<font color="#ff0000">agent.cpp</font>，下一步就是将它编译为<font color="#ff0000">动态链接库</font>，不同操作系统的命令并不相同，这里以mac系统为例，具体如下：</p>
+<pre class="prettyprint"><code class=" hljs lasso">g<span class="hljs-subst">++</span> <span class="hljs-attribute">-I</span>${JAVA_HOME}/include<span class="hljs-subst">/</span> <span class="hljs-attribute">-I</span>${JAVA_HOME}/include/darwin Agent<span class="hljs-built_in">.</span>cpp <span class="hljs-attribute">-fPIC</span> <span class="hljs-attribute">-shared</span> <span class="hljs-attribute">-o</span> libagent<span class="hljs-built_in">.</span>so</code></pre>
+<p>由于是mac系统，所以引入了<font color="#ff0000">${JAVA_HOME}/include/darwin</font>，linux和windows对应的应该是/include/linux、\include\win32。 <br>
+执行后，我们会看到生成了了<font color="#ff0000">libagent.so文件</font>。</br></p>
+<h3 id="2如何测试agent程序">2、如何测试agent程序</h3>
+<p>我们已经有了agent，下面我们测试一下。测试需要有一个<font color="#ff0000">目标JVM</font>，所以我们简单模拟一个，具体如下：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestMain {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws InterruptedException {
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"JVMTI agent Test start"</span>);
+        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) {
+            Thread.sleep(<span class="hljs-number">1000</span>);
+            i++;
+        }
+    }
+}</code></pre>
+<p>死循环的目的在于不能让它结束，方便我们使用JVMTI agent进行操作。运行后结果如下：</p>
+<p>JVMTI agent Test start</p>
+<p>这时我们需要通过<font color="#ff0000">AttachAPI</font>为运行中的JVM加载我们的agent，我们首先获取到目标JVM的<font color="#ff0000">pid</font>（通过进程监控获取），然后指定<font color="#ff0000">agent动态资源库的路径</font>，具体如下：</p>
+<p>了解更多 AttachAPI看这里：[AttachAPI是什么][4]</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestAgent {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws AttachNotSupportedException, IOException, AgentLoadException,
+            AgentInitializationException {
+        String pid = <span class="hljs-string">"831"</span>; <span class="hljs-comment">// java进程pid</span>
+        String agentPath = <span class="hljs-string">"/Users/sunjie/Desktop/libagent.so"</span>; <span class="hljs-comment">// agent.so的路径</span>
+        String options = <span class="hljs-keyword">null</span>;<span class="hljs-comment">// 传入agent的参数</span>
+        VirtualMachine virtualMachine = com.sun.tools.attach.VirtualMachine.attach(pid);
+        virtualMachine.loadAgentPath(agentPath, options);
+        virtualMachine.detach();
+    }
+}</code></pre>
+<p>这里我们需要引入<font color="#ff0000">${JAVA_HOME}/lib/tools.jar</font>包，引入com.sun.tools.attach包。运行后，在目标JVM的Console中出现如下结果：</p>
+<p>JVMTI agent Test start <br>
+cls sig=Ljava/lang/ClassLoader$NativeLibrary; <br>
+cls sig=Ljava/util/concurrent/ConcurrentMap; <br>
+cls sig=Ljava/lang/Error; <br>
+cls sig=[Ljava/lang/Error; <br>
+cls sig=Ljava/util/Set; <br>
+cls sig=Ljava/util/WeakHashMap; <br>
+cls sig=Ljava/lang/ref/Reference; <br>
+cls sig=[Ljava/lang/ref/Reference; <br>
+cls sig=Ljava/lang/StackOverflowError; <br>
+cls sig=Ljava/io/Serializable; <br>
+….</br></br></br></br></br></br></br></br></br></br></br></p>
+<p>成功打印出了所有已经装载成功的class。</p>
+<p>顺便提一句，如果采用启动加载模式，则需要在运行TestMain时加上如下参数：</p>
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">java -agentlib:Agent</span>=<span class="hljs-string">opt1 TestMain</span></code></pre>
+<p>注意，这里传入了*options参数：opt1，不过，我们的agent并没有使用他。</p>
+<p>了解更多JVMTI的功能看这里：[JVMTI提供哪些功能][5]</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

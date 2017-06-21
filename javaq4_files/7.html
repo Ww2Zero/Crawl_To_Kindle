@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（007）_常见的java异常有哪些(非运行时)            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1常见的java运行时异常有哪些">1、常见的java运行时异常有哪些</h3>
+<p>了解非运行时异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948">什么是java中的异常</a> <br>
+常见的运行时异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51112765">常见的运行时异常有哪些</a></br></p>
+<p>我们所说的常见异常是jdk或者其他常用第三方jar中的异常，出现频次很高的异常。常见的非运行时异常（即检查异常，checked exception）包括：</p>
+<ul>
+<li><strong>操作数据库异常：SQLException</strong></li>
+<li><strong>输入输出异常：IOException</strong></li>
+<li><strong>文件未找到异常：FileNotFoundException</strong></li>
+<li><strong>反射操作异常：ReflectiveOperationException</strong></li>
+<li><p><strong>类未找到异常:  ClassNotFoundException</strong></p></li>
+<li><p><strong>方法未找到异常：NoSuchMethodException</strong></p></li>
+<li><strong>字段未找到异常：NoSuchFieldException</strong></li>
+<li><strong>非法访问权限异常：IllegalAccessException</strong></li>
+<li><strong>实例化异常：InstantiationException</strong></li>
+<li><p><strong>不支持克隆异常：CloneNotSupportedException</strong></p></li>
+<li><p><strong>被中止异常：InterruptedException</strong></p></li>
+</ul>
+<hr>
+<h3 id="2什么情况下会抛出这些异常">2、什么情况下会抛出这些异常</h3>
+<p>如何抛出异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51100373">java如何抛出异常</a></p>
+<h4 id="1javalangsqlexception"><font color="#33ccff"><strong>1.java.lang.SQLException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">sql异常</font>。 <br>
+sql语句异常种类十分多，通常都是sql语句、数据库执行错误导致，常见的表现有：</br></p>
+<ul>
+<li>invalid column name 无效列名</li>
+<li>table or view does not exist 表或者视图不存在</li>
+<li>cannot insert NULL into () 不能将空值插入</li>
+<li>缺少表达式</li>
+<li>SQL 命令未正确结束</li>
+</ul>
+<p>在操作数据库时需要考虑全面，尽量避免该异常。</p>
+<h4 id="2javalangioexception"><font color="#33ccff"><strong>2.java.lang.IOException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">输入输出异常</font>。 <br>
+该异常种类也十分多（拥有很多子类），尤其对文件的操作，以及android开发。常见的表现有：</br></p>
+<ul>
+<li>FileNotFoundException 文件找不到。</li>
+<li>InvalidPropertiesFormatException 输入内容不符合属性集的正确 XML 文档类型。</li>
+</ul>
+<h4 id="3javalangfilenotfoundexception"><font color="#33ccff"> <strong>3.java.lang.FileNotFoundException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">文件不存在异常</font>。该异常继承于 IOException。 <br>
+这个异常通常是获取文件时，文件路径或文件名称错误导致的。</br></p>
+<h4 id="4javalangreflectiveoperationexception"><font color="#33ccff"> <strong>4.java.lang.ReflectiveOperationException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">反射操作相关的异常</font>。 <br>
+由于反射的特殊性，类、方法、属性均使用String作为名称进行操作，对于该类异常一定要十分注意。 <br>
+了解反射看这里：什么是java中的反射</br></br></p>
+<h4 id="5javalangclassnotfoundexception"><font color="#33ccff"> <strong>5.java.lang.ClassNotFoundException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">指定的类不存在</font>。该异常继承于ReflectiveOperationException。 <br>
+这个异常通常是在使用反射时，或者服务端引入jar包时抛出。 <br>
+使用反射时，根据类名（字符串）获取Class时，包、类名有误会造成该异常。</br></br></p>
+<h4 id="6javalangnosuchmethodexception"><font color="#33ccff"> <strong>6.java.lang.NoSuchMethodException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">指定的方法不存在</font>。该异常继承于ReflectiveOperationException。 <br>
+这个异常通常是在使用反射时抛出。 <br>
+使用反射时，根据方法名（字符串）调用Method时，方法名有误会造成该异常。</br></br></p>
+<h4 id="7javalangnosuchfieldexception"><font color="#33ccff"> <strong>7.java.lang.NoSuchFieldException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">指定的字段不存在</font>。该异常继承于ReflectiveOperationException。 <br>
+这个异常通常是在使用反射时抛出。 <br>
+使用反射时，根据字段名（字符串）获取、操作Field时，字段名有误会造成该异常。</br></br></p>
+<h4 id="8javalangillegalaccessexception"><font color="#33ccff"> <strong>8.java.lang.IllegalAccessException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">没有访问权限</font>。 <br>
+当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。 <br>
+最常见的地方即在使用反射调用private方法/属性时会抛出该异常，将private方法/属性共有化public即可。 <br>
+想了解public和privite看这里：<a href="http://blog.csdn.net/ooppookid/article/details/50983158">public、privite、protected有什么区别</a></br></br></br></p>
+<h4 id="9javalanginstantiationexception"><font color="#33ccff"> <strong>9.java.lang.InstantiationException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">实例化异常</font>。该异常继承于ReflectiveOperationException。 <br>
+当试图通过newInstance()方法创建某个类的实例，而该类是一个抽象类或接口时，抛出该异常。</br></p>
+<h4 id="10javalangclonenotsupportedexception"><font color="#33ccff"> <strong>10.java.lang.CloneNotSupportedException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">不支持克隆异常</font>。该异常继承于 ReflectiveOperationException。 <br>
+当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</br></p>
+<h4 id="11javalanginterruptedexception"><font color="#33ccff"> <strong>11.java.lang.InterruptedException</strong></font></h4>
+<p>该异常的解释是：<font color="#ff0000">被中止异常</font>。 <br>
+当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</br></p></hr></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

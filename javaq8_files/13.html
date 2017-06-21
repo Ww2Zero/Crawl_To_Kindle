@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（013）_JVMTI是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jvmti是什么">1、JVMTI是什么</h3>
+<p><font color="#ff0000">JVMTI（JVM Tool Interface）</font>是<font color="#ff0000">JPDA体系</font>中的最底层， 由Java虚拟机提供的<font color="#ff0000">native编程接口</font>，是JVMPI（Java Virtual Machine Profiler Interface）和 JVMDI（Java Virtual Machine Debug Interface）的更新版本。</p>
+<p>了解JPDA体系看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761566">JPDA是什么</a> <br>
+从它的发展中我们就可以知道，JVMTI提供了<font color="#ff0000">调试（debug）</font>和<font color="#ff0000">分析（profiler）</font>功能；同时，它还有<font color="#ff0000">监听（Monitoring）</font>，<font color="#ff0000">线程分析（Thread analysis）</font>以及<font color="#ff0000">覆盖率分析（Coverage Analysis）</font>等功能。正是由于JVMTI的强大功能，它是实现Java调试器，以及其它Java运行态测试与分析工具的基础。目前已有很多成熟的集成工具提供了JVMTI的实现（例如Sun、IBM以及一些开源项目如Apache Harmony DRLVM），这些工具虽然强大易用，但是在一些特定情况下，开发者常常会有一些特殊的需求，这个时候就需要<font color="#ff0000">定制工具</font>来达成目标。</br></p>
+<p>JVMTI是一套本地代码接口，因此我们需要使用<font color="#ff0000">C/C++以及JNI</font>。开发时一般采用建立一个<font color="#ff0000">Agent</font>（通过C++编写）的方式来使用JVMTI，它可以<font color="#ff0000">使用JVMTI函数</font>、<font color="#ff0000">设置回调函数</font>、<font color="#ff0000">从JVM中得到当前的运行态信息</font>，还可以<font color="#ff0000">操作虚拟机的运行态</font>。</p>
+<h3 id="2如何加载jvmti-agent">2、如何加载JVMTI agent</h3>
+<p>当我们把Agent编译成一个<font color="#ff0000">动态链接库</font>之后，我们可以通过两种方式加载Agent：<font color="#ff0000">启动加载模式</font>、<font color="#ff0000">活动加载模式</font>。具体如下：</p>
+<p><strong><font color="#33ccff">启动加载模式</font></strong></p>
+<p>在Java程序启动时加载它，其实是在java启动时指定加载agent，如下：</p>
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-attribute">-agentlib</span>:<span class="hljs-subst">&lt;</span>agent<span class="hljs-attribute">-lib</span><span class="hljs-attribute">-name</span><span class="hljs-subst">&gt;=&lt;</span>options<span class="hljs-subst">&gt;</span></code></pre>
+<p>注意，这里的路径是环境变量的<font color="#ff0000">相对路径</font>，例如 java -agentlib:libagent=opt，java启动时会<font color="#ff0000">PATH环境变量</font>定义的路径处装载libagent.so</p>
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-attribute">-agentpath</span>:<span class="hljs-subst">&lt;</span>path<span class="hljs-attribute">-to</span><span class="hljs-attribute">-agent</span><span class="hljs-subst">&gt;=&lt;</span>options<span class="hljs-subst">&gt;</span></code></pre>
+<p>这里是<font color="#ff0000">绝对路径</font>，例如 java -agentpath:/home/admin/agentlib/libagent.so=opt</p>
+<p><strong><font color="#33ccff">活动加载模式</font></strong></p>
+<p>Java 5之后可以在<font color="#ff0000">运行时加载agent</font>，通过<font color="#ff0000">com.sun.tools.attach</font>包的API来实现（需要引入${JAVA_HOME}/lib/tools.jar）。使用非常简单，如下：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestAgent {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) throws AttachNotSupportedException, IOException, AgentLoadException,
+            AgentInitializationException {
+        String pid = <span class="hljs-string">"831"</span>; <span class="hljs-comment">// 想要装载的java进程id</span>
+        String agentPath = <span class="hljs-string">"/Users/sunjie/Desktop/libagent.so"</span>; <span class="hljs-comment">// agent.so的路径</span>
+        String options = <span class="hljs-keyword">null</span>;<span class="hljs-comment">// 传入agent的参数</span>
+        VirtualMachine virtualMachine = com.sun.tools.attach.VirtualMachine.attach(pid);
+        virtualMachine.loadAgentPath(agentPath, options);
+        virtualMachine.detach();
+    }
+}</code></pre>
+<p>了解AttachAPI看这里：[AttachAPI是什么][3]</p>
+<h3 id="3jvmti-agent是如何工作的">3、JVMTI agent是如何工作的</h3>
+<p><strong><font color="#33ccff">Agent的启动</font></strong></p>
+<p>Agent是在<font color="#ff0000">Java虚拟机启动时</font>加载的，这个时间点上：</p>
+<ul>
+<li>所有的Java类都未被初始化</li>
+<li>所有的对象实例都未被创建</li>
+<li>所有的Java代码都没有被执行</li>
+</ul>
+<p>但在这个时候，我们已经可以：</p>
+<ul>
+<li>操作JVMTI的Capability参数</li>
+<li>使用系统参数</li>
+</ul>
+<p>通过<font color="#ff0000">启动加载模式</font>加载Agent之后，虚拟机会先寻找一个Agent入口函数：</p>
+<pre class="prettyprint"><code class=" hljs perl">JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM <span class="hljs-variable">*jvm</span>, char <span class="hljs-variable">*options</span>, void <span class="hljs-variable">*reserved</span>)</code></pre>
+<p>如果是<font color="#ff0000">运行加载模式</font>，则是：</p>
+<pre class="prettyprint"><code class=" hljs perl">JNIEXPORT jint JNICALL Agent_OnAttach(JavaVM <span class="hljs-variable">*jvm</span>, char <span class="hljs-variable">*options</span>, void <span class="hljs-variable">*reserved</span>);</code></pre>
+<p>在这个函数中，虚拟机传入了一个<font color="#ff0000">JavaVM指针</font>，以及<font color="#ff0000">命令行的参数</font>。我们通过*jvm可以获取<font color="#ff0000">jvmtiEnv</font>，即可以使用JVMTI函数，当然不同的JVM实现提供的函数细节可能不一样，但是使用的方式一致。如下：</p>
+<pre class="prettyprint"><code class=" hljs haskell"><span class="hljs-title">jvmtiEnv</span> *jvmti;
+(*<span class="hljs-keyword">jvm</span>)-&gt;<span class="hljs-type">GetEnv</span>(<span class="hljs-keyword">jvm</span>, &amp;jvmti, <span class="hljs-type">JVMTI_VERSION_1_1</span>);</code></pre>
+<p>这里第二个参数为版本信息，不同的JVMTI环境所提供的功能、处理方式可能有所不同，不过它在<font color="#ff0000">同一个虚拟机中会保持不变</font>。</p>
+<p><strong><font color="#33ccff">Agent的卸载</font></strong> <br>
+当<font color="#ff0000">Agent完成任务</font>，或者<font color="#ff0000">JVM关闭</font>的时候，虚拟机会调用函数来完成最后的清理任务，如下：</br></p>
+<pre class="prettyprint"><code class=" hljs cs">JNIEXPORT <span class="hljs-keyword">void</span> JNICALL Agent_OnUnload(JavaVM *jvm)</code></pre>
+<h3 id="4如何编写jvmti-agent程序">4、如何编写JVMTI agent程序</h3>
+<p>只要有一定的C++基础就可以<font color="#ff0000">编写JVMTI agent</font>，具体看这里：[如何编写JVMTI agent程序][4]</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

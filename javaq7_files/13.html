@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（013）_java什么情况会内存溢出            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1java堆什么情况会溢出">1、Java堆什么情况会溢出</h3>
+<p>所有对象的实例都在<font color="#ff0000">Java堆</font>上分配内存，堆大小由<font color="#ff0000">-Xmx和-Xms</font>来调节，如果程序使用的内存超过了<font color="#ff0000">堆最大内存（-Xmx）</font>，则会<font color="#ff0000">溢出Java heap space</font>。</p>
+<p>了解java内存模型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java内存模型是什么样的</a> <br>
+了解堆内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java堆内存是什么样的</a> <br>
+了解java垃圾回收机制看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a></br></br></p>
+<p>实例：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeapOOM</span> {</span> 
+
+    <span class="hljs-keyword">static</span> class OOMObject{} 
+
+    <span class="hljs-javadoc">/**
+     *<span class="hljs-javadoctag"> @param</span> args
+     */</span> 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) { 
+        List&lt;OOMObject&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;OOMObject&gt;(); 
+
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>){ 
+            list.add(<span class="hljs-keyword">new</span> OOMObject()); 
+        } 
+    } 
+
+} </code></pre>
+<p>加上JVM参数运行：</p>
+<pre class="prettyprint"><code class=" hljs haml">-<span class="ruby"><span class="hljs-symbol">verbose:</span>gc -<span class="hljs-constant">Xms10M</span> -<span class="hljs-constant">Xmx10M</span> -<span class="hljs-constant">XX</span><span class="hljs-symbol">:+PrintGCDetails</span> -<span class="hljs-constant">XX</span><span class="hljs-symbol">:SurvivorRatio=</span><span class="hljs-number">8</span> -<span class="hljs-constant">XX</span><span class="hljs-symbol">:+HeapDumpOnOutOfMemoryError</span></span></code></pre>
+<p>其中<font color="#ff0000">-verbose:gc</font>是为了打印GC过程的详细情况，上述程序就能很快报出<font color="#ff0000">内存溢出（OOM）</font>： <br>
+Exception in thread “main” java.lang.OutOfMemoryError: Java heap space</br></p>
+<p>并且能自动生成<font color="#ff0000">Dump文件</font>，Dump记录了进程内存的完整信息。</p>
+<p>了解Dump文件看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51530756">什么是Dump文件</a></p>
+<h3 id="2java方法区什么情况会溢出">2、Java方法区什么情况会溢出</h3>
+<p><font color="#ff0000">方法区（永久代）</font>是存放虚拟机加载类的相关信息（如类、静态变量和常量），大小由<font color="#ff0000">-XX:PermSize和-XX:MaxPermSize</font>来调节，类太多有可能使永久代<font color="#ff0000">溢出PermGen space</font>。Java 8 以后移除了方法区，取而代之的是<font color="#ff0000">本地元空间Metaspace</font>，大小由<font color="#ff0000">-XX:MetaspaceSize和-XX:MaxMetaspaceSize</font>调节，移除的错误也变为java.lang.OutOfMemoryError: Metaspace。</p>
+<p>实例：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MethodAreaOOM</span> {</span> 
+
+    <span class="hljs-keyword">static</span> class OOMOjbect{} 
+
+    <span class="hljs-javadoc">/**
+     *<span class="hljs-javadoctag"> @param</span> args
+     */</span> 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) { 
+        <span class="hljs-comment">// TODO Auto-generated method stub </span>
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>){ 
+            Enhancer eh = <span class="hljs-keyword">new</span> Enhancer(); 
+            eh.setSuperclass(OOMOjbect.class); 
+            eh.setUseCache(<span class="hljs-keyword">false</span>); 
+            eh.setCallback(<span class="hljs-keyword">new</span> MethodInterceptor(){ 
+
+                <span class="hljs-annotation">@Override</span> 
+                <span class="hljs-keyword">public</span> Object <span class="hljs-title">intercept</span>(Object arg0, Method arg1, 
+                        Object[] arg2, MethodProxy arg3) <span class="hljs-keyword">throws</span> Throwable { 
+                    <span class="hljs-comment">// TODO Auto-generated method stub </span>
+                    <span class="hljs-keyword">return</span> arg3.invokeSuper(arg0, arg2); 
+                } 
+
+            }); 
+            eh.create(); 
+        } 
+    } 
+
+} </code></pre>
+<p>加上永久代的JVM参数后：</p>
+<pre class="prettyprint"><code class=" hljs haml">-<span class="ruby"><span class="hljs-constant">XX</span><span class="hljs-symbol">:PermSize=</span><span class="hljs-number">10</span>M -<span class="hljs-constant">XX</span><span class="hljs-symbol">:MaxPermSize=</span><span class="hljs-number">10</span>M</span></code></pre>
+<p>运行后会报如下<font color="#ff0000">异常</font>： <br>
+Exception in thread “main” java.lang.OutOfMemoryError: PermGen space</br></p>
+<p>静态变量或常量也会有可能<font color="#ff0000">撑爆方法区</font>：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConstantOOM</span> {</span> 
+
+    <span class="hljs-javadoc">/**
+     *<span class="hljs-javadoctag"> @param</span> args
+     */</span> 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) { 
+        <span class="hljs-comment">// TODO Auto-generated method stub </span>
+        List&lt;String&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;(); 
+        <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; 
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>){ 
+            list.add(String.valueOf(i++).intern()); 
+        } 
+    } 
+
+} </code></pre>
+<p>同样加上JVM参数：</p>
+<pre class="prettyprint"><code class=" hljs haml">-<span class="ruby"><span class="hljs-constant">XX</span><span class="hljs-symbol">:PermSize=</span><span class="hljs-number">10</span>M -<span class="hljs-constant">XX</span><span class="hljs-symbol">:MaxPermSize=</span><span class="hljs-number">10</span>M</span></code></pre>
+<p>运行后报如下<font color="#ff0000">异常</font>： <br>
+Exception in thread “main” java.lang.OutOfMemoryError: PermGen space</br></p>
+<h3 id="3java栈和本地方法栈什么情况会溢出">3、Java栈和本地方法栈什么情况会溢出</h3>
+<p><font color="#ff0000">栈</font>是存放线程调用方法时存储局部变量、操作、方法出口等与方法执行相关的信息，栈大小由<font color="#ff0000">-Xss</font>来调节，方法调用层次太多会使栈<font color="#ff0000">溢出StackOverflowError</font>。</p>
+<p>实例：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">package</span> com.cutesource; 
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackOOM</span> {</span> 
+
+    <span class="hljs-javadoc">/**
+     *<span class="hljs-javadoctag"> @param</span> args
+     */</span> 
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> stackLength = <span class="hljs-number">1</span>; 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stackLeak</span>(){ 
+        stackLength++; 
+        stackLeak(); 
+    } 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) <span class="hljs-keyword">throws</span> Throwable{ 
+        <span class="hljs-comment">// TODO Auto-generated method stub </span>
+        StackOOM oom = <span class="hljs-keyword">new</span> StackOOM(); 
+        <span class="hljs-keyword">try</span>{ 
+            oom.stackLeak(); 
+        }<span class="hljs-keyword">catch</span>(Throwable err){ 
+            System.out.println(<span class="hljs-string">"Stack length:"</span> + oom.stackLength); 
+            <span class="hljs-keyword">throw</span> err; 
+        } 
+
+    } 
+
+} </code></pre>
+<p>设置JVM参数：</p>
+<pre class="prettyprint"><code class=" hljs diff"><span class="hljs-deletion">-Xss128k</span></code></pre>
+<p>运行报出<font color="#ff0000">异常</font>： <br>
+Exception in thread “main” java.lang.StackOverflowError</br></p>
+<p>打印出Stack length:1007，这里可以看出，128k的栈容量能承载深度为1007的方法调用。当然这个错误很少见，一般只会出现<font color="#ff0000">无限循环的递归</font>中，另外，<font color="#ff0000">线程太多</font>也会占满栈区域（线程内分配了自己的栈，但是进程中所有线程可使用的栈总大小是一定的）：</p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">package</span> com.cutesource; 
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackOOM</span> {</span> 
+
+    <span class="hljs-javadoc">/**
+     *<span class="hljs-javadoctag"> @param</span> args
+     */</span> 
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> stackLength = <span class="hljs-number">1</span>; 
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dontStop</span>(){ 
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>){ 
+            <span class="hljs-keyword">try</span>{Thread.sleep(<span class="hljs-number">1000</span>);}<span class="hljs-keyword">catch</span>(Exception err){} 
+        } 
+    } 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stackLeakByThread</span>(){ 
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>){ 
+            Thread t = <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable(){ 
+
+                <span class="hljs-annotation">@Override</span> 
+                <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>() { 
+                    <span class="hljs-comment">// TODO Auto-generated method stub </span>
+                    dontStop(); 
+                } 
+
+            }); 
+            t.start(); 
+            stackLength++; 
+        } 
+    } 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) <span class="hljs-keyword">throws</span> Throwable{ 
+        <span class="hljs-comment">// TODO Auto-generated method stub </span>
+        StackOOM oom = <span class="hljs-keyword">new</span> StackOOM(); 
+        <span class="hljs-keyword">try</span>{ 
+            oom.stackLeakByThread(); 
+        }<span class="hljs-keyword">catch</span>(Throwable err){ 
+            System.out.println(<span class="hljs-string">"Stack length:"</span> + oom.stackLength); 
+            <span class="hljs-keyword">throw</span> err; 
+        } 
+
+    } 
+
+} </code></pre>
+<p>运行报出异常： <br>
+Exception in thread “main” java.lang.OutOfMemoryError:unable to create new native thread</br></p>
+<p>在windows上运行这个例子要很小心，可能会出现<font color="#ff0000">系统假死</font>的情况，需要重启机器。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

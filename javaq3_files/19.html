@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（019）_注解是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1注解是什么">1、注解是什么</h3>
+<p>java中的<font color="#ff0000">注解</font>（Annotation），也叫<font color="#ff0000">元数据</font>。是Java 5以后版本引入的一个特性。</p>
+<p>注解与<font color="#ff0000">类、接口、枚举</font>是在同一个层次，可以用来标注<font color="#ff0000">包、类、字段、方法、局部变量、方法参数</font>等元素，达到对这些元素的<font color="#ff0000">描述和说明</font>。</p>
+<p>注解是可以<font color="#ff0000">允许jvm在运行中读取它</font>，这一点与注释完全不同。并且包含多种加载策略，可以灵活配置。</p>
+<p>了解注解、注释区别看这里：注解、注释有什么区别 <br>
+如何自定义注解看这里：如何使用注解</br></p>
+<h3 id="2注解有哪些加载策略">2、注解有哪些加载策略</h3>
+<p>注解包含3中可配置的<font color="#ff0000">加载策略</font>（RetentionPolicy），根据不同的需要进行不同的配置，具体如下：</p>
+<pre class="prettyprint"><code class=" hljs ruby">public enum <span class="hljs-constant">RetentionPolicy</span> {
+    <span class="hljs-regexp">//</span> 此类型会被编译器丢弃
+    <span class="hljs-constant">SOURCE</span>,
+    <span class="hljs-regexp">//</span> 此类型注解会保留在<span class="hljs-class"><span class="hljs-keyword">class</span>文件中，但<span class="hljs-title">JVM</span>会忽略它，默认策略</span>
+    <span class="hljs-constant">CLASS</span>,
+    <span class="hljs-regexp">//</span> 此类型注解会保留在<span class="hljs-class"><span class="hljs-keyword">class</span>文件中，<span class="hljs-title">JVM</span>会读取它</span>
+    <span class="hljs-constant">RUNTIME</span>
+}</code></pre>
+<h3 id="3注解有什么作用">3、注解有什么作用</h3>
+<p>注解主要功能有以下几点：</p>
+<ol>
+<li><p><font color="#33ccff">编写文档</font> <br>
+通过代码里标识的元数据<font color="#ff0000">生成文档</font>，这一点与注释类似。</br></p></li>
+<li><p><font color="#33ccff">代码分析</font> <br>
+通过代码里标识的元数据<font color="#ff0000">对代码进行分析</font>，一般使用<font color="#ff0000">反射</font>获取注解信息。</br></p></li>
+<li><p><font color="#33ccff">编译检查</font> <br>
+通过代码里标识的元数据让编译器能够实现基本的<font color="#ff0000">编译检查</font>，例如方法覆盖@Override。</br></p></li>
+</ol>
+<h3 id="4jdk有那些内置注解">4、JDK有那些内置注解</h3>
+<p>jdk提供了若干内置注解，常见的如下：</p>
+<p><font color="#33ccff">@Override</font></p>
+<p>它用来对<font color="#ff0000">覆盖</font>父类方法、实现接口方法进行标记，如果被标记的方法并没有实际覆盖父类方法，则编译器会发出错误警告。 <br>
+例子：</br></p>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperTest</span> {</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title">tostring</span>() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"父类"</span>;
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SuperTest</span> {</span>
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title">tostring</span>() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"子类注解"</span>;
+    }
+}</code></pre>
+<p><font color="#33ccff">@Deprecated</font></p>
+<p>它用来标记<font color="#ff0000">过期方法、不推荐使用方法</font>。对于某些已经过期、不推荐使用的方法，但又不能直接删除（有其他地方仍使用），我们会使用@Deprecated进行标记，当使用这些方法时，会在<font color="#ff0000">编译时进行提示</font>。</p>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[]args) {
+        <span class="hljs-comment">// 使用DeprecatedClass里声明被过时的方法</span>
+        DeprecatedClass.DeprecatedMethod();
+    }
+}
+
+class DeprecatedClass {
+
+    @Deprecated
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DeprecatedMethod</span>() {
+    }
+}</code></pre>
+<p><font color="#33ccff">@SuppressWarnings</font></p>
+<p>它用来标记<font color="#ff0000">不想被提示的警告</font>，警告类型可以通过参数控制，具体如下：</p>
+<p><font color="#ff0000">deprecation</font>，使用了过时的类或方法时的警告 <br>
+<font color="#ff0000">unchecked</font>，执行了未检查的转换时的警告 <br>
+<font color="#ff0000">fallthrough</font>，当Switch程序块直接通往下一种情况而没有Break时的警告 <br>
+<font color="#ff0000">path</font>，在类路径、源文件路径等中有不存在的路径时的警告 <br>
+<font color="#ff0000">serial</font>，当在可序列化的类上缺少serialVersionUID定义时的警告 <br>
+<font color="#ff0000">finally</font>，任何finally子句不能正常完成时的警告 <br>
+<font color="#ff0000">all</font>，关于以上所有情况的警告</br></br></br></br></br></br></p>
+<p>例子：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Listlist = newArrayList();
+
+    @SuppressWarnings(<span class="hljs-string">"unchecked"</span>)
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span>(String data) {
+        list.add(data);
+    }
+}</code></pre></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

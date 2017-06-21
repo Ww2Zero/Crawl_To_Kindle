@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（010）_Class类型是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1class类型是什么">1、Class类型是什么</h3>
+<p>还有一种特殊的数据类型：<font color="#ff0000">class</font>，用来表示<font color="#ff0000">某个类</font>的类型。即，每一个类类型都是<font color="#ff0000">Class类</font>的一个对象。 <br>
+了解数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285471">java中数据类型是什么</a> <br>
+java基本数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a> <br>
+用type name加上<font color="#ff0000">.class</font>表示，例如String.class。Class规则下：</br></br></br></p>
+<ol>
+<li><p>首先，String是类Class（<font color="#ff0000">java.lang.Class</font>)的<font color="#ff0000">一个实例（对象）</font>，而”This is a string”是类String的<font color="#ff0000">一个对象</font>。</p></li>
+<li><p>然后，class的<font color="#ff0000">字面值</font>用于表示类Class的一个对象，比如String.class用于表示类Class的对象String。 <br>
+了解字面值看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51291096">java数据类型的字面值是什么</a> <br>
+简单地说，类的字面值（class literal）就是诸如String.class 、Integer.class这样的字面值，它所表示的就是类String、类Integer。</br></br></p></li>
+</ol>
+<p>如果打印Integer.class，你会得到：</p>
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">java</span>.<span class="hljs-title">lang</span>.<span class="hljs-title">Integer</span>；</span></code></pre>
+<p>打印List.class，会得到：</p>
+<pre class="prettyprint"><code class=" hljs avrasm">interface java<span class="hljs-preprocessor">.util</span><span class="hljs-preprocessor">.List</span>。</code></pre>
+<p>总之，class字面值用于表示<font color="#ff0000">类型本身</font>。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

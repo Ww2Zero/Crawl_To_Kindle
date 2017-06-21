@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（002）_为什么会报"错误: 找不到或无法加载主类 HelloWord.class"            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px">
+<p><span style="font-family:SimSun"><br>
+</br></span></p>
+</h1>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">为什么会报"错误: 找不到或无法加载主类 HelloWord.class"</span></h1>
+<p></p>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">java工具<span style="color:#FF0000">只认识类名</span>，而不认识文件，执行时，它会遍历所在路径的类，如果找不到就会报：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">"<span style="color:#FF0000">错误: 找不到或无法加载主类 HelloWord.class</span>"</span><br>
+<img alt="" src="http://img.blog.csdn.net/20160317223740909?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+<span style="font-family:Microsoft YaHei; font-size:12px">解决非常简单，在<span style="color:#FF0000">cmd/终端</span>中使用java运行工具时，是不能带有<span style="color:#FF0000">.class</span>的。<br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">当然，如果对于<span style="color:#FF0000">jar包</span>，执行时需要带有.jar，如</span><span style="color:#3366FF">：<br>
+</br></span></p>
+<p></p>
+<pre class="plain" name="code">java -jar HelloWord.jar</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">解决办法：将<span style="color:#3366FF">java HelloWord.class</span>改为：<span style="color:#3366FF"></span></span></p>
+<p></p>
+<pre class="plain" name="code">java HelloWord</pre>
+<p></p>
+<p></p>
+<p><img alt="" src="http://img.blog.csdn.net/20160317223746930?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><br>
+</br></img></p>
+<p><br>
+</br></p>
+<p></p>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+</br></span></div>
+<br>
+<p></p>
+</br></br></img></br></div>]
+</body>
+</html>

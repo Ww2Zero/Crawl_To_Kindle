@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（009）_什么是新生代的复制算法            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是新生代的复制算法">1、什么是新生代的复制算法</h3>
+<p>了解堆内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java堆内存是什么样的</a> <br>
+了解java垃圾回收看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a> <br>
+所谓<font color="#ff0000">复制算法（Copying）</font>，即将内存平均分成A区、B区两块，进行<font color="#ff0000">复制+清除垃圾</font>的操作，算法图解如下：</br></br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160528101205774" title=""/></p>
+<p><font color="#33ccff">算法过程：</font></p>
+<ol>
+<li>新生对象被分配到A块中<font color="#ff0000">未使用的内存</font>当中。当A块的<font color="#ff0000">内存用完了</font>， 把A块的存活对象<font color="#ff0000">复制到B块</font>。</li>
+<li><font color="#ff0000">清理A块所有对象</font>。</li>
+<li>新生对象被分配到B块中<font color="#ff0000">未使用的内存</font>当中。当B块的<font color="#ff0000">内存用完了</font>， 把B块的存活对象<font color="#ff0000">复制到A块</font>。</li>
+<li><font color="#ff0000">清理B块所有对象</font>。</li>
+<li>循环1。</li>
+</ol>
+<p>这种算法简单高效，但是<font color="#ff0000">内存代价极高</font>，有效内存只为总内存的<font color="#ff0000">一半</font>，会浪费掉<font color="#ff0000">50%</font>的空间。所以这种算法只是纸面算法，不具备可用性，一般来说都会使用<font color="#ff0000">优化的复制算法</font>。</p>
+<h3 id="2什么是优化的复制算法">2、什么是优化的复制算法</h3>
+<p>所谓<font color="#ff0000">优化的复制算法</font>，即在复制算法的基础上，使用<font color="#ff0000">三个分区</font>（Eden/S0/S1）进行处理，算法图解如下：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160528101218852" title=""/></p>
+<p>Eden/S0/S1默认空间比例<font color="#ff0000">Eden:S0:S1为8:1:1</font>，有效内存（即可分配新生对象的内存）是总内存的<font color="#ff0000">90%</font>。</p>
+<p><font color="#33ccff">算法过程：</font></p>
+<ol>
+<li><font color="#ff0000">Eden+S0</font>可分配新生对象；</li>
+<li>对Eden+S0进行垃圾收集，存活对象<font color="#ff0000">复制到S1</font>。<font color="#ff0000">清理Eden+S0</font>。一次新生代GC结束。</li>
+<li><font color="#ff0000">Eden+S1</font>可分配新生对象；</li>
+<li>对Eden+S1进行垃圾收集，存活对象<font color="#ff0000">复制到S0</font>。<font color="#ff0000">清理Eden+S1</font>。二次新生代GC结束。</li>
+<li>循环1。</li>
+</ol>
+<p>我们可以看出，如果Eden/S0/S1三个空间的比例为8:1:1，则可能会出现Eden+S0中存活对象<font color="#ff0000">超过了总空间的10%</font>（S1、S0的空间都是总空间的10%），在这种情况下，新生代GC会将存活周期长的对象<font color="#ff0000">直接放入老生代</font>，而无需达到我们设置的阈值（转入老生代的存活次数，-XX:MaxTenuringThreshold）。</p>
+<p>当然，这种情况在正常情况下<font color="#ff0000">不会出现</font>（除非特殊场景，或者程序设计问题）。IBM的专门研究表明，新生代中的对象<font color="#ff0000">98%</font>是朝生夕死的，所以8:1:1的比例是<font color="#ff0000">十分合理的</font>。（每次新生代中可用内存空间为整个新生代容量的90%（80%+10%），只有10%的内存是会被浪费的）。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

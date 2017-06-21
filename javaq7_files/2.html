@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（002）_jvm实例的结构是什么样的            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jvm实例的结构是什么样的">1、jvm实例的结构是什么样的</h3>
+<p>在Java虚拟机规范中，一个虚拟机实例的行为主要组成部分为：<font color="#ff0000">子系统</font>、<font color="#ff0000">内存区域</font>、<font color="#ff0000">数据类型</font>和<font color="#ff0000">指令</font>。 <br>
+这些组件描述了JVM内部的一个<font color="#ff0000">抽象结构</font>。与其说这些组成部分的目的是进行JVM内部结构的一种支配，不如说是提供一种对外部行为的<font color="#ff0000">严格定义</font>，该规范定义了这些抽象<font color="#ff0000">组成部分</font>的相互作用，以及Java虚拟机执行<font color="#ff0000">所需要的行为</font>。</br></p>
+<p>了解jvm内存管理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java内存模型是什么样的</a> <br>
+下图描述了JVM实例的一个内部结构，其中主要包括主要的<font color="#ff0000">子系统</font>、<font color="#ff0000">内存区域</font>。</br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160521103415941" title=""/></p>
+<p>我们来解读一下这个JVM实例的结构图：</p>
+<ol>
+<li><p>Java虚拟机有一个<font color="#ff0000">类加载器</font>（class loader subsystem）作为JVM的子系统，类加载器针对Class文件进行<font color="#ff0000">检测</font>来加载对应的<font color="#ff0000">类接口</font>。</p></li>
+<li><p>JVM内部有一个<font color="#ff0000">执行引擎</font>（exection engine），用来负责代码的<font color="#ff0000">解释和执行</font>。</p></li>
+<li><p>当JVM运行程序的时候，它的内存用来存储包括<font color="#ff0000">字节码</font>、从类文件中提取出来的一些<font color="#ff0000">附加信息</font>、以及程序中实例化的<font color="#ff0000">对象</font>、<font color="#ff0000">方法参数</font>、<font color="#ff0000">返回值</font>、<font color="#ff0000">局部变量</font>以及计算的<font color="#ff0000">中间结果</font>等很多内容。</p></li>
+<li><p>JVM的内存管理分为两部分：每个JVM实例有一个<font color="#ff0000">方法区</font>和一个<font color="#ff0000">内存堆</font>，这两个区域储存了素有线程的共享数据；每个新的线程启动后，都会被分配自己的<font color="#ff0000">PC寄存器</font>（PC registers，程序计数器器）、<font color="#ff0000">本地方法栈空间</font>（native method stacks）、<font color="#ff0000">栈空间</font>（Java stacks），来储存线程内部的数据。</p></li>
+</ol>
+<p>了解内存分配策略看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469703">内存分配有哪些策略</a> <br>
+了解jvm是如何管理内存的看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

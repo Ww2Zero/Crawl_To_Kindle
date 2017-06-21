@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（019）_运行时常量池是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1运行时常量池是什么">1、运行时常量池是什么</h3>
+<p><font color="#ff0000">运行时常量池</font>（Runtime Constant Pool），它是<font color="#ff0000">方法区</font>的一部分。Class文件中除了有<font color="#ff0000">类的版本、字段、方法、接口等</font>描述等信息外，还有一项信息是<font color="#ff0000">常量池（Constant Pool Table）</font>，用于存放编译期生成的各种<font color="#ff0000">字面量和符号引用</font>，这部分内容将在<font color="#ff0000">类加载后</font>存放到常量池中。</p>
+<p>了解java内存管理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+如图： <br>
+<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160609074012451" title=""/></br></br></p>
+<p>运行时常量是相对于常量来说的，它具备一个重要特征是：<font color="#ff0000">动态性</font>。当然，<font color="#ff0000">值相同</font>的动态常量与我们通常说的常量只是来源不同，但是都是储存在池内<font color="#ff0000">同一块内存区域</font>。</p>
+<p>Java语言并不要求常量一定只能在编译期产生，<font color="#ff0000">运行期间也可能产生新的常量</font>，这些常量被放在<font color="#ff0000">运行时常量池</font>中。这里所说的常量包括：<font color="#ff0000">基本类型包装类</font>（包装类不管理浮点型，整形只会管理-128到127）和<font color="#ff0000">String</font>（也可以通过String.intern()方法可以强制将String放入常量池）。</p>
+<p>了解基本类型包装器看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51289443">什么是基本类型包装器</a> <br>
+例子：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestConst {
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String CONST_A = <span class="hljs-string">"the const b"</span>;<span class="hljs-comment">// 编译时放入常量池</span>
+
+    <span class="hljs-keyword">public</span> String const_b;
+
+    <span class="hljs-keyword">public</span> Integer const_b_i;
+
+    <span class="hljs-keyword">public</span> Integer const_b_ii;
+
+    <span class="hljs-keyword">public</span> Float const_b_f;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        TestConst testConst = <span class="hljs-keyword">new</span> TestConst();
+        testConst.const_b = <span class="hljs-string">"the const b"</span>;<span class="hljs-comment">// 运行时放入常量池</span>
+        testConst.const_b_i = <span class="hljs-number">12</span>;<span class="hljs-comment">// 运行时放入常量池</span>
+
+        testConst.const_b_ii = <span class="hljs-number">128</span>;<span class="hljs-comment">// 超过127，所以不会放入常量池</span>
+        testConst.const_b_f = <span class="hljs-number">2.0</span>f;<span class="hljs-comment">// 浮点包装器不放入常量池</span>
+
+        String const_c = <span class="hljs-string">"the const b"</span>;<span class="hljs-comment">// 运行时放入常量池</span>
+        Integer const_c_i = <span class="hljs-number">12</span>;<span class="hljs-comment">// 运行时放入常量池</span>
+
+        Integer const_c_ii = <span class="hljs-number">128</span>;<span class="hljs-comment">// 超过127，所以不会放入常量池</span>
+        Float const_c_f = <span class="hljs-number">2.0</span>f;<span class="hljs-comment">// 浮点包装器不放入常量池</span>
+
+        System.<span class="hljs-keyword">out</span>.println(CONST_A == const_c);
+        System.<span class="hljs-keyword">out</span>.println(CONST_A == testConst.const_b);
+        System.<span class="hljs-keyword">out</span>.println(testConst.const_b == const_c);
+        System.<span class="hljs-keyword">out</span>.println(testConst.const_b_i == const_c_i);
+        System.<span class="hljs-keyword">out</span>.println(testConst.const_b_ii == const_c_ii);
+        System.<span class="hljs-keyword">out</span>.println(testConst.const_b_f == const_c_f);
+    }
+}</code></pre>
+<p>运行结果：</p>
+<p>true <br>
+true <br>
+true <br>
+true <br>
+false <br>
+false</br></br></br></br></br></p>
+<p>Java虚拟机对Class文件的每一部分的格式都有<font color="#ff0000">严格的规定</font>，每一个字节用于存储哪种数据都<font color="#ff0000">必须符合规范</font>，这样才会被虚拟机装载和执行。但对于运行时常量池，Java虚拟机规范<font color="#ff0000">没有做任何细节的要求</font>，不同的提供商实现的虚拟机可以<font color="#ff0000">按照自己的需要</font>来实现这个内存区域。</p>
+<p>由于运行时常量池是方法区的一部分，所以会受到方法区内存的限制，当常量池无法再申请到内存时会抛出<font color="#ff0000">OutOfMemoryError: PermGen space</font>异常。</p>
+<p>在Java 8以后移除了方法区，由<font color="#ff0000">本地元空间</font>代替，运行时常量池也放在了本地元空间中，如果这个区内存溢出，则会抛出<font color="#ff0000">OutOfMemoryError: Metaspace</font>错误。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

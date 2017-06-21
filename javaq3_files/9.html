@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基本语法（009）_java中如何循环执行            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">java中如何循环执行</span></h1>
+<span style="font-family:Microsoft YaHei; font-size:12px">首先，我们看看循环是什么</span><br>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、循环是什么</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">当我们需要多次执行<span style="color:#FF0000">同样</span>的代码段，通常被称为一个<span style="color:#FF0000">循环</span>。伴随循环经常出现的关键字：<a href="http://blog.csdn.net/ooppookid/article/details/51062446" target="_blank">break与contine分别如何使用</a><br>
+Java有非常灵活的三种循环机制：<br>
+<span style="color:#3366FF">while</span> 循环<br>
+<span style="color:#3366FF">do...while</span> 循环<br>
+<span style="color:#3366FF">for</span> 循环</br></br></br></br></span><br>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、什么是while循环</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">while循环可以按照<span style="color:#FF0000">特定的次数</span>重复执行任务。<br>
+语法:</br></span><br>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_1_3086400">while(Boolean flag)
+{
+//代码段
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">在执行时，如果flag的结果为<span style="color:#FF0000">true</span>，则循环中的代码段将被执行。直到flag的结果为<span style="color:#FF0000">false</span>，循环执行停止，继续执行循环代码的后续代码。<br>
+要注意，while循环的关键点是循环可能永远<span style="font-family:Microsoft YaHei; font-size:12px; color:#FF0000">不会</span><span style="color:#FF0000">运行</span>。当flag结果为 false，循环体将被跳过，在while循环之后的第一个语句将被执行。<br>
+例子：</br></br></span><br>
+<p></p>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_2_3151656">public class Test {
+
+public static void main(String args[]) {
+int x = 10;
+
+while( x &lt; 15 ) {
+System.out.println("value of x : " + x );
+x++;
+}
+}
+
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:</span><br>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">value of x : 10<br>
+value of x : 11<br>
+value of x : 12<br>
+value of x : 13<br>
+value of x : 14<br>
+</br></br></br></br></br></span>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">3、什么是do...while 循环</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">do ... while循环类似于while循环，不同的是一个do ... while循环是保证至少<span style="color:#FF0000">执行一次</span>。<br>
+语法：</br></span><br>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_3_6913647">do
+{
+//Statements
+}while(Boolean flag);</pre><span style="font-family:Microsoft YaHei; font-size:12px">循环方式与while循环大体一致。不同的是，flag表达式出现在循环的结尾，在循环中的语句执行后才会判断flag是否为ture，所以代码段<span style="color:#FF0000">至少会执行一次</span>。<br>
+</br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">例子：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px"></span><pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_4_8723790">public class Test {
+
+public static void main(String args[]){
+int x = 10;
+
+do{
+System.out.println("value of x : " + x );
+x++;
+}while( x &lt; 8 );
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:<br>
+value of x : 10</br></span><br>
+<span style="font-family:Microsoft YaHei; font-size:12px"></span>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">4、什么是for循环</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">for循环可以可以<span style="color:#FF0000">指定执行次数</span>，控制任务执行次数是方便的一件事（当然while和do while也可以实现）。<br>
+语法：</br></span><br>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_5_6978903">for(initialization; Boolean flag; update)
+{
+//Statements
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">执行过程：<br>
+1、initialization首先被执行，并且仅执行一次。这个步骤可声明和<span style="color:#FF0000">初始化</span>任何控制循环的<span style="color:#FF0000">变量</span>。如不需要声明，则用写一个";"即可。<br>
+2、判断flag值。如果是true，则执行循环体。如果是false，则循环体不执行，跳出循环继续执行后续代码。<br>
+3、若flag为true，执行循环体后，会执行update语句，该语句<span style="color:#FF0000">允许变更</span>任何循环变量。这个语句可以为空， 写一个";"即可。<br>
+4、在执行完update语句后，继续第二步操作，产生循环。直到flag为false，则循环终止。<br>
+例子：</br></br></br></br></br></span><br>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_6_4328945">public class Test {
+
+public static void main(String args[]) {
+
+for(int x = 10; x &lt; 15; x = x+1) {
+System.out.println("value of x : " + x );
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:</span><span style="font-family:Microsoft YaHei; font-size:12px"><br>
+value of x : 10<br>
+value of x : 11<br>
+value of x : 12<br>
+value of x : 13<br>
+value of x : 14<br>
+<span style="font-family:Microsoft YaHei; font-size:12px"></span></br></br></br></br></br></br></span>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">5、什么是加强版for循环</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">Java5之后才有该语法，用来<span style="color:#FF0000">遍历集合体</span>使用的循环。<br>
+语法：</br></span><br>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_7_6139088">for(declaration : expression)
+{
+//Statements
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">expression为一个可以遍历的集合体，declaration为每次<span style="color:#FF0000">遍历</span>的集合中的值。集合全部遍历完成，则跳出循环。理论上循环次数与<span style="color:#FF0000">集合的size</span>一致。<br>
+例子：</br></span><br>
+<pre class="java" code_snippet_id="1632527" name="code" snippet_file_name="blog_20160402_8_4361182">public class Test {
+
+public static void main(String args[]){
+int [] numbers = {10, 20, 30, 40, 50};
+
+for(int x : numbers ){
+System.out.print( x );
+System.out.print(",");
+}
+System.out.print("
+");
+String [] names ={"James", "Larry", "Tom", "Lacy"};
+for( String name : names ) {
+System.out.print( name );
+System.out.print(",");
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px"></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果:</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">10,20,30,40,50,<br>
+James,Larry,Tom,Lacy,<br>
+<br>
+</br></br></br></span>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+</br></span></div>
+<p><br>
+</br></p>
+</br></br></br></br></br></br></br></br></br></br></br></div>]
+</body>
+</html>

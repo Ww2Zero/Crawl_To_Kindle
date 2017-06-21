@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（003）_jdk基础类库都有什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jdk基础类库都有什么">1、jdk基础类库都有什么</h3>
+<p>了解java核心框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51589070">java核心框架是什么样的</a> <br>
+jdk基础类库分为两大部分，<font color="#ff0000">基础库</font>、<font color="#ff0000">扩展基础库</font>，提供了相当大量的功能，基础库具体如下：</br></p>
+<ol>
+<li><p><strong><font color="#33ccff">lang包、util包（Lang and Util Packages）</font></strong> <br>
+lang包提供的<font color="#ff0000">基本Object类、Class类、String类、基本类型的包装类、基本的数学类</font>等等最基本类。 <br>
+util包提供基本的集合框架、jar处理等基础类。 <br>
+了解lang包、util包看这里：[lang包、util包有什么功能][3]</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">math包（Math）</font></strong> <br>
+java数学包的功能包括<font color="#ff0000">浮点库</font>以及<font color="#ff0000">任意精度的数据运算</font>。 <br>
+了解math包看这里：[java.util.math包有什么功能][4]</br></br></p></li>
+<li><p><strong><font color="#33ccff">监管工具（Monitoring and Management）</font></strong> <br>
+Java平台提供了全面的<font color="#ff0000">监控和管理工具</font>，包括JVM的监管API、监管API日志、jconsole和其他监控工具、 out-of-the-box的监管工具（开箱即用）、Java管理扩展平台（JMX）以及Oracle的平台扩展。主要功能在<font color="#ff0000">java.lang.management包</font>中。 <br>
+了解java监管工具看这里：[java.lang.management包有什么功能][5]</br></br></p></li>
+<li><p><strong><font color="#33ccff">包版本识别（Package Version Identification）</font></strong> <br>
+包版本识别特性使得包可以有<font color="#ff0000">多个不同的版本</font>，以便在运行时程序和applet可以识别特定的JRE、JVM以及类包的版本。 <br>
+了解java版本规范看这里：[Versioning Specification是什么][6]</br></br></p></li>
+<li><p><strong><font color="#33ccff">引用对象（Reference Objects）</font></strong> <br>
+引用对象可以在一定程度上<font color="#ff0000">与垃圾收集器进行交互</font>。程序可以使用引用对象来保持对其他对象的引用，这样后者对象仍然可以被收集器。也可以指定一段时间后通知收集器，来确定给定对象是否被引用（可达性，是否可达）发生了变化。引用对象可以构建简单的缓存，当内存利用率低时来刷新缓存，通过调度这种更灵活的方式进行清理。主要功能在<font color="#ff0000">java.lang.ref包</font>中。 <br>
+了解引用对象看这里：[java.lang.ref包有什么用][7]</br></br></p></li>
+<li><p><strong><font color="#33ccff">反射（Reflection）</font></strong> <br>
+反射允许Java代码获取<font color="#ff0000">类的字段、方法以及构造函数</font>，并且可以在安全限制的基础上使用被反射的字段、方法和构造函数进行操作。API允许应用程序<font color="#ff0000">访问目标对象</font>（基于它运行时的类）的公共成员（字段、方法、构造函数）或者为一个给定的类声明成员。 <br>
+了解反射看这里：[java反射是什么][8]</br></br></p></li>
+<li><p><strong><font color="#33ccff">集合框架（Collections Framework）</font></strong> <br>
+集合是<font color="#ff0000">一组对象的合集</font>，集合框架是一个统一管理集合的体系结构，允许不同的集合可以<font color="#ff0000">独立的</font>进行操作。Java集合框架<font color="#ff0000">减少了编程工作</font>，同时<font color="#ff0000">提升了性能</font>。它允许不相关的api之间相互操作，减少设计和学习新API的成本，很大程度上<font color="#ff0000">促进了代码的重用</font>。 <br>
+了解集合框架看这里：[java集合框架是什么][9]</br></br></p></li>
+<li><p><strong><font color="#33ccff">并发工具包（Concurrency Utilities）</font></strong> <br>
+并发工具包提供了一种强大的、可扩展的高性能<font color="#ff0000">多线程框架</font>，以及<font color="#ff0000">线程池</font>和<font color="#ff0000">阻塞队列</font>等工具。这个包让程序员需要手动完成的并发工作变得简单，最主要的体现就是为集合框架的每一种集合类型提供了并发类。此外，这些包还为并发编程提供了<font color="#ff0000">傻瓜式的工具</font>。主要功能再<font color="#ff0000">java.util.concurrent包</font>中。 <br>
+了解并发工具包看这里：[java.util.concurrent包有什么用][10]</br></br></p></li>
+<li><p><strong><font color="#33ccff">JAR文件（Java Archive Files）</font></strong> <br>
+JAR（Java Archive）是一个独立于平台的<font color="#ff0000">文件格式</font>提高网络传输的速度，并且JAR还支持压缩，降低了文件的大小，进一步提高了传输效率。此外，applet的作者可以通过再JAR文件中加入<font color="#ff0000">数字签名</font>，以达到验证来源的目的。而且它是完全可扩展的，对应的API在<font color="#ff0000">java.util.jar包</font>中。 <br>
+了解JAR看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51619537">jar是什么</a> <br>
+了解JAR文件工具看这里：[java.util.jar包有什么用][12]</br></br></br></p></li>
+<li><p><strong><font color="#33ccff">日志工具（Logging）</font></strong> <br>
+日志API是提供给最终用户一种便于<font color="#ff0000">软件维修</font>和<font color="#ff0000">分析管理</font>的<font color="#ff0000">日志报告</font>（系统管理员、现场服务工程师、软件开发团队）。日志API能够捕捉很多信息，例如安全故障、配置错误、应用程序中的性能瓶颈和bug。主要功能在<font color="#ff0000">java.util.logging包</font>中。 <br>
+了解java日志工具看这里：[java.util.logging包有什么用][13]</br></br></p></li>
+<li><p><strong><font color="#33ccff">配置工具（Preferences）</font></strong> <br>
+Preferences API为应用程序提供了一种用来<font color="#ff0000">存储和检索用户</font>及系统偏好和配置数据的方法。这些数据被持久化一个实现相关（implementation-dependent）的<font color="#ff0000">后备存储器</font>中（操作系统级别）。通过两个单独的树来记录偏好，一个用于用户首选项和一个用于系统首选项。主要功能在<font color="#ff0000">java.util.prefs包</font>中。 <br>
+了解java偏好配置看这里：[java.util.prefs包有什么用][14]</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

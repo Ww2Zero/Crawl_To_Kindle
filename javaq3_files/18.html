@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（018）_注释是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1注释是什么">1、注释是什么</h3>
+<p>java中的<font color="#ff0000">注释</font>和其他编程语言中的注释一样，注释的内容<font color="#ff0000">不会被编译运行</font>，只是源代码中<font color="#ff0000">对代码的解释说明</font>。 <br>
+通过添加代码注释可以<font color="#ff0000">提高源代码的可读性</font>，使得Java程序<font color="#ff0000">条理清晰</font>，易于区分代码行与注释行。另外，通常还会在<font color="#ff0000">类、方法或者代码段</font>开头加入<font color="#ff0000">作者、添加/修改时间、程序版本以及代码功能</font>等内容注释，方便后来的维护以及程序员的交流。（当然，对于好的代码，不写注释也能够有很高的可读性）</br></p>
+<h3 id="2注释如何使用">2、注释如何使用</h3>
+<p>对于Java注释，我们可以添加在代码中任何地方，主要语法有如下三种：</p>
+<ol>
+<li><p><font color="#33ccff">//</font> <br>
+<font color="#ff0000">注释一行</font>，一般用来解释说明某个变量或者某行代码的含义。</br></p></li>
+<li><p><font color="#33ccff">/* …… */</font> <br>
+<font color="#ff0000">注释若干行</font>，注释多行写法如下：</br></p></li>
+</ol>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">/* ...... 
+ * ...... 
+ * ......  
+ */</span></code></pre>
+<p>一般用来描述某段代码的编写思路、执行过程或者注意事项。</p>
+<ol>
+<li><font color="#33ccff">/* * …… */</font> <br>
+<font color="#ff0000">文档注释</font>，这种写法同多行注释，不同的是，它可以通过jdk提供的<font color="#ff0000">javadoc工具</font>生成代码文档（html等格式），方便形成开发文档。它不但可以多行注释，还可以添加一些标签，供生成文档使用，如下：</br></li>
+</ol>
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-javadoc">/**
+* .........
+* .........
+*<span class="hljs-javadoctag"> @author</span> sunjie at 2016年6月18日
+*<span class="hljs-javadoctag"> @version</span> 1.0.0
+*<span class="hljs-javadoctag"> @param</span> name
+*    名称
+*<span class="hljs-javadoctag"> @param</span> sex 
+*    性别
+*<span class="hljs-javadoctag"> @return</span> boolean  
+*    是否成功
+*/</span></code></pre>
+<p>这里要注意的是javadoc只提取<font color="#ff0000">/* * …..  */</font>这种类型的注释。 <br>
+了解javadoc看这里：[javadoc是什么][2]</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

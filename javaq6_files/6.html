@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（006）_java基本数据类型如何转换            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1基本类型如何相互转换">1、基本类型如何相互转换</h3>
+<p>我们看到，将一种类型的值赋给另一种类型是很常见的。在Java中，boolean类型与所有其他7种类型都不能进行转换，这一点很明确。 <br>
+对于其他7中数值类型，它们之间<font color="#ff0000">都可以</font>进行转换，但是可能会存在精度损失或者其他一些变化。 <br>
+java中8种基本数据类型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51285502">java有哪8种基本数据类型</a> <br>
+转换分为<font color="#ff0000">自动转换</font>和<font color="#ff0000">强制转换</font>。对于自动转换（隐式），无需任何操作，而强制类型转换需要显式转换，即使用转换操作符（type）。</br></br></br></p>
+<p>首先将7种类型按下面顺序排列一下：</p>
+<p><strong>byte &lt;（short=char）&lt; int &lt; long &lt; float &lt; double</strong></p>
+<p>如果<font color="#ff0000">从小转换到大</font>，可以自动完成，而<font color="#ff0000">从大到小</font>，必须强制转换。<font color="#ff0000">short</font>和<font color="#ff0000">char</font>两种相同类型也必须强制转换。</p>
+<h3 id="2如何自动转换类型">2、如何自动转换类型</h3>
+<p>自动转换时会发生<font color="#ff0000">扩宽</font> （widening conversion）。因为较大的类型（如int）要保存较小的类型（如byte），内存总是足够的，不需要强制转换。 <br>
+如果将字面值保存到byte、 short、char、long的时候，也会<font color="#ff0000">自动</font>进行类型转换。 <br>
+注意区别，此时从int（没有带L的整型字面值为int）到byte/short /char也是自动完成的，虽然它们都比int小。在自动类型转化中，除了以下几种情况可能会导致精度损失以外，其他的转换都不能出现精度损失。 <br>
+1. int –&gt; float <br>
+2. long –&gt; float <br>
+3. long –&gt; double <br>
+4. float –&gt; double without strictfp （无符号double） <br>
+除了可能的精度损失外，自动转换<font color="#ff0000">不会出现</font>任何运行时（run-time）异常。</br></br></br></br></br></br></br></p>
+<h3 id="3如何强制转换类型">3、如何强制转换类型</h3>
+<p>如果要把大的转成小的， 或者在short与char之间进行转换，就必须强制转换，也被称作<font color="#ff0000">缩小转换</font>（narrowing conversion）。 <br>
+因为必须显式地使数值更小以适应目标类型。强制转换采用<font color="#ff0000">转换操作符</font>（type）。严格地说，将byte转为char不属于缩小转换，因为从byte到char的过程其实是byte–&gt;int–&gt;char，所以widening和narrowing都有。</br></p>
+<p>强制转换除了可能的精度损失外，还可能使模（overall magnitude）发生变化。强制转换格式如下：</p>
+<pre class="prettyprint"><code class=" hljs haskell"><span class="hljs-title">target</span>-<span class="hljs-typedef"><span class="hljs-keyword">type</span> val ＝（target-<span class="hljs-keyword">type</span>） value；</span></code></pre>
+<p>例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">int</span> a=<span class="hljs-number">80</span>;  
+<span class="hljs-keyword">byte</span> b;   
+b = (<span class="hljs-keyword">byte</span>)a;</code></pre>
+<p>但你，如果整数的值超出了byte所能表示的范围，结果将对byte类型的范围<font color="#ff0000">取余数</font>。例如：</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">int</span> a=<span class="hljs-number">257</span>;  
+<span class="hljs-keyword">byte</span> b;   
+b = (<span class="hljs-keyword">byte</span>)a;
+System.<span class="hljs-keyword">out</span>.println(b);</code></pre>
+<p>结果如下： <br>
+1</br></p>
+<p>因为a=257超出了byte的[-128,127]的范围，所以将257除以byte的范围（256）<font color="#ff0000">取余数</font>得到：b=1。需要注意的是，当a=200时，此时除了256取余数应该为-56，而不是200。</p>
+<p>将浮点类型赋给整数类型的时候，会发生<font color="#ff0000">截尾</font>（truncation）。也就是把小数的部分去掉，只留下整数部分。此时如果整数超出目标类型范围，一样将对目标类型的范围取余数。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

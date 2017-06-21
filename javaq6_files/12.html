@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_06数据结构（012）_如何遍历数组            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何遍历数组">1、如何遍历数组</h3>
+<p>我们在处理数组时，经常使用<font color="#ff0000">for循环</font>或<font color="#ff0000">foreach循环</font>进行遍历，因为数组中的所有元素类型相同并且数组的大小是<font color="#ff0000">已知的</font>。 <br>
+了解什么是数组看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51340241">java中的数组是什么</a> <br>
+了解for循环看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51043944">java中如何循环执行</a></br></br></p>
+<h5 id="使用for循环遍历"><font color="#33ccff">使用for循环遍历</font></h5>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArray {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+      <span class="hljs-keyword">double</span>[] myList = {<span class="hljs-number">1.9</span>, <span class="hljs-number">2.9</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">3.5</span>};
+
+      <span class="hljs-comment">// Print all the array elements</span>
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; myList.length; i++) {
+         System.<span class="hljs-keyword">out</span>.println(myList[i] + <span class="hljs-string">" "</span>);
+      }
+      <span class="hljs-comment">// Summing all elements</span>
+      <span class="hljs-keyword">double</span> total = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; myList.length; i++) {
+         total += myList[i];
+      }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Total is "</span> + total);
+      <span class="hljs-comment">// Finding the largest element</span>
+      <span class="hljs-keyword">double</span> max = myList[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; myList.length; i++) {
+         <span class="hljs-keyword">if</span> (myList[i] &gt; max) max = myList[i];
+      }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Max is "</span> + max);
+   }
+}</code></pre>
+<p>这将产生以下结果: <br>
+1.9 <br>
+2.9 <br>
+3.4 <br>
+3.5 <br>
+Total is 11.7 <br>
+Max is 3.5</br></br></br></br></br></br></p>
+<h5 id="使用foreach循环遍历"><font color="#33ccff">使用foreach循环遍历</font></h5>
+<p>JDK 1.5引入了一个新的for循环被称为<font color="#ff0000">foreach循环</font>或<font color="#ff0000">增强的for循环</font>，它无需使用索引变量就能<font color="#ff0000">按顺序遍历</font>数组。</p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArray {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+      <span class="hljs-keyword">double</span>[] myList = {<span class="hljs-number">1.9</span>, <span class="hljs-number">2.9</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">3.5</span>};
+
+      <span class="hljs-comment">// Print all the array elements</span>
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">double</span> element: myList) {
+         System.<span class="hljs-keyword">out</span>.println(element);
+      }
+   }
+}</code></pre>
+<p>这将产生以下结果: <br>
+1.9 <br>
+2.9 <br>
+3.4 <br>
+3.5</br></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

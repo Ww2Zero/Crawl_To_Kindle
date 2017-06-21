@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（001）_java内存模型是什么样的            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是内存模型">1、什么是内存模型</h3>
+<p>　　Java平台自动集成了<font color="#ff0000">线程以及多处理器技术</font>，这种集成程度比Java以前诞生的计算机语言要厉害很多。Java针对多种<font color="#ff0000">异构平台</font>的独立性，使得<font color="#ff0000">多线程技术</font>也具有了开拓性的一面。 <br>
+　　 <br>
+了解线程和进程看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51468995">线程和进程有什么区别</a></br></br></p>
+<p>　　我们有时候在Java开发中，对于同步和线程安全要求很严格的程序时，往往容易混淆的一个概念就是<font color="#ff0000">内存模型</font>。那究竟什么是内存模型呢？ <br>
+　　内存模型描述了程序中<font color="#ff0000">各个变量</font>（实例域、静态域和数组元素）之间的关系，以及在实际计算机系统中将<font color="#ff0000">变量存储到内存</font>、从内存中<font color="#ff0000">取出变量</font>这样的底层细节。 <br>
+　　Java对象最终是存储在内存里面的，这点没错，但是编译器、运行库、处理器或者系统缓存有权<font color="#ff0000">指定内存位置</font>来存储或者取出变量的值。</br></br></p>
+<h3 id="2内存模型有哪些规则">2、内存模型有哪些规则</h3>
+<p>内存模型需要具有以下规则：<font color="#ff0000">原子性（Atomicity）</font>、<font color="#ff0000">可见性（Visibility）</font>、<font color="#ff0000">可排序性（Ordering）</font> <br>
+<font color="#33ccff">1. 原子性（Atomicity）</font> <br>
+原子性指的是<font color="#ff0000">原子级别的操作</font>，比如最小的一块内存的读写操作，可以理解为Java语言编译过后最接近内存的最底层的<font color="#ff0000">操作单元</font>。这种读写操作的数据单元不是变量的值，而是本机码。</br></br></p>
+<p>原子性规则约定了：访问存储单元内任何类型字段的值以及对其更新操作时，除了long类型和double类型，其他类型的字段是必须要<font color="#ff0000">保证其原子性</font>的，这些字段也包括<font color="#ff0000">为对象服务的引用</font>。即，如果你获得或者初始化某一些值时（这些值是由其他线程写入的，而且不是从两个或者多个线程在同一时间戳混合写入的），该值的原子性在JVM内部是<font color="#ff0000">必须得到保证的</font>。</p>
+<p>此外，原子性扩展规则可以延伸到基于long和double的另外两种类型：<font color="#ff0000">volatile long</font>和<font color="#ff0000">volatile double</font>（volatile为java关键字），没有被volatile声明的long类型以及double类型的字段值虽然不保证其JMM中的原子性，但是是被允许的。</p>
+<p>只要在不违反该规则的情况下，JVM<font color="#ff0000">并不关心</font>数据的值来自什么线程，正这样使得Java语言在并行运算的设计中，针对多线程的原子性设计变得<font color="#ff0000">极其简单</font>。即使开发人员没有考虑到，最终的程序也没有太大的影响。</p>
+<p><font color="#33ccff">2. 可见性（Visibility）</font> <br>
+可见性指的是一个线程修改的状态对另一个线程是<font color="#ff0000">可见的</font>。也就是说一个线程<font color="#ff0000">修改的结果</font>，另一个线程<font color="#ff0000">马上就能看到</font>。比如：用<font color="#ff0000">volatile</font>修饰的变量，就会具有可见性。volatile修饰的变量不允许线程内部缓存和重排序，即<font color="#ff0000">直接修改内存</font>，所以对其他线程是可见的。但是这里需要注意一个问题，volatile只能让被他修饰内容具有可见性，但<font color="#ff0000">不能保证它具有原子性</font>。比如 volatile int a = 0；之后有一个操作a++；这个变量a具有可见性，但是a++依然是一个<font color="#ff0000">非原子操作</font>，也就这这个操作同样存在线程安全问题。</br></p>
+<p>在可见性规则的约束下，定义了一个线程在哪种情况下<font color="#ff0000">可以访问</font>或者<font color="#ff0000">影响</font>另外一个线程，以及从另外一个线程的可见区域<font color="#ff0000">读取</font>相关数据、将数据<font color="#ff0000">写入</font>到另外一个线程内。</p>
+<p><font color="#33ccff">3. 可排序性（Ordering）</font> <br>
+可排序性是指为了提高性能，编译器和处理器可能会对指令做<font color="#ff0000">重排序</font>，包括：</br></p>
+<ul>
+<li><p><font color="#ff0000">编译器优化的重排序</font> <br>
+编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。</br></p></li>
+<li><p><font color="#ff0000">指令级并行的重排序</font> <br>
+现代处理器采用了指令级并行技术（Instruction-LevelParallelism,ILP）来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。</br></p></li>
+<li><p><font color="#ff0000">内存系统的重排序</font> <br>
+由于处理器使用缓存和读/写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。</br></p></li>
+</ul>
+<p>volatile修饰的变量<font color="#ff0000">不允许</font>线程内部缓存和重排序。 <br>
+可排序性规则将会约束任何一个违背了规则调用的线程在操作过程中的一些顺序，排序问题主要围绕了读取、写入和赋值语句有关的序列。</br></p>
+<h3 id="3java内存模型是什么">3、Java内存模型是什么</h3>
+<p><font color="#ff0000">JMM</font>（Java内存模型，Java Memory Model的缩写）是控制<font color="#ff0000">Java线程之间</font>、<font color="#ff0000">线程和主存之间</font>通信的协议。 <br>
+JMM定义了<font color="#ff0000">线程和主内存之间</font>的抽象关系：线程之间的共享变量存储在主内存（main memory）中，每个线程都有一个私有的<font color="#ff0000">本地内存</font>（local memory），本地内存中存储了该线程以读/写共享变量的副本。本地内存是JMM的一个<font color="#ff0000">抽象概念</font>，并不真实存在。它涵盖了缓存，写缓冲区，寄存器以及其他的硬件和编译器优化。 <br>
+  JMM结构如下： <br>
+<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160515190304360" title=""/></br></br></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

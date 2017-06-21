@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基本语法（007）_if else如何使用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:Microsoft YaHei; font-size:12px"></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">if else如何使用</span></h1>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">java中if else语句，是用来做<span style="color:#FF0000">逻辑判断</span>的语法（另一种逻辑判断语句switch看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51042786" target="_blank">switch如何使用</a>）。使用方式非常简单，可以用if做单独判断，可以用<span style="color:#FF0000">if...else
+ if...else</span>做多逻辑判断，还可以嵌套使用。可以说是java中使用最为广泛的语句。下面来说明这个语句具体如何使用。</span></p>
+<p></p>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">1、if语句如何单独使用：</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">首先，if语句的语法为：<br>
+</br></span><pre class="java" code_snippet_id="1630999" name="code" snippet_file_name="blog_20160504_1_1838503">if(Boolean flag)
+{
+//如果flag为true时，进入这里，执行{}包起来的代码段；如果为false，则直接跳过，不执行该段。
+
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这里要注意的是，如果{}包起来的代码只有一句，则可以省略{}，但是这种写法一般<span style="color:#FF0000">不建议</span>写。<br>
+实例：<br>
+</br></br></span><pre class="java" code_snippet_id="1630999" name="code" snippet_file_name="blog_20160331_1_9561150">public class Test {
+
+public static void main(String args[]){
+int x = 10;
+
+if(true){
+System.out.print("==1==");
+}
+
+  if( x &gt;= 20 )
+System.out.print(" ==2==");
+
+System.out.print(" ==3==");
+
+  if( x &lt; 20 )
+System.out.print(" ==4==");
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">将会产生以下结果：<br>
+==1==<br>
+==3==<br>
+==4==</br></br></br></span><br>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">2、if...else if...else 语句：</span><span style="font-family:Microsoft YaHei; font-size:12px"></span><br>
+</br></h2>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">if语句后面可以跟一个可选的<span style="color:#FF0000">else if...else</span>语句。<br>
+<span style="color:#FF0000">else if...</span>可以添加多个，用来判断不同的逻辑；<span style="color:#FF0000">else...</span>一组if条件中只能有一个，没有被前面的条件匹配到，则会执行else里的代码。当然直接<span style="color:#FF0000">if....else....</span>也是可以的。<br>
+</br></br></span>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">它的语法是:</span></p>
+<pre class="java" code_snippet_id="1630999" name="code" snippet_file_name="blog_20160504_3_8534643">if(Boolean flag1){
+//如果flag1为true时，进入这里，执行{}包起来的代码段；如果为false，则继续判断下面的else if条件。
+}
+else if(Boolean flag2){
+ //如果flag2为true时，进入这里（当然前提是flag1为false），执行{}包起来的代码段；如果为false，则继续判断下面的else if条件。
+}
+else if(Boolean flag3){
+ //同上一个else if，前提是flag1、flag2都为false。
+}
+...
+else{
+//如果flag1、flag2、flag3...都为false，则执行这里。
+
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">实例:</span><pre class="java" code_snippet_id="1630999" name="code" snippet_file_name="blog_20160331_2_5341028">public class Test {
+
+public static void main(String args[]){
+int x = 30;
+
+if( x == 10 ){
+System.out.print("==1==");
+}
+}else if( x == 20 ){
+System.out.print(" ==2==");
+}else if( x == 30 ){
+System.out.print(" ==3==");
+  else{
+System.out.print(" ==4==");
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果：</span><br>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:Microsoft YaHei; font-size:12px">==3==</span><br>
+</br></h2>
+<h2 style="margin:0px; padding:0px; color:rgb(85,85,85); line-height:35px"><span style="font-family:SimSun">3、嵌套语句：</span></h2>
+<span style="font-family:Microsoft YaHei; font-size:12px">你可以在一个if或else if语句中使用另一个<span style="color:#FF0000">if或else if</span>语句。</span><br>
+<p></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">语法:<br>
+嵌套<span style="color:#FF0000">if...else</span>的语法如下：<br>
+</br></br></span><pre class="java" code_snippet_id="1630999" name="code" snippet_file_name="blog_20160504_5_5437744">if(Boolean_expression 1){
+//Executes when the Boolean expression 1 is true
+if(Boolean_expression 2){
+//Executes when the Boolean expression 2 is true
+}
+}</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">可以嵌套<span style="color:#FF0000">else if...else</span>在类似的方式，因为我们有嵌套的<span style="color:#FF0000">if</span>语句。</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">实例:<br>
+</br></span><pre class="java" code_snippet_id="1630999" name="code" snippet_file_name="blog_20160331_3_5722712">public class Test {
+
+public static void main(String args[]){
+int x = 30;
+int y = 10;
+
+if( x == 30 ){
+if( y == 10 ){
+System.out.print("X = 30 and Y = 10");
+}
+}
+}
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">这将产生以下结果：<br>
+X = 30 and Y = 10</br></span><br>
+<br>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+</br></span></div>
+<p><br>
+</br></p>
+</br></br></br></br></br></div>]
+</body>
+</html>

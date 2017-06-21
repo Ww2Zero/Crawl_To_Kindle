@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（008）_java垃圾回收机制是什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1如何判断垃圾对象">1、如何判断垃圾对象</h3>
+<p>垃圾收集的第一步就是先需要算法来标记<font color="#ff0000">哪些是垃圾</font>，然后再对垃圾进行处理。通常的编程语言都会用以下算法之一进行判断：</p>
+<ol>
+<li><font color="#33ccff">引用计数（ReferenceCounting）算法</font> <br>
+这种方法比较简单直观，核心思路是，给每个对象添加一个被<font color="#ff0000">引用计数器</font>，被引用时+1，引用失效-1，等于0时就表示该对象<font color="#ff0000">没有被引用</font>，可以被回收。</br></li>
+</ol>
+<p>FlashPlayer/Python使用该算法，简单高效。但是，Java/C#并不采用该算法，因为该算法没有解决<font color="#ff0000">对象相互引用</font>的问题，即：当两个对象相互引用且不被其它对象引用时，各自的引用计数为1，虽不为0，但仍然是可被回收的垃圾对象。</p>
+<ol>
+<li><font color="#33ccff">根搜索（GC Roots Tracing）算法</font></li>
+</ol>
+<p>基本原理是：GCRoot对象作为起始点（根）。如果从根到某个对象是<font color="#ff0000">可达的</font>，则该对象称为<font color="#ff0000">可达对象</font>（存活对象，不可回收对象）。否则就是不可达对象，可以被回收。</p>
+<p>2、新生代如何清理垃圾</p>
+<p><strong><font color="#33ccff">垃圾清理算法</font></strong></p>
+<p>新生代的垃圾收集器通常会假设大部分的对象的<font color="#ff0000">存活时间都非常短</font>，只有少数对象的存活时间比较长。根据这个假设，新生代清理垃圾的算法主要是<font color="#ff0000">复制算法（Copying）</font>。通过复制算法，可以将没有被引用的对象清理掉，并且可以将经过<font color="#ff0000">若干次</font>（可配置）清理仍然存活的对象放入<font color="#ff0000">老生代</font>。</p>
+<p>了解堆内存看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51477147">java堆内存是什么样的</a> <br>
+了解堆的Copying算法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523701">什么是新生代的Copying算法</a></br></p>
+<p><strong><font color="#33ccff">垃圾清理触发方式</font></strong></p>
+<p>新生代采用<font color="#ff0000">“空闲指针”</font>的方式来控制<font color="#ff0000">GC触发</font>，指针保持最后一个在新生代分配的对象位置，当有新的对象要分配内存时，用于检查空间是否足够，<font color="#ff0000">不够就触发GC</font>。新生代的GC通常叫做<font color="#ff0000">young GC</font>，有时候也叫<font color="#ff0000">minor GC</font>。</p>
+<p>在连续分配对象过程中，对象会按照复制算法逐渐从<font color="#ff0000">Eden区</font>到<font color="#ff0000">Survivor区</font>，最后到<font color="#ff0000">老生代</font>。</p>
+<p><strong><font color="#33ccff">常用配置</font></strong></p>
+<ul>
+<li><p>新生代的大小：<font color="#ff0000">-Xmn</font></p></li>
+<li><p>Eden区和Survivor区的比值：<font color="#ff0000">-XX：SurvivorRatio</font></p></li>
+</ul>
+<h3 id="3老生代如何清理垃圾">3、老生代如何清理垃圾</h3>
+<p><strong><font color="#33ccff">垃圾清理算法</font></strong></p>
+<p>老生代与新生代不同，对象<font color="#ff0000">存活的时间比较长</font>，比较稳定，因此采用<font color="#ff0000">标记/整理</font>（也叫标记-紧凑，Mark-Compact）算法。</p>
+<p>了解堆的 Mark算法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523853">什么是老生代的Mark算法</a> <br>
+<strong><font color="#33ccff">垃圾清理触发方式</font></strong></br></p>
+<p>老生代的GC，通常叫做<font color="#ff0000">full GC</font>，也叫<font color="#ff0000">major GC</font>。老生代有多情况会触发GC，不过一般来说发生频率不高：</p>
+<ol>
+<li><p><font color="#33ccff">旧生代空间不足</font> <br>
+调优时尽量让对象在新生代GC时被回收、让对象在新生代多存活一段时间和不要创建过大的对象及数组<font color="#ff0000">避免直接在老生代</font>创建对象。</br></p></li>
+<li><p><font color="#33ccff">Pemanet Generation空间不足</font> <br>
+增大Perm Gen空间，<font color="#ff0000">避免太多静态对象</font>。</br></p></li>
+<li><p><font color="#33ccff">GC后晋升到老生代的平均大小大于老生代剩余空间</font> <br>
+控制好<font color="#ff0000">新生代和旧生代的比例</font>。</br></p></li>
+<li><p><font color="#33ccff">手动调用System.gc()</font> <br>
+垃圾回收<font color="#ff0000">不要手动触发</font>，尽量依靠JVM自身的机制。</br></p></li>
+</ol>
+<p><strong><font color="#33ccff">常用配置</font></strong></p>
+<ul>
+<li><p>堆的初始空间：<font color="#ff0000">-Xms</font>，可以推算出老生代的大小为-Xms减去-Xmn</p></li>
+<li><p>堆的最大空间：<font color="#ff0000">-Xmx</font></p></li>
+<li><p>最大年龄阈值：<font color="#ff0000">-XX:MaxTenuringThreshold</font>，即新生代转入老生代的存活次数</p></li>
+<li><p>老生代和新生代的比值：-XX:NewRatio，例如该值为3，则表示新生代与老生代比值为1:3</p></li>
+</ul>
+<p>4、垃圾回收方式有哪些</p>
+<p>以上是java垃圾回收机制的基础，JVM为我们提供了若干可供选择的回收方式，即我们俗称的<font color="#ff0000">垃圾回收器</font>。主要有4种：</p>
+<ol>
+<li>串行垃圾回收器（Serial Garbage Collector）</li>
+<li>并行垃圾回收器（Parallel Garbage Collector）</li>
+<li>并发标记扫描垃圾回收器（CMS Garbage Collector）</li>
+<li>G1垃圾回收器（G1 Garbage Collector）</li>
+</ol>
+<p>这里我们将 详细介绍说明各类垃圾回收器：<a href="http://blog.csdn.net/ooppookid/article/details/51530358">java垃圾回收都有哪些方式</a></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

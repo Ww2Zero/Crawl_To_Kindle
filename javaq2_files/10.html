@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_02基本使用（010）_java、javax、sun、org包有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1javajavaxsunorg包有什么区别">1、java、javax、sun、org包有什么区别</h3>
+<p>java、javax、org、sun包都是<font color="#ff0000">jdk提供的类包</font>，且都是在<font color="#ff0000">rt.jar</font>中。rt.jar是<font color="#ff0000">JAVA基础类库</font>（java核心框架中很重要的包），包含lang在内的大部分功能，而且rt.jar默认就在<font color="#ff0000">根classloader</font>的加载路径里面，所以放在classpath是多此一举 。他们之间的区别具体如下： <br>
+了解java核心框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51589070">java核心框架是什么样的</a></br></p>
+<ul>
+<li><p><font color="#33ccff">java.*</font> <br>
+java SE的<font color="#ff0000">标准库</font>，是<font color="#ff0000">java标准</font>的一部分，是<font color="#ff0000">对外承诺的java开发接口</font>，通常要保持<font color="#ff0000">向后兼容</font>，一般不会轻易修改。包括其他厂家的在内，所有jdk的实现，在java.*上都是一样的。</br></p></li>
+<li><p><font color="#33ccff">javax.*</font> <br>
+也是<font color="#ff0000">java标准</font>的一部分，但是没有包含在标准库中，一般属于<font color="#ff0000">标准库的扩展</font>。通常属于<font color="#ff0000">某个特定领域</font>，不是一般性的api。 <br>
+所以以扩展的方式提供api，以避免jdk的标准库过大。当然某些早期的javax，后来被并入到标准库中，所有也应该属于新版本JDK的标准库。比如<font color="#ff0000">jmx</font>，java 5以前是以扩展方式提供，但是jdk5以后就做为标准库的一部分了，所有javax.management也是jdk5的标准库的一部分。</br></br></p></li>
+<li><p><font color="#33ccff">com.sun.*</font> <br>
+是sun的hotspot虚拟机中<font color="#ff0000">java.* 和javax.*</font>的实现类。因为包含在rt中，所以我们也可以调用。但是因为<font color="#ff0000">不是sun对外公开承诺的接口</font>，所以根据根据实现的需要<font color="#ff0000">随时增减</font>，因此在不同版本的hotspot中可能是不同的，而且在其他的jdk实现中是没有的，调用这些类，可能不会向后兼容，所以<font color="#ff0000">一般不推荐使用</font>。</br></p></li>
+<li><p><font color="#33ccff">org.omg.*</font> <br>
+是由<font color="#ff0000">企业或者组织</font>提供的java类库，大部分不是sun公司提供的，同com.sun.*，<font color="#ff0000">不具备向后兼容性</font>，会根据需要<font color="#ff0000">随时增减</font>。其中比较常用的是w3c提供的对XML、网页、服务器的类和接口。</br></p></li>
+</ul></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

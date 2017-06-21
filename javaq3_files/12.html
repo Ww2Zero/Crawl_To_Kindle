@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（012）_transient关键字有什么用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1transient关键字有什么用">1、transient关键字有什么用</h3>
+<p><font color="#ff0000">transient</font>是java语言的关键字，是<font color="#ff0000">变量修饰符</font>。</p>
+<p>如果用transient声明一个实例变量，当对象存储时，它的值<font color="#ff0000">不需要维持</font>。</p>
+<p>Java的<font color="#ff0000">serialization</font>（序列化）提供了一种<font color="#ff0000">持久化对象实例</font>的机制，当持久化对象时，可能有一个特殊的对象数据成员，我们<font color="#ff0000">不想用serialization机制</font>来保存它。为了在一个特定对象的一个域上<font color="#ff0000">关闭serialization</font>，可以在这个域前加上<font color="#ff0000">关键字transient</font>。</p>
+<p>了解序列化看这里：[Serializable接口有什么用][2] <br>
+[2]:</br></p>
+<p>当一个对象被序列化的时候，transient型变量的值<font color="#ff0000">不包括</font>在序列化的表示中，然而非transient型的变量是被包括进去的。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

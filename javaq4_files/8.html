@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_04异常处理（008）_java中常见的错误有哪些            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h2 id="java中常见的错误有哪些">java中常见的错误有哪些</h2>
+<p>想了解异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51078948">什么是java中的异常</a> <br>
+常见的运行时异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51112765">常见的Java异常有哪些(运行时) </a> <br>
+常见的非运行时异常看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51132413">常见的java异常有哪些(非运行时) </a> <br>
+java中除了异常Exception之外，还有一大类错误，即ERROR，我们常见的ERROR如下：</br></br></br></p>
+<h4 id="1javalangerror"><font color="#33ccff"><strong>1、java.lang.Error</strong></font></h4>
+<p>错误。是所有错误的基类，用于标识严重的程序运行问题。这些问题通常描述一些不应被应用程序捕获的反常情况。 <br>
+原因:</br></p>
+<ol>
+<li>对系统所访问外部资源，未执行关闭操作，导致外部资源大量浪费，最终可-能导致系统无法正常运行；</li>
+<li>对系统所访问的外部资源关闭次数太多，外部系统无法正常处理；</li>
+<li>系统访问的外部资源出现异常情况。</li>
+</ol>
+<p>解决方案：</p>
+<ol>
+<li>访问外部资源前，首先检查该资源(如数据库)是否可正常连接或操作。</li>
+<li>访问外部资源时，如果进行了连接，一定进行关闭操作，并仅进行一次关闭操作。</li>
+<li>尽量在同一操作中共享外部资源，以减少该操作对资源的消费，提高程序的执行效率。</li>
+</ol>
+<h4 id="2javalangabstractmethoderror"><font color="#33ccff"><strong>2、java.lang.AbstractMethodError</strong></font></h4>
+<p>抽象方法错误。当应用试图调用抽象方法时抛出。</p>
+<h4 id="3javalangassertionerror"><font color="#33ccff"><strong>3、java.lang.AssertionError</strong></font></h4>
+<p>断言错。用来指示一个断言失败的情况。</p>
+<h4 id="4javalangclasscircularityerror"><font color="#33ccff"><strong>4、java.lang.ClassCircularityError</strong></font></h4>
+<p>类循环依赖错误。在初始化一个类时，若检测到类之间循环依赖则抛出该异常。</p>
+<h4 id="5javalangclassformaterror"><font color="#33ccff"><strong>5、java.lang.ClassFormatError</strong></font></h4>
+<p>类格式错误。当Java虚拟机试图从一个文件中读取Java类，而检测到该文件的内容不符合类的有效格式时抛出。</p>
+<h4 id="6javalangexceptionininitializererror"><font color="#33ccff"><strong>6、java.lang.ExceptionInInitializerError</strong></font></h4>
+<p>初始化程序错误。当执行一个类的静态初始化程序的过程中，发生了异常时抛出。静态初始化程序是指直接包含于类中的static语句段。</p>
+<h4 id="7javalangillegalaccesserror"><font color="#33ccff"><strong>7、java.lang.IllegalAccessError</strong></font></h4>
+<p>违法访问错误。当一个应用试图访问、修改某个类的域（Field）或者调用其方法，但是又违反域或方法的可见性声明，则抛出该异常。</p>
+<h4 id="8javalangincompatibleclasschangeerror"><font color="#33ccff"><strong>8、java.lang.IncompatibleClassChangeError</strong></font></h4>
+<p>不兼容的类变化错误。当正在执行的方法所依赖的类定义发生了不兼容的改变时，抛出该异常。一般在修改了应用中的某些类的声明定义而没有对整个应用重新编译而直接运行的情况下，容易引发该错误。</p>
+<h4 id="9javalanginstantiationerror"><font color="#33ccff"><strong>9、java.lang.InstantiationError</strong></font></h4>
+<p>实例化错误。当一个应用试图通过Java的new操作符构造一个抽象类或者接口时抛出该异常.</p>
+<h4 id="10javalanginternalerror"><font color="#33ccff"><strong>10、java.lang.InternalError</strong></font></h4>
+<p>内部错误。用于指示Java虚拟机发生了内部错误。</p>
+<h4 id="11javalanglinkageerror"><font color="#33ccff"><strong>11、java.lang.LinkageError</strong></font></h4>
+<p>链接错误。该错误及其所有子类指示某个类依赖于另外一些类，在该类编译之后，被依赖的类改变了其类定义而没有重新编译所有的类，进而引发错误的情况。</p>
+<h4 id="12javalangnoclassdeffounderror"><font color="#33ccff"><strong>12、java.lang.NoClassDefFoundError</strong></font></h4>
+<p>未找到类定义错误。当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
+<h4 id="13javalangnosuchfielderror"><font color="#33ccff"><strong>13、java.lang.NoSuchFieldError</strong></font></h4>
+<p>域不存在错误。当应用试图访问或者修改某类的某个域，而该类的定义中没有该域的定义时抛出该错误。</p>
+<h4 id="14javalangnosuchmethoderror"><font color="#33ccff"><strong>14、java.lang.NoSuchMethodError</strong></font></h4>
+<p>方法不存在错误。当应用试图调用某类的某个方法，而该类的定义中没有该方法的定义时抛出该错误。</p>
+<h4 id="15javalangoutofmemoryerror"><font color="#33ccff"><strong>15、java.lang.OutOfMemoryError</strong></font></h4>
+<p>内存不足错误。当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
+<h4 id="16javalangstackoverflowerror"><font color="#33ccff"><strong>16、java.lang.StackOverflowError</strong></font></h4>
+<p>堆栈溢出错误。当一个应用递归调用的层次太深而导致堆栈溢出时抛出该错误。</p>
+<h4 id="17javalangthreaddeath"><font color="#33ccff"><strong>17、java.lang.ThreadDeath</strong></font></h4>
+<p>线程结束。当调用Thread类的stop方法时抛出该错误，用于指示线程结束。</p>
+<h4 id="18javalangunknownerror"><font color="#33ccff"><strong>18、java.lang.UnknownError</strong></font></h4>
+<p>未知错误。用于指示Java虚拟机发生了未知严重错误的情况。</p>
+<h4 id="19javalangunsatisfiedlinkerror"><font color="#33ccff"><strong>19、java.lang.UnsatisfiedLinkError</strong></font></h4>
+<p>未满足的链接错误。当Java虚拟机未找到某个类的声明为native方法的本机语言定义时抛出。</p>
+<h4 id="20javalangunsupportedclassversionerror"><font color="#33ccff"><strong>20、java.lang.UnsupportedClassVersionError</strong></font></h4>
+<p>不支持的类版本错误。当Java虚拟机试图从读取某个类文件，但是发现该文件的主、次版本号不被当前Java虚拟机支持的时候，抛出该错误。</p>
+<h4 id="21javalangverifyerror"><font color="#33ccff"><strong>21、java.lang.VerifyError</strong></font></h4>
+<p>验证错误。当验证器检测到某个类文件中存在内部不兼容或者安全问题时抛出该错误。</p>
+<h4 id="22javalangvirtualmachineerror"><font color="#33ccff"><strong>22、java.lang.VirtualMachineError</strong></font></h4>
+<p>虚拟机错误。用于指示虚拟机被破坏或者继续执行操作所需的资源不足的情况。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

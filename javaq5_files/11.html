@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_05面向对象（011）_引用传递和值传递有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1什么是值传递">1、什么是值传递</h3>
+<p>值传递，是将内存空间中某个存储单元中存放的值，传送给另一个存储单元。（java中的存储单元并<font color="#ff0000">不是物理内存的地址</font>，但具有相关性） <br>
+例如：</br></p>
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">//定义了一个改变参数值的函数</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">changeValue</span>(<span class="hljs-keyword">int</span> x) {
+  x = x *<span class="hljs-number">2</span>;
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestMain{
+<span class="hljs-comment">//调用该函数</span>
+<span class="hljs-keyword">int</span> num = <span class="hljs-number">5</span>;
+System.<span class="hljs-keyword">out</span>.println(num);
+changeValue(num);
+System.<span class="hljs-keyword">out</span>.println(num);
+}</code></pre>
+<p>结果如下： <br>
+5 <br>
+5</br></br></p>
+<p>调用函数changeValue()前后num的值都没有改变。具体过程如图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160423125941643" title=""/></p>
+<ol>
+<li>num作为参数传递给changeValue(int x)方法时，首先在内存空间中为x变量分配一个存储单元（我们说x<font color="#ff0000">指向</font>这个存储单元）。</li>
+<li>将内存空间中num指向的存储单元中存放的值（即”5”），传递给了changeValue(int x)中的参数变量（即”x”），也就是把”5”传给了x变量<font color="#ff0000">指向的存储单元</font>中。</li>
+<li>changeValue(int x)方法中对x变量的一切操作，都是针对x指向的存储单元。与num指向的存储单元<font color="#ff0000">没有关系</font>，当然也不会改变这个存储单元中的值。</li>
+</ol>
+<p>所以，值传递，传递的是存储单元中的<font color="#ff0000">内容</font>（8种基本类型：<font color="#ff0000">值</font>，非基本类型：<font color="#ff0000">实际对象的地址</font>）。 <br>
+对于String来说JVM有他特殊的处理，了解更多看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51487797">String在内存中如何存放</a></br></p>
+<h3 id="2什么是引用传递">2、什么是引用传递</h3>
+<p><strong><font color="#ff0000">java中只有值传递，没有引用传递。</font></strong> <br>
+所谓的引用传递，只是一个<font color="#ff0000">错误的概念</font>。 <br>
+例如：</br></br></p>
+<pre class="prettyprint"><code class=" hljs cs">class person { 
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String name = <span class="hljs-string">"Jack"</span>; 
+
+<span class="hljs-comment">//定义一个改变对象属性的方法 </span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">changeName</span>(Person p) { 
+  p.name = <span class="hljs-string">"Rose"</span>; 
+} 
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) { 
+<span class="hljs-comment">//定义一个Person对象，person是这个对象的引用 </span>
+Person person = <span class="hljs-keyword">new</span> Person(); 
+<span class="hljs-comment">//先显示这个对象的name属性 </span>
+System.<span class="hljs-keyword">out</span>.println(person.name); 
+<span class="hljs-comment">//调用changeName(Person p)方法 </span>
+changeName(person); 
+<span class="hljs-comment">//再显示这个对象的name属性，看是否发生了变化 </span>
+System.<span class="hljs-keyword">out</span>.println(person.name); 
+} 
+}</code></pre>
+<p>执行后结果： <br>
+Jack <br>
+Rose</br></br></p>
+<p>从结果看，方法用了一个对象参数，操作参数就可以改变传入对象。我们的对引用传递的<font color="#ff0000">错误观念</font>这么认为： <br>
+该对象复制了一个引用副本，传给调用方法的参数，使得该方法可以对这个对象进行操作。 <br>
+这种观念是初学者常犯的错误。</br></br></p>
+<p>实际上过程如图：</p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160423130228231" title=""/></p>
+<ol>
+<li>main方法中new了一个对象Person，存储空间中实际分配了两个对象：新创建Person类的<font color="#ff0000">实体对象</font>、指向该对象的<font color="#ff0000">引用变量person</font>。 <br>
+其中，实体对象存放在<font color="#ff0000">堆内存</font>中，引用变量存放在<font color="#ff0000">栈内存</font>（Java存储特性）。 <br>
+了解更多java存储看这里：</br></br></li>
+<li>引用变量person指向的栈内存中，存放的是堆中<font color="#ff0000">实体对象的逻辑地址</font>。</li>
+<li>调用changeName(Person p)方法，将person引用变量传入该方法参数p中（按照值传递，传递的是：实体对象的逻辑地址）。此时，changeName方法中对p的操作，与person<font color="#ff0000">没有关系</font>。</li>
+<li>changeName方法中，是对p指向的存储单元中的值（即实体对象的逻辑地址）所指向的实体对象进行操作。直接改变了该实体对象。</li>
+<li>由于person指向的存储单元中的值也是该<font color="#ff0000">实体对象的逻辑地址</font>，这个实体对象已经在第4步中被改变了。所以有上面的结果。</li>
+</ol>
+<h3 id="3引用传递和值传递有什么区别">3、引用传递和值传递有什么区别</h3>
+<p>引用传递是个<font color="#ff0000">伪概念</font>，<strong><font color="#ff0000">java中只有值传递</font></strong>。</p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

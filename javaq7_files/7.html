@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（007）_java堆内存是什么样的            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1堆内存是什么样的">1.堆内存是什么样的</h3>
+<p>了解jvm实例模型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469272">jvm实例的结构是什么样的</a> <br>
+了解java内存框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+了解堆栈的区别看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51474468">java堆和栈有什么区别</a> <br>
+每一个jvm实例都会被分配一个被所有线程<font color="#ff0000">共享</font>的<font color="#ff0000">堆内存空间</font>，用来存放对象和数组，作为jvm的数据集中管理区，<font color="#ff0000">存取效率</font>、<font color="#ff0000">空间释放</font>就成为了重中之重，jvm通过<font color="#ff0000">多区架构</font>来完成这两个目标的达成。其结构如下：</br></br></br></p>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160522232031274" title=""/></p>
+<h3 id="2什么是新生代">2、什么是新生代</h3>
+<p><font color="#ff0000">新生代（Young Generation）</font>主要是用来存放新生的对象。</p>
+<p>新生代又被进一步划分为<font color="#ff0000">Eden区</font>（伊甸园区）和<font color="#ff0000">Survivor区</font>（幸存区，包含空间相等的S0、S1区，或者说From、To区，没有先后顺序，是<font color="#ff0000">Copying算法</font>的需要）。</p>
+<p>大多数情况下，java中<font color="#ff0000">新建的对象</font>都是在新生代上分配的，通过Copying算法来进行<font color="#ff0000">分配内存</font>和<font color="#ff0000">垃圾回收</font>。</p>
+<p>了解堆的Copying算法看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523701">什么是新生代的Copying算法</a></p>
+<p>有两种情况下java新创建的对象会直接到<font color="#ff0000">旧生代</font>：</p>
+<ol>
+<li><p><font color="#ff0000">占用空间大</font>的对象/数组，且对象中无外部引用的对象。</p></li>
+<li><p>通过启动参数上面进行设置<font color="#ff0000">-XX：PretenureSizeThreshold</font>=1024(单位是字节），如果对象超过此大小，就直接分配到<font color="#ff0000">旧生代</font>。此外，<font color="#ff0000">并行垃圾回收器</font>可以在运行期决定那些对象可以直接创建在旧生代。</p></li>
+</ol>
+<p>了解垃圾回收机制看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a> <br>
+通过<font color="#ff0000">-Xmn</font>设置新生代的大小，通过<font color="#ff0000">-XX：SurvivorRatio</font>设置Eden区和Survivor区的比值，有些垃圾回收器会对S0或者S1进行动态的调整。</br></p>
+<p>新生对象根据<font color="#ff0000">Copying算法</font>在<font color="#ff0000">Eden区/S0区</font>或者<font color="#ff0000">Eden区/S1区</font>中分配，Eden区的对象量达到<font color="#ff0000">阈值</font>后，发生一次<font color="#ff0000">新生代GC</font>。</p>
+<h3 id="3什么是老生代">3、什么是老生代</h3>
+<p><font color="#ff0000">老生代（Old Generation）</font>主要存放应用程序中<font color="#ff0000">生命周期长的</font>内存对象。</p>
+<p>在新生代中经过多次垃圾回收<font color="#ff0000">仍然存活</font>的对象，会被存放到<font color="#ff0000">老生代</font>中。老生代通过<font color="#ff0000">标记/整理算法</font>来清理无用内存。</p>
+<p>多次回收之后仍然存活的对象，大小是<font color="#ff0000">-Xms减去-Xmn</font>。</p>
+<p>老生代通过<font color="#ff0000">-XX:MaxTenuringThreshold</font>设置最大年龄阈值，每个对象有“对象年龄计数器”，对象由新生代<font color="#ff0000">Eden区</font>（伊甸园区）收集到<font color="#ff0000">Survivor区</font>（幸存区）后，年龄+1。新生代垃圾清理（GC）后，年龄+1。依次，当<font color="#ff0000">年龄&gt;=阈值</font>后进入老生代。</p>
+<p>对于年龄阈值有两中特殊情况：</p>
+<ol>
+<li><p>如果在<font color="#ff0000">Survivor区</font>（幸存区）中所有相同年龄对象占用了空间的一半以上，<font color="#ff0000">大于等于</font>上述年龄的对象直接进入老生代。</p></li>
+<li><p>占用空间大于<font color="#ff0000">-XX:PretenureSizeThreshold</font>设定阈值的大对象（比如大的数组），会直接进入老生代。</p></li>
+</ol>
+<h3 id="4什么是永久代">4、什么是永久代</h3>
+<p><font color="#ff0000">永久代（Permanent Generation）</font>即<font color="#ff0000">方法区</font>，主要存放Class和Meta等永久保存的信息（如类、方法、字符串等）。</p>
+<p>Class在被加载的时候被放入<font color="#ff0000">PermGen space区域</font>。它和存放对象实例的堆内存不同，<font color="#ff0000">垃圾收集（GC）</font>不会在主程序运行期对PermGen space进行清理，所以如果你的程序会加载了很多Class的话，就很可能出现<font color="#ff0000">PermGen space错误</font>。</p>
+<p>这里要说明的是，以上的堆内存机构是<font color="#ff0000">Java 8之前</font>的结构，在新版本的Java中有如下变化：</p>
+<ul>
+<li><p>在<font color="#ff0000">Java 7版本</font>时把驻留字符串（intentd string）放到了老生代区。</p></li>
+<li><p>在<font color="#ff0000">Java 8</font>中，永久代在堆中被移除，取而代之的是<font color="#ff0000">本地元空间</font>，这与Oracle JRockit和IBM JVM类似，JVM也开始使用<font color="#ff0000">本地化的内存</font>，来存放类的元数据。Java 8的堆内存结构如下：</p></li>
+</ul>
+<p><img alt="这里写图片描述" src="http://img.blog.csdn.net/20160522213251966" title=""/></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

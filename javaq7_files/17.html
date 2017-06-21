@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_07JVM架构（017）_jvm常见配置都有哪些            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jvm常见配置都有哪些">1、jvm常见配置都有哪些</h3>
+<p>了解jvm内存模型看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51418312">java内存模型是什么样的</a> <br>
+了解jvm内存管理看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51469926">jvm是如何管理内存的</a> <br>
+了解jvm垃圾回收机制看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51523486">java垃圾回收机制是什么</a></br></br></p>
+<p>jvm配置非常多，按照不同类型划分，常常用来<font color="#ff0000">优化jvm内存</font>（了解jvm内存优化看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51582772">java内存如何优化</a>），常见配置如下：</p>
+<p>了解垃圾回收器看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51530358">java垃圾回收都有哪些方式</a></p>
+<ol>
+<li><p><font color="#33ccff">堆设置</font> <br>
+<font color="#ff0000">-Xms=n</font> <br>
+初始堆大小。 <br>
+<font color="#ff0000">-Xmx=n</font> <br>
+最大堆大小。 <br>
+<font color="#ff0000">-Xmn=n</font> <br>
+新生代大小，该配置<font color="#ff0000">优先于-XX:NewRatio</font>，即如果配置了-Xmn，-XX:NewRatio会失效。 <br>
+<font color="#ff0000">-XX:NewRatio=n</font> <br>
+老生代和新生代的比值，例如该值为3，则表示新生代与老生代比值为1:3。 <br>
+<font color="#ff0000">-XX:SurvivorRatio=n</font> <br>
+新生代中 Eden区和Survivor区的比值。Survivor区分为等价的两个区S0，S1。例如-XX:SurvivorRatio=3，则表示<font color="#ff0000">Eden:S0:S1=3:1:1</font>。 <br>
+<font color="#ff0000">-XX:PermSize=n</font> <br>
+设置永久代（方法区）大小，Java 8之后被移除。 <br>
+<font color="#ff0000">-XX:MaxPermSize=n</font> <br>
+设置永久代（方法区）最大大小，Java 8之后被移除。 <br>
+<font color="#ff0000">-XX:MetaspaceSize=n</font> <br>
+设置本地元空间Metaspace大小，Java 8以后移除了方法区，取而代之的是本地元空间Metaspace。 <br>
+<font color="#ff0000">-XX:MaxMetaspaceSize=n</font> <br>
+设置本地元空间Metaspace最大大小，Java 8以后移除了方法区，取而代之的是本地元空间Metaspace。 <br>
+<font color="#ff0000">-XX:MaxGCPauseMillis=n</font> <br>
+设置垃圾收集最大暂停时间。 <br>
+<font color="#ff0000">-XX:GCTimeRatio=n</font> <br>
+设置一次垃圾回收时间占程序运行时间的百分比，花费在GC上的时间比例<font color="#ff0000">不超过1 / (1 + n)</font>。</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></p></li>
+<li><p><font color="#33ccff">垃圾收集器设置</font> <br>
+<font color="#ff0000">-XX:+UseSerialGC</font> <br>
+设置串行收集器。 <br>
+<font color="#ff0000">-XX:+UseParallelGC</font> <br>
+设置并行收集器。 <br>
+<font color="#ff0000">-XX:+UseParallelOldGC</font> <br>
+设置并行年老代收集器。 <br>
+<font color="#ff0000">-XX:+UseConcMarkSweepGC</font> <br>
+设置并发收集器。 <br>
+<font color="#ff0000">-XX:+UseG1GC</font> <br>
+G1垃圾回收器。</br></br></br></br></br></br></br></br></br></br></p></li>
+<li><p><font color="#33ccff">并行收集器设置</font> <br>
+<font color="#ff0000">-XX:ParallelGCThreads=n</font> <br>
+设置并发收集器年轻代收集方式为并行收集时的线程数。</br></br></p></li>
+<li><p><font color="#33ccff">并发收集器设置</font> <br>
+<font color="#ff0000">-XX:+CMSIncrementalMode</font> <br>
+设置为<font color="#ff0000">增量模式</font>。在增量模式下，并发收集器在并发阶段，不会独占整个周期，而会周期性的暂停，唤醒应用线程。收集器把并发阶段工作划分为片段，安排在次级(minor) 回收运行。适用于需要低延迟，CPU少的服务器。一般<font color="#ff0000">单CPU</font>会开启增量模式。 <br>
+<font color="#ff0000">-XX:ParallelCMSThreads=n</font> <br>
+并发垃圾回收器标记扫描所使用的线程数量</br></br></br></br></p></li>
+<li><p><font color="#33ccff">垃圾回收统计信息</font> <br>
+<font color="#ff0000">-XX:+PrintGC</font> <br>
+输出GC日志，简要日志。 <br>
+<font color="#ff0000">-XX:+PrintGCDetails</font> <br>
+打印GC日志，详细展示每个区的日志。 <br>
+<font color="#ff0000">-XX:+PrintGCTimeStamps</font> <br>
+打印GC日志，详细展示GC运行时间的日志。输出GC的时间戳以基准时间的形式展示。 <br>
+<font color="#ff0000">-XX:+PrintGCDateStamps</font> <br>
+打印GC日志，详细展示GC运行时间的日志。输出GC的时间戳以以日期的形式展示。 <br>
+<font color="#ff0000">-XX:+PrintHeapAtGC</font> <br>
+打印在进行GC的前后打印出堆的信息。 <br>
+<font color="#ff0000">-Xloggc:../logs/gc.log</font> <br>
+日志文件的输出路径。</br></br></br></br></br></br></br></br></br></br></br></br></p></li>
+</ol>
+<p>汇总如下： <br>
+<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160604103703659" title=""/></br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

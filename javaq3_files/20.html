@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基础语法（020）_注解、注释有什么区别            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p>java注释注解×注释注解区别×注释注解混淆×java注释注解区别×注解与注释不同点× <br>
+<a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></br></p>
+<h3 id="1注解注释有什么区别">1、注解、注释有什么区别</h3>
+<p>了解注释看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51757373">注释是什么</a> <br>
+了解注解看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51761368">注解是什么</a></br></p>
+<p>注解和注释很多人会混淆，它们之间的应用场景和具体使用<font color="#ff0000">完全不同</font>，具体如下：</p>
+<ol>
+<li><p><font color="#33ccff">用途不同</font> <br>
+注解通过标注包、类、字段、方法、局部变量、方法参数等元素，<font color="#ff0000">告诉JVM</font>这些元素的附加信息（元信息）。 <br>
+注释是用来<font color="#ff0000">告诉开发人员</font>这段代码的逻辑、说明、特点等，可以无限制的自由发挥。</br></br></p></li>
+<li><p><font color="#33ccff">具体使用不同</font> <br>
+注解通过<font color="#ff0000">@</font>来标注响应的元素，对于<font color="#ff0000">位置、语法、内容</font>都有<font color="#ff0000">严格的限制</font>，如果有任何错误，编译过程中就会异常。 <br>
+注释非常随意，在注释中可以填写任何内容，完全<font color="#ff0000">没有任何限制</font>，甚至支持编写html。</br></br></p></li>
+<li><p><font color="#33ccff">编译过程不同</font> <br>
+注解可以通过配置，在运行中让<font color="#ff0000">JVM去读取</font>它，并完成对应的操作，一般会通过反射来获取我们为某个元素标注的注解。 <br>
+注释会<font color="#ff0000">被编译器完全忽略</font>，完全是提供给开发人员作为参考使用。</br></br></p></li>
+<li><p><font color="#33ccff">重要性不同</font> <br>
+注解目前来讲<font color="#ff0000">越来越重要</font>，由于他可以对几乎所有元素进行描述和说明，在大多数框架中都非常喜欢使用注解来辅助配置。 <br>
+注释在代码规范越来越完善今天，作用<font color="#ff0000">越来越不明显</font>，一段好的代码即便没有任何注释也能让开发者一目了然，而代码零注释的声音也越来越响，它的唯一作用可能就是用来生成javadoc了。</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

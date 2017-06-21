@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_08JDK详解（002）_jdk工具集都有什么            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/ooppookid/article/category/6134850">点击进入_更多_Java千百问</a></p>
+<h3 id="1jdk工具集都有什么工具">1、jdk工具集都有什么工具</h3>
+<p>了解java核心框架看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51589070">java核心框架是什么样的</a> <br>
+jdk工具集包含了<font color="#ff0000">java开发、编译和运行过程中</font>所使用的工具，主要有以下这些：</br></p>
+<p><strong><font color="#33ccff">调试体系（Debugger Architecture）</font></strong></p>
+<p>具备完善的<font color="#ff0000">体系结构</font>和<font color="#ff0000">使用规格</font>的调试体系，允许在开发环境中可以用来进行<font color="#ff0000">代码调试</font>（调试即逐行执行代码，并且可以监控变量和运行情况）。Java平台调试器体系结构也叫<font color="#ff0000">JPDA</font>，它提供了一整套用于<font color="#ff0000">调试Java程序的API</font>，以及用于开发Java调试工具的接口和协议。Eclipse等IDE工具均使用了JPDA来开发自己的调试器。</p>
+<p>了解更多Java调试体系看这里：[JPDA是什么][3] <br>
+[3]:</br></p>
+<p><strong><font color="#33ccff">JVM工具接口（VM Tool Interface）</font></strong></p>
+<p>Java虚拟机工具接口（JVM TI）是一个<font color="#ff0000">规范</font>，用来<font color="#ff0000">监控状态</font>以及<font color="#ff0000">控制在JVM中运行程序的执行</font>。它是用来代替Java虚拟机分析器接口（JVMPI）的，<font color="#ff0000">JVMPI已被弃用</font>。</p>
+<p>了解更多 JVM工具接口看这里：[JVMTI是什么][4] <br>
+[4]:</br></p>
+<p><strong><font color="#33ccff">Java文档工具（Javadoc Tool）</font></strong></p>
+<p>Java文档工具，通过<font color="#ff0000">解析源文件和文档注释</font>来产生一组描述代码的<font color="#ff0000">HTML页面</font>。Doclet API提供了一种能够为用户<font color="#ff0000">检查程序、库源代码层级结构</font>的机制，可以使用这个API生成文档。</p>
+<p>了解更多Javadoc Tool看这里：[Javadoc是什么][5] <br>
+[5]:</br></p>
+<p><strong><font color="#33ccff">java动态链接（Dynamic Attach）</font></strong></p>
+<p><font color="#ff0000">com.sun.tools.attach</font>包含了一个Oracle扩展Java平台，允许一个应用程序连接到一个<font color="#ff0000">正在运行的Java虚拟机</font>。一旦连接，<font color="#ff0000">工具代理</font>就能够在<font color="#ff0000">目标虚拟机</font>被启动了。</p>
+<p>了解更多Dynamic Attach看这里：[AttachAPI是什么][6] <br>
+[6]:</br></p>
+<p><strong><font color="#33ccff">java控制器API（JConsole API）</font></strong></p>
+<p><font color="#ff0000">com.sun.tools.jconsole</font>包含了一个Oracle扩展Java平台，提供了一组接口，允许访问<font color="#ff0000">JConsole</font>，对<font color="#ff0000">线程、内存、类、对象</font>进行分析和统计。</p>
+<p>了解更多 JConsoleAPI看这里：[JConsole是什么][7] <br>
+[7]:</br></p>
+<p><strong><font color="#33ccff">JDK工具包（JDK Tools &amp; Utilities）</font></strong></p>
+<p>JDK工具包中提供了很多工具和实用的程序。涵盖了<font color="#ff0000">基本工具</font>（ javac, java, javadoc, apt, appletviewer, jar, jdb, javah, javap, extcheck），<font color="#ff0000">安全工具</font>，<font color="#ff0000">国际化工具</font>，<font color="#ff0000">RMI工具</font>，<font color="#ff0000">IDL</font>， <font color="#ff0000">RMI-IIOP工具</font>，<font color="#ff0000">部署工具</font>，<font color="#ff0000">java插件工具</font>，<font color="#ff0000">java Web工具</font>，<font color="#ff0000">监控管理工具</font>，<font color="#ff0000">故障排查工具</font>等。</p>
+<p>了解更多jdk工具包看这里： [JDK工具包有哪些工具][8] <br>
+[8]:</br></p></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>

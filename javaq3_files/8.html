@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_03基本语法（008）_switch如何使用            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px">点击进入_更多_Java千百问</span></a></span></p>
+<p><span style="font-family:SimSun"><a href="http://blog.csdn.net/ooppookid/article/category/6134850" target="_blank"><span style="font-size:14px"><br>
+</br></span></a></span></p>
+<h1 style="margin:0px; padding:0px; color:rgb(51,51,51); line-height:26px"><span style="font-family:SimSun">switch如何使用</span></h1>
+<span style="font-family:Microsoft YaHei; font-size:12px">switch允<span style="color:#FF0000">比对</span>一个变量的值，来执行<span style="color:#FF0000">不同情况</span>的代码。<br>
+switch语句和if else语句类似，switch能够实现的功能<span style="color:#FF0000">if else</span>完全可以实现，区别在于使用switch逻辑更为清晰。if else详情看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51030154" target="_blank">if else如何使用</a><br>
+语法:</br></br></span><br>
+<pre class="java" code_snippet_id="1632310" name="code" snippet_file_name="blog_20160402_1_4937521">switch(expression){
+case value :
+//Statements
+break; //optional
+case value :
+//Statements
+break; //optional
+//You can have any number of case statements.
+default : //Optional
+//Statements
+}</pre><span style="font-family:Microsoft YaHei; font-size:12px">以下规则适用于<span style="color:#FF0000">switch</span>语句：<br>
+1、在switch语句中使用的expression只能是<span style="color:#FF0000">一个字节</span>，short，int和或char，enum本身为int，所以也可以使用（jdk1.7以后可以使用String）。<br>
+2、switch可以有<span style="color:#FF0000">任何数量</span>的case语句。每个case后面是进行比较的值和<span style="color:#FF0000">":"</span>。<br>
+3、case后面的值与expression类型必须相同，必须是一个<span style="color:#FF0000">常量</span>。<br>
+4、当case后面的值与expression等于，则执行case对应的代码段，直到<span style="color:#FF0000">break</span>语句为止。<br>
+5、直行到break语句，直接<span style="color:#FF0000">跳出</span>switch，执行后续代码。<br>
+6、不是每一个case都要有break。如果没有break，则会继续执行下一个case对应的代码段，直到break为止。break关键字详解看这里：<a href="http://blog.csdn.net/ooppookid/article/details/51062446" target="_blank">break与contine分别如何使用</a><br>
+7、switch语句可以有一个<span style="color:#FF0000">默认case</span>，它必须出现在所有case之后。默认情况下，没有case是true时，执行<span style="color:#FF0000">default</span>对应代码段。<br>
+例子：</br></br></br></br></br></br></br></br></span><br>
+<pre class="java" code_snippet_id="1632310" name="code" snippet_file_name="blog_20160402_2_6954625">public class Test {
+
+public static void main(String args[]){
+//char grade = args[0].charAt(0);
+char grade = 'B';
+
+switch(grade)
+{
+case 'A' :
+System.out.println("Excellent!");
+break;
+case 'B' :
+case 'C' :
+System.out.println("Well done");
+break;
+case 'D' :
+System.out.println("You passed");
+case 'F' :
+System.out.println("Better try again");
+break;
+default :
+System.out.println("Invalid grade");
+}
+System.out.println("Your grade is " + grade);
+}
+}</pre>
+<p><span style="font-family:Microsoft YaHei; font-size:12px">编译并运行上面使用各种命令行参数的程序。这将产生以下结果：</span></p>
+<span style="font-family:Microsoft YaHei; font-size:12px">Well done<br>
+Your grade is a B</br></span><br>
+<br>
+<p></p>
+<div><span style="font-family:SimSun"><span style="font-size:14px; color:#336699; line-height:26px"><a href="http://blog.csdn.net/ooppookid" target="_blank">点击进入ooppookid的博客</a></span><br>
+</br></span></div>
+<p></p>
+<p><br>
+</br></p>
+</br></br></br></br></div>]
+</body>
+</html>

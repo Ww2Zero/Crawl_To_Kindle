@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+[<center><h1>
+        Java千百问_09基础类库（003）_java.math包有什么功能            
+        </h1></center>, <div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+<div class="markdown_views"><p><a href="http://blog.csdn.net/column/details/javaq-009.html">点击进入_更多_Java千百问-基础类库</a></p>
+<h3 id="1javamath包有什么功能">1、java.math包有什么功能</h3>
+<p>java.math包提供了java中的数学类。包括基本的<font color="#ff0000">浮点库</font>、<font color="#ff0000">复杂运算</font>以及<font color="#ff0000">任意精度的数据运算</font>。主要类如下图：</p>
+<p><img alt="" src="http://img.blog.csdn.net/20160723084548105" title="">￼</img></p>
+<p>下面介绍math中的类：</p>
+<ol>
+<li><p><strong>任意长度整形</strong> <br>
+<font color="#ff0000">BigInteger</font>，任意长度不可变整形。由于基本类型的整形长度有限，所以java提供了任意长度任意精度的整形。提供了种运算方法。继承于Number。 <br>
+<font color="#ff0000">MutableBigInteger</font>，可变的BigInteger。 <br>
+<font color="#ff0000">SignedMutableBigInteger</font>，有符号的可变的BigInteger。</br></br></br></p></li>
+<li><p><strong>任意精度数值</strong> <br>
+<font color="#ff0000">BigDecimal</font>，不可变的、任意精度的有符号数值。由任意精度的整数非标度值和32位的整数标度(scale)组成。提供了种运算方法。继承于Number。</br></p></li>
+<li><p><strong>字节过滤</strong> <br>
+<font color="#ff0000">BitSieve</font>，一个简单用于寻找质数的筛选器。</br></p></li>
+<li><p><strong>上下文</strong> <br>
+<font color="#ff0000">MathContext</font>，数学操作上下文，描述数字运算符的某些规则。 <br>
+<font color="#ff0000">RoundingMode</font>，舍入算法的枚举。</br></br></p></li>
+</ol></div>
+<script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li/>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+</div>]
+</body>
+</html>
